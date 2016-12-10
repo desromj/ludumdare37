@@ -46,14 +46,14 @@ public class Goon extends PhysicsBody implements Threat {
         // Utility unit = one player radius expressed in Box2D units
         float b2Unit = Constants.PLAYER_RADIUS / Constants.PTM;
 
-        // Rectangle body for mass (2x3 units, offset 1.5 units up)
+        // Rectangle body for mass (2x4 units, offset 2 units up)
         {
             PolygonShape shape = new PolygonShape();
 
             shape.set(new float[]{
                     b2Unit, 0f,
-                    b2Unit, b2Unit * 3f,
-                    -b2Unit, b2Unit * 3f,
+                    b2Unit, b2Unit * 4f,
+                    -b2Unit, b2Unit * 4f,
                     -b2Unit, 0f
             });
 
@@ -87,13 +87,6 @@ public class Goon extends PhysicsBody implements Threat {
 
             body.createFixture(fixtureDef);
             shape.dispose();
-        }
-
-        // Set our new fixtures with user data of the specific fixture type they are
-        assert body.getFixtureList().size == Player.Fixtures.values().length;
-
-        for (int i = 0; i < body.getFixtureList().size; i++) {
-            body.getFixtureList().get(i).setUserData(Player.Fixtures.values()[i]);
         }
 
         // End by setting the body user data to the Player
