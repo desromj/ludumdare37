@@ -2,6 +2,7 @@ package com.greenbatgames.ludumdare37.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -41,7 +42,17 @@ public class Level implements Initializable {
     }
 
     // Getters and Setters
-    public Viewport getViewport() {
+    public Viewport getViewport()
+    {
         return stage.getViewport();
+    }
+
+    public void addActorToStage(Actor actor) { stage.addActor(actor); }
+
+    private void reinitializeAllActors()
+    {
+        for (Actor actor: stage.getActors())
+            if (actor instanceof Initializable)
+                ((Initializable) actor).init();
     }
 }

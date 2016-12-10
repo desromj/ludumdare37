@@ -6,5 +6,5 @@ package com.greenbatgames.ludumdare37.iface;
 
 public interface Triggerable {
     void trigger();
-    boolean alreadyTriggered();
+    boolean hasBeenTriggered();
 }
