@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="33">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="34">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="3" columns="0">
   <tile id="0">
    <image width="32" height="32" source="../tiles/tileWall.png"/>
@@ -80,7 +80,7 @@
   <object id="20" x="1568" y="480" width="32" height="192"/>
  </objectgroup>
  <objectgroup name="objects">
-  <object id="24" name="exitPoint" type="exitPoint" x="1472" y="576" width="64" height="96"/>
   <object id="32" name="spikes" x="320" y="648" width="640" height="24"/>
+  <object id="33" name="exitpoint" x="1472" y="576" width="64" height="96"/>
  </objectgroup>
 </map>

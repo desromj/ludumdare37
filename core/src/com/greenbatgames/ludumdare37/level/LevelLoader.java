@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Rectangle;
+import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.threat.*;
 import com.greenbatgames.ludumdare37.util.Constants;
@@ -65,7 +66,9 @@ public class LevelLoader {
                         }
                     } else if(object instanceof RectangleMapObject){
                         Rectangle r = ((RectangleMapObject) object).getRectangle();
-                        if(name.compareTo("lasergrid") == 0){
+                        if(name.compareTo("exitpoint") == 0){
+                            loadedLevel.stage.addActor(new ExitPoint(r.x, r.y - r.height/2f, r.width, r.height, loadedLevel.world));
+                        } if(name.compareTo("lasergrid") == 0){
                             loadedLevel.stage.addActor(new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world));
                         } else if(name.compareTo("spikes") == 0){
                             loadedLevel.stage.addActor(new Spike(r.x, r.y, r.width, r.height, loadedLevel.world));
