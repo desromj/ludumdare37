@@ -135,7 +135,6 @@ public class ClimbComponent extends PlayerComponent {
             climbingRight = true;
 
         climbing = true;
-        player.mover().land();
     }
 
     /*

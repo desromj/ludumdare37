@@ -22,8 +22,7 @@ public class Player extends PhysicsBody implements Initializable {
     public enum Fixtures {
         BASE,
         BODY,
-        GROUND_SENSOR,
-        CLIMB_SENSOR
+        GROUND_SENSOR
     }
 
     private MoveComponent mover;
@@ -97,7 +96,7 @@ public class Player extends PhysicsBody implements Initializable {
             fixtureDef.shape = shape;
             fixtureDef.density = Constants.PLAYER_DENSITY;
             fixtureDef.restitution = 0f;
-            fixtureDef.friction = 1f;
+            fixtureDef.friction = Constants.PLAYER_GROUND_FRICTION;
             fixtureDef.isSensor = false;
 
             body.createFixture(fixtureDef);
@@ -119,29 +118,6 @@ public class Player extends PhysicsBody implements Initializable {
             fixtureDef.shape = shape;
             fixtureDef.density = Constants.PLAYER_DENSITY;
             fixtureDef.restitution = 0f;
-            fixtureDef.friction = 1f;
-            fixtureDef.isSensor = true;
-
-            body.createFixture(fixtureDef);
-            shape.dispose();
-        }
-
-        // Sensor for climbing up ledges (3x3, offset 1.5 units up)
-        {
-            PolygonShape shape = new PolygonShape();
-
-            shape.set(new float[]{
-                    b2Unit * 1.5f, 0f,
-                    b2Unit * 1.5f, b2Unit * 3.0f,
-                    -b2Unit * 1.5f, b2Unit * 3.0f,
-                    -b2Unit * 1.5f, 0f,
-            });
-
-            FixtureDef fixtureDef = new FixtureDef();
-            fixtureDef.shape = shape;
-            fixtureDef.density = Constants.PLAYER_DENSITY;
-            fixtureDef.restitution = 0f;
-            fixtureDef.friction = 1f;
             fixtureDef.isSensor = true;
 
             body.createFixture(fixtureDef);
