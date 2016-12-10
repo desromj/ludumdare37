@@ -147,6 +147,9 @@ public class Player extends PhysicsBody implements Initializable {
             if (!climber.update(delta)) break;
             if (!mover.update(delta)) break;
         } while (false);
+
+        // Ensure the player is always ready to respond to physics collisions
+        body.setAwake(true);
     }
 
 

@@ -65,8 +65,6 @@ public class GoonMoveComponent implements Initializable {
                 }
             }
 
-            Gdx.app.log("Move", "Walk speed: " + newX);
-
             body.setLinearVelocity(
                     newX,
                     body.getLinearVelocity().y);
