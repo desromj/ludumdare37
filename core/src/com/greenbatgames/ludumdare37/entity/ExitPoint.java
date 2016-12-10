@@ -14,8 +14,11 @@ import com.greenbatgames.ludumdare37.util.Constants;
 
 public class ExitPoint extends PhysicsBody {
 
+    boolean triggered;
+
     public ExitPoint(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
+        triggered = false;
     }
 
     @Override
@@ -60,4 +63,7 @@ public class ExitPoint extends PhysicsBody {
     public void init() {
 
     }
+
+    public boolean alreadyTriggered() { return this.triggered; }
+    public void trigger() { this.triggered = true; }
 }

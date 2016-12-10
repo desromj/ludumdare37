@@ -7,6 +7,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.level.Level;
 import com.greenbatgames.ludumdare37.level.LevelLoader;
+import com.greenbatgames.ludumdare37.level.Levels;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
@@ -19,6 +20,7 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
     private static GameScreen instance = null;
 
     private Level level;
+    private Levels levelList;
 
     private GameScreen() {}
 
@@ -35,13 +37,21 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
     public static final Level level() { return instance.level; }
 
     public void init() {
-        level = LevelLoader.loadLevel("maps/map4.tmx");
+        levelList = new Levels();
+        level = LevelLoader.loadLevel(levelList.currentResource());
         Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public void render(float delta) {
         level.render(delta);
+    }
+
+    public void nextLevel() {
+        if (levelList.hasNextLevel())
+            level = LevelLoader.loadLevel(levelList.nextResource());
+        else
+            DareGame.setScreen(StartScreen.class);
     }
 
 
