@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.util;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -25,22 +26,24 @@ public class Constants {
     public static int KEY_ATTACK = Input.Keys.X;
 
     // Physics Values
-    public static final float PTM = 10f;
-    public static final Vector2 GRAVITY = new Vector2(0f, -20f);
+    public static final float PTM = 25f;
+    public static final Vector2 GRAVITY = new Vector2(0f, -100f);
 
     // Player Values
     public static final float PLAYER_RADIUS = 16f;
     public static final float PLAYER_JUMP_RECOVERY = 0.25f; // time before able to jump again
     public static final float PLAYER_DENSITY = 1000f;
-    public static final float PLAYER_GROUND_FRICTION = 1.0f;
+    public static final float PLAYER_GROUND_FRICTION = 0f;
 
     public static final float PLAYER_MIN_CLIMB_RATIO = 0.5f;    // climb between min and max percent
     public static final float PLAYER_MAX_CLIMB_RATIO = 1.0f;
     public static final float PLAYER_CLIMB_TIME = 1.0f;
 
-    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 32f;
-    public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f, 40000f);
-    public static final float HORIZONTAL_MOVE_DAMPEN = 0.85f;
+    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 100f;
+    public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f,
+            PLAYER_RADIUS * PLAYER_RADIUS * PLAYER_DENSITY);
+
+    public static final float HORIZONTAL_MOVE_DAMPEN = 0.75f;
 
     //Ghost Values
     public static final float GHOST_MOVE_SPEED = WORLD_WIDTH / 256f;

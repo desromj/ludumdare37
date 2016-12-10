@@ -12,7 +12,8 @@ public class MoveComponent extends PlayerComponent {
 
     public static final String TAG = MoveComponent.class.getSimpleName();
 
-    private boolean grounded, jumped, facingRight;
+    private int numFootContacts;
+    private boolean doubleJumped, facingRight;
     private float cannotJumpFor, disableCollisionFor;
 
     public MoveComponent(Player player) {
@@ -23,8 +24,8 @@ public class MoveComponent extends PlayerComponent {
 
     @Override
     public void init() {
-        jumped = false;
-        grounded = true;
+        numFootContacts = 0;
+        doubleJumped = false;
         facingRight = true;
         cannotJumpFor = 0.0f;
         disableCollisionFor = 0.0f;
@@ -37,9 +38,6 @@ public class MoveComponent extends PlayerComponent {
     {
         cannotJumpFor -= delta;
         disableCollisionFor -= delta;
-
-        // First handle recovery time for landing
-        if (!canJump()) return true;
 
         // Horizontal hopping movement
         Body body = player.getBody();
@@ -62,60 +60,52 @@ public class MoveComponent extends PlayerComponent {
         }
 
         // Add impulse for single jump
-        if (Gdx.input.isKeyJustPressed(Constants.KEY_JUMP)) {
-            jump();
+        if (canJump() && Gdx.input.isKeyJustPressed(Constants.KEY_JUMP)) {
+
+            body.setLinearVelocity(
+                    body.getLinearVelocity().x,
+                    0f
+            );
+
             body.applyLinearImpulse(
                 Constants.PLAYER_JUMP_IMPULSE,
                 body.getPosition(),
                 true
             );
+
+            if (numFootContacts == 0)
+                doubleJumped = true;
         }
 
         return true;
-    }
-
-
-
-    public void land() {
-
-        Gdx.app.log(TAG, "Land triggered");
-
-        if (grounded && !jumped) {
-            Gdx.app.log(TAG, "Already landed, ignored");
-            return;
-        }
-
-        grounded = true;
-        jumped = false;
-
-        cannotJumpFor = Constants.PLAYER_JUMP_RECOVERY;
-        // set next player.animator() values
-    }
-
-
-
-    public void jump() {
-        // cannot jump if we already jumped
-        if (jumped) return;
-
-        // Otherwise, proceed with jump
-        jumped = true;
-        grounded = false;
     }
 
     /*
         Getters and Setters
      */
 
+    public void incNumFootContacts() {
+
+        if (numFootContacts == 0)
+            doubleJumped = false;
+
+        numFootContacts++;
+    }
+
+    public void decNumFootContacts() {
+        numFootContacts--;
+    }
+
     public boolean canJump() {
-        return cannotJumpFor <= 0f;
+        return (cannotJumpFor <= 0f && numFootContacts > 0)
+                || !doubleJumped;
     }
 
     public boolean isCollisionDisabled() {
         return disableCollisionFor > 0f;
     }
 
-    public boolean isOnGround() { return grounded && !jumped; }
-    public boolean isInAir() { return !grounded; }
+    public boolean isOnGround() { return numFootContacts > 0; }
+    public boolean isInAir() { return numFootContacts <= 0; }
     public boolean isFacingRight() { return facingRight; }
 }
