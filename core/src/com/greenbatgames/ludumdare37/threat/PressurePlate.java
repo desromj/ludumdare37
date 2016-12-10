@@ -12,6 +12,8 @@ import com.greenbatgames.ludumdare37.player.Player;
 // TODO: Pressure Plates explode after x seconds of stepping on them
 public class PressurePlate extends PhysicsBody implements Threat {
 
+
+
     public PressurePlate(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
     }

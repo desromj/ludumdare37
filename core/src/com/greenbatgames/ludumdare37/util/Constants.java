@@ -59,8 +59,12 @@ public class Constants {
     public static final float GOON_WAIT_TIME = 2f;
     public static final float GOON_WALK_TIME = 3f;
 
-    //Poison gas values
+    //Poison Gas Values
     public static final float GAS_DURATION = 30f;
+
+    //Pressure Plate Values
+    public static final float PRESSURE_PLATE_DURATION = 2f;
+    public static final float PRESSURE_PLATE_EXPLOSION_RADIUS = 150f;
 
     //Turret Values
     public static final float TURRET_RANGE = 300f;
