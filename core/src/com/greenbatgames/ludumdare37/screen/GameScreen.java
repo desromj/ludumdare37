@@ -35,7 +35,7 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
     public static final Level level() { return instance.level; }
 
     public void init() {
-        level = LevelLoader.loadLevel();
+        level = LevelLoader.loadLevel("maps/map1.tmx");
         Gdx.input.setInputProcessor(this);
     }
 
