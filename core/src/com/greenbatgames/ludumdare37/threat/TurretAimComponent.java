@@ -57,6 +57,7 @@ public class TurretAimComponent implements Initializable {
 
         Player player = GameScreen.level().getPlayer();
         if(playerInSight){
+            aimTimer -= delta;
             if(aimTimer <= 0 && playerInCrosshairs){
                 turret.touchPlayer(GameScreen.level().getPlayer());
             } else {
@@ -70,6 +71,7 @@ public class TurretAimComponent implements Initializable {
 
         } else {
             //moving
+            aimTimer = Constants.TURRET_AIM_TIME;
             if(state == 0){
                 currentAngle += rotationSpeed*delta;
                 if(currentAngle < Constants.TURRET_MIN_ANGLE){
@@ -116,7 +118,6 @@ public class TurretAimComponent implements Initializable {
                     playerInCrosshairs = false;
                     return fraction;
                 } else if (o instanceof Player){
-                    Gdx.app.log("", "In crosshairs");
                     playerInCrosshairs = true;
                     return fraction;
                 }
@@ -135,7 +136,6 @@ public class TurretAimComponent implements Initializable {
                     playerInSight = false;
                     return fraction;
                 } else if (o instanceof Player){
-                    Gdx.app.log("", "In sight");
                     playerInSight = true;
                     return fraction;
                 }
