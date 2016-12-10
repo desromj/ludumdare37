@@ -23,7 +23,18 @@ public class Constants {
     public static int KEY_JUMP = Input.Keys.Z;
     public static int KEY_ATTACK = Input.Keys.X;
 
+    // Physics Values
+    public static final float PTM = 10f;
 
+    // Player Values
+    public static final float PLAYER_RADIUS = 6f;
+    public static final float PLAYER_JUMP_RECOVERY = 0.25f; // time before able to jump again
+    public static final float PLAYER_DENSITY = 1000f;
+    public static final float PLAYER_GROUND_FRICTION = 1.0f;
+
+    public static final float PLAYER_MIN_CLIMB_RATIO = 0.5f;    // climb between min and max percent
+    public static final float PLAYER_MAX_CLIMB_RATIO = 1.0f;
+    public static final float PLAYER_CLIMB_TIME = 1.0f;
 
 
 }
