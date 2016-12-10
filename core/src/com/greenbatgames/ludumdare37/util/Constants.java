@@ -12,7 +12,7 @@ public class Constants {
     private Constants() {}
 
     // Aspect ratios
-    public static final float WORLD_WIDTH = 800f;
+    public static final float WORLD_WIDTH = 1600;
     public static final float WORLD_HEIGHT = WORLD_WIDTH * 4f / 5f;
 
     // User controls
@@ -29,7 +29,7 @@ public class Constants {
     public static final Vector2 GRAVITY = new Vector2(0f, -20f);
 
     // Player Values
-    public static final float PLAYER_RADIUS = 40f;
+    public static final float PLAYER_RADIUS = 16f;
     public static final float PLAYER_JUMP_RECOVERY = 0.25f; // time before able to jump again
     public static final float PLAYER_DENSITY = 1000f;
     public static final float PLAYER_GROUND_FRICTION = 1.0f;
@@ -38,7 +38,7 @@ public class Constants {
     public static final float PLAYER_MAX_CLIMB_RATIO = 1.0f;
     public static final float PLAYER_CLIMB_TIME = 1.0f;
 
-    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 16f;
+    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 32f;
     public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f, 40000f);
     public static final float HORIZONTAL_MOVE_DAMPEN = 0.85f;
 
