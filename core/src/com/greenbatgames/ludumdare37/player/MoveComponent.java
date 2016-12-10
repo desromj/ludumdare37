@@ -45,13 +45,19 @@ public class MoveComponent extends PlayerComponent {
         Body body = player.getBody();
 
         // Handle movement (left/right)
-        if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT)) {
+        if (player.isWalkButtonHeld()) {
+            if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT)) {
+                body.setLinearVelocity(
+                        Constants.PLAYER_MOVE_SPEED,
+                        body.getLinearVelocity().y);
+            } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT)) {
+                body.setLinearVelocity(
+                        -Constants.PLAYER_MOVE_SPEED,
+                        body.getLinearVelocity().y);
+            }
+        } else {
             body.setLinearVelocity(
-                    Constants.PLAYER_MOVE_SPEED,
-                    body.getLinearVelocity().y);
-        } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT)) {
-            body.setLinearVelocity(
-                    -Constants.PLAYER_MOVE_SPEED,
+                    body.getLinearVelocity().x * Constants.HORIZONTAL_MOVE_DAMPEN,
                     body.getLinearVelocity().y);
         }
 

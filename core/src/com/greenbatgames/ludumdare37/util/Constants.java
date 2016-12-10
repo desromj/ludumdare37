@@ -26,9 +26,10 @@ public class Constants {
 
     // Physics Values
     public static final float PTM = 10f;
+    public static final Vector2 GRAVITY = new Vector2(0f, -20f);
 
     // Player Values
-    public static final float PLAYER_RADIUS = 6f;
+    public static final float PLAYER_RADIUS = 40f;
     public static final float PLAYER_JUMP_RECOVERY = 0.25f; // time before able to jump again
     public static final float PLAYER_DENSITY = 1000f;
     public static final float PLAYER_GROUND_FRICTION = 1.0f;
@@ -37,7 +38,8 @@ public class Constants {
     public static final float PLAYER_MAX_CLIMB_RATIO = 1.0f;
     public static final float PLAYER_CLIMB_TIME = 1.0f;
 
-    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 12f;
-    public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f, 400f);
+    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 16f;
+    public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f, 40000f);
+    public static final float HORIZONTAL_MOVE_DAMPEN = 0.85f;
 
 }
