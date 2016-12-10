@@ -17,6 +17,8 @@ import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.threat.*;
 import com.greenbatgames.ludumdare37.util.Constants;
 
+import org.w3c.dom.css.Rect;
+
 import java.util.Iterator;
 
 public class LevelLoader {
@@ -51,15 +53,26 @@ public class LevelLoader {
             }
             if(layer.getName().equals("objects")){
                 for(MapObject object : layer.getObjects()){
-                    String name = object.getProperties().get("type", String.class);
+                    String name = object.getName();
 
                     if(object instanceof EllipseMapObject){
                         Ellipse e = ((EllipseMapObject) object).getEllipse();
-                        if(name.equals("ghost")){
+                        if(name.compareTo("gas") == 0){
+                            loadedLevel.stage.addActor(new PoisonGas(true));
+                        } if(name.compareTo("ghost") == 0){
                             //TODO: Build the dimensions into the classes?
                             loadedLevel.stage.addActor(new Ghost(e.x, e.y, 20f, 20f, loadedLevel.world));
-                        } else if(name.equals("goon")) {
+                        } else if(name.compareTo("goon") == 0) {
                             loadedLevel.stage.addActor(new Goon(e.x, e.y, 2*Constants.PLAYER_RADIUS * 2f,Constants.PLAYER_RADIUS * 4f, loadedLevel.world));
+                        } else if(name.compareTo("turret") == 0){
+                            loadedLevel.stage.addActor(new Turret(e.x, e.y, 20f, 20f, loadedLevel.world));
+                        }
+                    } else if(object instanceof RectangleMapObject){
+                        Rectangle r = ((RectangleMapObject) object).getRectangle();
+                        if(name.compareTo("lasergrid") == 0){
+                            loadedLevel.stage.addActor(new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world));
+                        } else if(name.compareTo("spikes") == 0){
+                            loadedLevel.stage.addActor(new Spike(r.x, r.y, r.width, r.height, loadedLevel.world));
                         }
                     }
                 }
