@@ -42,6 +42,8 @@ public class DareContactListener implements ContactListener {
             } else if(!fixA.isSensor() && fixB.isSensor()){
                 if(b instanceof Turret){
                     ((Turret) b).setPlayerInRange(true);
+                } else {
+                    ((Threat) b).touchPlayer((Player) a);   // Default to sensors touching the player too
                 }
             }
         } else if (b instanceof Player && a instanceof Threat) {
@@ -50,8 +52,10 @@ public class DareContactListener implements ContactListener {
             } else if(fixA.isSensor() && !fixB.isSensor()){
                 if(a instanceof Turret){
                     ((Turret) a).setPlayerInRange(true);
+                } else {
+                    ((Threat) a).touchPlayer((Player) b);   // Default to sensors touching the player too
                 }
-            }
+           }
         }
 
         // Player-specific collision
