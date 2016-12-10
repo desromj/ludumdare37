@@ -9,8 +9,10 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
+import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.threat.Goon;
 import com.greenbatgames.ludumdare37.threat.Turret;
 
 /**
@@ -34,6 +36,18 @@ public class DareContactListener implements ContactListener {
             return;
         }
 
+        // Initialize parent Platforms for Goons
+        if ((a instanceof Goon && b instanceof Platform)
+            || (b instanceof Goon && a instanceof Platform)) {
+
+            Goon goon = (Goon) ((a instanceof Goon) ? a : b);
+            Platform platform = (Platform) ((a instanceof Goon) ? b : a);
+
+            if (!goon.hasParentPlatform())
+                goon.setParentPlatform(platform);
+        }
+
+        // Handle Player/Threat interactions
         if(a instanceof Player && b instanceof Threat){
             //Check if there is physical contact
             if(!fixA.isSensor() && !fixB.isSensor()){

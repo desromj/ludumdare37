@@ -55,7 +55,7 @@ public class Constants {
     public static final float GHOST_MOVE_SPEED = WORLD_WIDTH / 256f;
 
     //Goon Values
-    public static final float GOON_MOVE_SPEED = WORLD_WIDTH / 128f;
+    public static final float GOON_MOVE_SPEED = WORLD_WIDTH / 160f;
     public static final float GOON_WAIT_TIME = 2f;
     public static final float GOON_WALK_TIME = 3f;
 
