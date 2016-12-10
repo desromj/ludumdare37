@@ -26,7 +26,7 @@ public class Constants {
     public static int KEY_ATTACK = Input.Keys.X;
 
     // Physics Values
-    public static final float PTM = 25f;
+    public static final float PTM = 40f;
     public static final Vector2 GRAVITY = new Vector2(0f, -100f);
 
     // Player Values
@@ -41,9 +41,9 @@ public class Constants {
 
     public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 100f;
     public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f,
-            PLAYER_RADIUS * PLAYER_RADIUS * PLAYER_DENSITY);
+            5f * PLAYER_RADIUS * PLAYER_DENSITY);
 
-    public static final float HORIZONTAL_MOVE_DAMPEN = 0.75f;
+    public static final float HORIZONTAL_MOVE_DAMPEN = 0.5f;
 
     //Ghost Values
     public static final float GHOST_MOVE_SPEED = WORLD_WIDTH / 256f;

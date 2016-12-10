@@ -44,6 +44,7 @@ public class MoveComponent extends PlayerComponent {
 
         // Handle movement (left/right)
         if (player.isWalkButtonHeld()) {
+
             if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT)) {
                 body.setLinearVelocity(
                         Constants.PLAYER_MOVE_SPEED,

@@ -97,7 +97,7 @@ public class Player extends PhysicsBody implements Initializable {
             fixtureDef.shape = shape;
             fixtureDef.density = Constants.PLAYER_DENSITY;
             fixtureDef.restitution = 0f;
-            fixtureDef.friction = 1f;
+            fixtureDef.friction = Constants.PLAYER_GROUND_FRICTION;
             fixtureDef.isSensor = false;
 
             body.createFixture(fixtureDef);
@@ -119,7 +119,6 @@ public class Player extends PhysicsBody implements Initializable {
             fixtureDef.shape = shape;
             fixtureDef.density = Constants.PLAYER_DENSITY;
             fixtureDef.restitution = 0f;
-            fixtureDef.friction = 1f;
             fixtureDef.isSensor = true;
 
             body.createFixture(fixtureDef);
@@ -141,7 +140,6 @@ public class Player extends PhysicsBody implements Initializable {
             fixtureDef.shape = shape;
             fixtureDef.density = Constants.PLAYER_DENSITY;
             fixtureDef.restitution = 0f;
-            fixtureDef.friction = 1f;
             fixtureDef.isSensor = true;
 
             body.createFixture(fixtureDef);
