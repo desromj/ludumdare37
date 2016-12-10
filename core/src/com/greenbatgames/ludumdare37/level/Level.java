@@ -35,7 +35,7 @@ public class Level implements Initializable {
     Player player;
     // Platform platform;
     // ExitPoint exitPoint;
-    Lava lava;
+    // Lava lava;
 
     public Level() {
         init();
@@ -61,6 +61,7 @@ public class Level implements Initializable {
         stage.addActor(player);
         //stage.addActor(platform);
 
+        /*
         lava = new Lava(600f,
                 80,
                 Constants.TILE_WIDTH * 2f,
@@ -68,7 +69,6 @@ public class Level implements Initializable {
                 world);
         stage.addActor(lava);
 
-        /*
         exitPoint = new ExitPoint(
                 600f,
                 80,

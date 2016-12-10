@@ -16,7 +16,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
  * Created by Quiv on 10-12-2016.
  */
 
-// TODO: Lava BURNS THE PLAYER TO DEATH
+// Lava BURNS THE PLAYER TO DEATH
 public class Lava extends PhysicsBody implements Threat {
 
     public Lava(float x, float y, float width, float height, World world) {
@@ -65,4 +65,6 @@ public class Lava extends PhysicsBody implements Threat {
     public void touchPlayer(Player player) {
         DareGame.setScreen(RestartScreen.class);
     }
+
+    // TODO: Add particle effects to make it look like bubbly lava (Override draw method)
 }
