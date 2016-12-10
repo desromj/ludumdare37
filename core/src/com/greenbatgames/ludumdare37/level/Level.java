@@ -32,10 +32,6 @@ public class Level implements Initializable {
     Player player;
     //Platform platform;
 
-    Goon goon;
-
-
-
     public Level() {
         init();
     }
@@ -56,15 +52,7 @@ public class Level implements Initializable {
 
         //platform = new Platform(0f, 0f, 400f, 40f, world);
 
-        goon = new Goon(
-                1000f,
-                40f,
-                Constants.PLAYER_RADIUS * 2f,
-                Constants.PLAYER_RADIUS * 4f,
-                world);
-
         stage.addActor(player);
-        stage.addActor(goon);
         //stage.addActor(platform);
     }
 
