@@ -83,7 +83,7 @@ public class LaserGrid extends PhysicsBody implements Threat {
     @Override
     public void touchPlayer(Player player) {
         if (active)
-            DareGame.setScreen(RestartScreen.class);
+            GameScreen.level().killPlayer();
     }
 
     private void trigger() {

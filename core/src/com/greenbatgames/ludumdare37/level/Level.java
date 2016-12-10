@@ -10,11 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.collision.DareContactListener;
 import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
+import com.greenbatgames.ludumdare37.screen.RestartScreen;
 import com.greenbatgames.ludumdare37.threat.Goon;
 import com.greenbatgames.ludumdare37.threat.LaserGrid;
 import com.greenbatgames.ludumdare37.threat.Lava;
@@ -142,5 +145,9 @@ public class Level implements Initializable {
         for (Actor actor: stage.getActors())
             if (actor instanceof Initializable)
                 ((Initializable) actor).init();
+    }
+
+    public void killPlayer() {
+        DareGame.setScreen(RestartScreen.class);
     }
 }

@@ -63,7 +63,7 @@ public class Lava extends PhysicsBody implements Threat {
 
     @Override
     public void touchPlayer(Player player) {
-        DareGame.setScreen(RestartScreen.class);
+        GameScreen.level().killPlayer();
     }
 
     // TODO: Add particle effects to make it look like bubbly lava (Override draw method)

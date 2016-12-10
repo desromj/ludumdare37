@@ -75,7 +75,7 @@ public class Ghost extends PhysicsBody implements Threat {
 
     @Override
     public void touchPlayer(Player player) {
-
+        GameScreen.level().killPlayer();
     }
 
     @Override

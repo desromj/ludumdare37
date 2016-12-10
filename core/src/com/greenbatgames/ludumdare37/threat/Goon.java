@@ -10,6 +10,7 @@ import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.screen.RestartScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 
@@ -99,7 +100,7 @@ public class Goon extends PhysicsBody implements Threat {
 
     @Override
     public void touchPlayer(Player player) {
-        DareGame.setScreen(RestartScreen.class);
+        GameScreen.level().killPlayer();
     }
 
     @Override
