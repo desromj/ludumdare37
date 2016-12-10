@@ -1,6 +1,12 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
+import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
@@ -15,6 +21,7 @@ public class TurretAimComponent implements Initializable {
 
     boolean playerInRange;
     boolean playerInSight;
+    boolean playerInCrosshairs;
 
     float waitTimer;
     float currentAngle;
@@ -42,14 +49,24 @@ public class TurretAimComponent implements Initializable {
 
     public void update(float delta){
         waitTimer -= delta;
-        checkPlayerInSight();
+        if(playerInRange) {
+            checkPlayerInSight();
+        } else {
+            playerInSight = false;
+        }
 
         Player player = GameScreen.level().getPlayer();
         if(playerInSight){
-            Vector2 toPlayer = new Vector2(player.getX() - turret.getX(), player.getY() - turret.getY());
-            Vector2 aimVector = new Vector2((float) Math.cos(currentAngle), (float) Math.sin(currentAngle));
+            if(aimTimer <= 0 && playerInCrosshairs){
+                turret.touchPlayer(GameScreen.level().getPlayer());
+            } else {
+                //Follow player as long as line of sight is held
+                Vector2 toPlayer = new Vector2(player.getX() - turret.getX(), player.getY() - turret.getY());
+                Vector2 aimVector = new Vector2((float) Math.cos(currentAngle), (float) Math.sin(currentAngle));
 
-            float angle = aimVector.angle(toPlayer);
+                float angle = aimVector.angleRad(toPlayer);
+                currentAngle += MathUtils.clamp(angle, -Constants.TURRET_ROTATION_SPEED*delta, Constants.TURRET_ROTATION_SPEED*delta);
+            }
 
         } else {
             //moving
@@ -62,7 +79,6 @@ public class TurretAimComponent implements Initializable {
 
                 } else if(currentAngle > Constants.TURRET_MAX_ANGLE){
                     currentAngle = Constants.TURRET_MAX_ANGLE;
-                    rotationSpeed = -rotationSpeed;
                     waitTimer = Constants.TURRET_WAIT_TIME;
                     state = 1;
 
@@ -76,26 +92,59 @@ public class TurretAimComponent implements Initializable {
                 }
             }
         }
+        turret.setAim(currentAngle);
     }
 
     public void checkPlayerInSight(){
-        Player player = GameScreen.level().getPlayer();
-        Vector2 toPlayer = new Vector2(player.getX() - turret.getX(), player.getY() - turret.getY());
-        Vector2 aimVector = new Vector2((float) Math.cos(currentAngle), (float) Math.sin(currentAngle));
+        playerInCrosshairs = false;
+        Vector2 origin = turret.getBody().getPosition();
+        Vector2 ray = new Vector2(Constants.TURRET_RANGE*MathUtils.cos(currentAngle), Constants.TURRET_RANGE*MathUtils.sin(currentAngle));
+        ray.add(origin);
+        Vector2 playerPos = GameScreen.level().getPlayer().getBody().getPosition();
 
-        float angle = aimVector.angle(toPlayer);
-        if(Math.abs(angle) < Constants.TURRET_ANG_RADIUS){
-            playerInSight = true;
-        } else {
-            playerInSight = false;
-        }
+        GameScreen.level().getWorld().rayCast(makeInSightCallback(), origin, playerPos);
+        GameScreen.level().getWorld().rayCast(makeCrosshairsCallback(), origin, ray);
+    }
+
+    private RayCastCallback makeCrosshairsCallback(){
+        return new RayCastCallback() {
+
+            @Override
+            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+                Object o = fixture.getBody().getUserData();
+                if(o instanceof Platform){
+                    playerInCrosshairs = false;
+                    return fraction;
+                } else if (o instanceof Player){
+                    Gdx.app.log("", "In crosshairs");
+                    playerInCrosshairs = true;
+                    return fraction;
+                }
+                return -1;
+            }
+        };
+    }
+
+    private RayCastCallback makeInSightCallback(){
+        return new RayCastCallback() {
+
+            @Override
+            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+                Object o = fixture.getBody().getUserData();
+                if(o instanceof Platform){
+                    playerInSight = false;
+                    return fraction;
+                } else if (o instanceof Player){
+                    Gdx.app.log("", "In sight");
+                    playerInSight = true;
+                    return fraction;
+                }
+                return -1;
+            }
+        };
     }
 
     /*
     Getters and setters
      */
-
-    public void setPlayerInRange(boolean inRange){
-        playerInRange = inRange;
-    }
 }

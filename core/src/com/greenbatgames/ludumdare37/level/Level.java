@@ -15,6 +15,7 @@ import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.threat.Goon;
+import com.greenbatgames.ludumdare37.threat.Turret;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
@@ -31,7 +32,7 @@ public class Level implements Initializable {
     Matrix4 debugMatrix;
 
     Player player;
-    //Platform platform;
+    Turret turret;
 
     public Level() {
         init();
@@ -52,10 +53,11 @@ public class Level implements Initializable {
                 Constants.PLAYER_RADIUS * 4f,
                 world);
 
-        //platform = new Platform(0f, 0f, 400f, 40f, world);
+        turret = new Turret(600f, 80f, Constants.PLAYER_RADIUS * 2f,Constants.PLAYER_RADIUS * 2f, world);
+
 
         stage.addActor(player);
-        //stage.addActor(platform);
+        stage.addActor(turret);
     }
 
     public void render(float delta) {
@@ -87,6 +89,10 @@ public class Level implements Initializable {
     // Getters and Setters
     public Player getPlayer(){
         return player;
+    }
+
+    public World getWorld(){
+        return world;
     }
 
     public Viewport getViewport()

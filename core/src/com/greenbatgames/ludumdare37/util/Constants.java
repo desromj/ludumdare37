@@ -57,8 +57,8 @@ public class Constants {
     public static final float TURRET_RANGE = 300f;
     public static final float TURRET_ANG_RADIUS = 0.5f;
     public static final float TURRET_WAIT_TIME = 1.5f;
-    public static final float TURRET_AIM_TIME = 0.5f;
-    public static final float TURRET_ROTATION_SPEED = 0.3f;
+    public static final float TURRET_AIM_TIME = 1f;
+    public static final float TURRET_ROTATION_SPEED = MathUtils.PI/4;
     public static final float TURRET_MIN_ANGLE = 0;
-    public static final float TURRET_MAX_ANGLE = (float) Math.PI;
+    public static final float TURRET_MAX_ANGLE = MathUtils.PI;
 }
