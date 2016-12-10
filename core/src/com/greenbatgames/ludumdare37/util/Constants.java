@@ -37,7 +37,7 @@ public class Constants {
 
     public static final float PLAYER_MIN_CLIMB_RATIO = 0.5f;    // climb between min and max percent
     public static final float PLAYER_MAX_CLIMB_RATIO = 1.0f;
-    public static final float PLAYER_CLIMB_TIME = 1.0f;
+    public static final float PLAYER_CLIMB_TIME = 0.5f;
 
     public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 100f;
     public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f,

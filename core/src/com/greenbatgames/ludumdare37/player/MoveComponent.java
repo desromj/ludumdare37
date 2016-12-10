@@ -49,10 +49,12 @@ public class MoveComponent extends PlayerComponent {
                 body.setLinearVelocity(
                         Constants.PLAYER_MOVE_SPEED,
                         body.getLinearVelocity().y);
+                facingRight = true;
             } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT)) {
                 body.setLinearVelocity(
                         -Constants.PLAYER_MOVE_SPEED,
                         body.getLinearVelocity().y);
+                facingRight = false;
             }
         } else {
             body.setLinearVelocity(
