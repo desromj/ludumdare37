@@ -16,6 +16,7 @@ import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.threat.Goon;
+import com.greenbatgames.ludumdare37.threat.LaserGrid;
 import com.greenbatgames.ludumdare37.threat.Lava;
 import com.greenbatgames.ludumdare37.threat.Turret;
 import com.greenbatgames.ludumdare37.util.Constants;
@@ -40,6 +41,7 @@ public class Level implements Initializable {
     Turret turret;
     //Platform platform;
     ExitPoint exitPoint;
+    LaserGrid laserGrid;
 
     public Level() {
         init();
@@ -66,6 +68,14 @@ public class Level implements Initializable {
         stage.addActor(player);
         stage.addActor(turret);
         //stage.addActor(platform);
+
+        laserGrid = new LaserGrid(
+                600f,
+                300f,
+                Constants.TILE_WIDTH * 5f,
+                Constants.TILE_WIDTH * 2f,
+                world);
+        stage.addActor(laserGrid);
 
         /*
         lava = new Lava(600f,
