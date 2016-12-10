@@ -42,6 +42,9 @@ public class Constants {
     public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f, 40000f);
     public static final float HORIZONTAL_MOVE_DAMPEN = 0.85f;
 
+    //Ghost Values
+    public static final float GHOST_MOVE_SPEED = WORLD_WIDTH / 256f;
+
     //Goon Values
     public static final float GOON_MOVE_SPEED = WORLD_WIDTH / 128f;
     public static final float GOON_WAIT_TIME = 2f;

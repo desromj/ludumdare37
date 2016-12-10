@@ -30,6 +30,7 @@ public class Goon extends PhysicsBody implements Threat {
 
     @Override
     protected void initPhysics(World world) {
+        //TODO: Copied over from Player class, should be altered.
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(
