@@ -80,7 +80,7 @@
   <object id="20" x="1568" y="480" width="32" height="192"/>
  </objectgroup>
  <objectgroup name="objects">
-  <object id="24" name="exitPoint" type="exitPoint" x="1472" y="576" width="64" height="96"/>
+  <object id="24" name="exitpoint" x="1472" y="576" width="64" height="96"/>
   <object id="33" name="spikes" x="384" y="648" width="160" height="24"/>
   <object id="34" name="spikes" x="768" y="648" width="192" height="24"/>
  </objectgroup>
