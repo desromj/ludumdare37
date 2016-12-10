@@ -29,7 +29,7 @@ public class Constants {
 
     // Physics Values
     public static final float PTM = 40f;
-    public static final Vector2 GRAVITY = new Vector2(0f, -100f);
+    public static final Vector2 GRAVITY = new Vector2(0f, -75f);
 
     // Player Values
     public static final float PLAYER_RADIUS = 16f;
@@ -47,7 +47,7 @@ public class Constants {
     public static final float PLAYER_DASH_COOLDOWN = 1.3f;
 
     public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f,
-            3f * PLAYER_RADIUS * PLAYER_DENSITY);
+            2.2f * PLAYER_RADIUS * PLAYER_DENSITY);
 
     public static final float HORIZONTAL_MOVE_DAMPEN = 0.5f;
 
