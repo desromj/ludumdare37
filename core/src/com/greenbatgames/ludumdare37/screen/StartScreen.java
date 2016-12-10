@@ -194,7 +194,7 @@ public class StartScreen extends ScreenAdapter {
         batch.end();
 
         if (finished)
-            DareGame.setScreen(GameScreen.class);
+            DareGame.setScreen(RestartScreen.class);
     }
 
 
