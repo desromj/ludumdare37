@@ -46,23 +46,6 @@ public class Goon extends PhysicsBody implements Threat {
         // Utility unit = one player radius expressed in Box2D units
         float b2Unit = Constants.PLAYER_RADIUS / Constants.PTM;
 
-        // Circle base for walking (one unit radius, centre point is centre of body)
-        {
-            CircleShape shape = new CircleShape();
-            shape.setRadius(b2Unit);
-            shape.setPosition(new Vector2(0, 0));
-
-            FixtureDef fixtureDef = new FixtureDef();
-            fixtureDef.shape = shape;
-            fixtureDef.density = Constants.PLAYER_DENSITY;
-            fixtureDef.restitution = 0f;
-            fixtureDef.friction = Constants.PLAYER_GROUND_FRICTION;
-            fixtureDef.isSensor = false;
-
-            body.createFixture(fixtureDef);
-            shape.dispose();
-        }
-
         // Rectangle body for mass (2x3 units, offset 1.5 units up)
         {
             PolygonShape shape = new PolygonShape();
@@ -94,28 +77,6 @@ public class Goon extends PhysicsBody implements Threat {
                     b2Unit * 0.5f, -b2Unit * 0.5f,
                     -b2Unit * 0.5f, -b2Unit * 0.5f,
                     -b2Unit * 0.5f, -b2Unit * 1.5f,
-            });
-
-            FixtureDef fixtureDef = new FixtureDef();
-            fixtureDef.shape = shape;
-            fixtureDef.density = Constants.PLAYER_DENSITY;
-            fixtureDef.restitution = 0f;
-            fixtureDef.friction = 1f;
-            fixtureDef.isSensor = true;
-
-            body.createFixture(fixtureDef);
-            shape.dispose();
-        }
-
-        // Sensor for climbing up ledges (3x3, offset 1.5 units up)
-        {
-            PolygonShape shape = new PolygonShape();
-
-            shape.set(new float[]{
-                    b2Unit * 1.5f, 0f,
-                    b2Unit * 1.5f, b2Unit * 3.0f,
-                    -b2Unit * 1.5f, b2Unit * 3.0f,
-                    -b2Unit * 1.5f, 0f,
             });
 
             FixtureDef fixtureDef = new FixtureDef();
