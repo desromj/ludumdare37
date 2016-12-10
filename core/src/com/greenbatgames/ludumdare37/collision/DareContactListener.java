@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.collision;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -17,6 +18,8 @@ import com.greenbatgames.ludumdare37.threat.Turret;
 
 // TODO: All contacts and collisions go here
 public class DareContactListener implements ContactListener {
+
+    public static final String TAG = DareContactListener.class.getSimpleName();
 
     @Override
     public void beginContact(Contact contact) {
@@ -42,6 +45,28 @@ public class DareContactListener implements ContactListener {
         } else if (b instanceof Player && a instanceof Threat) {
             if(!fixA.isSensor() && !fixB.isSensor()){
                 ((Threat) a).touchPlayer((Player) b);
+
+        // Player-specific collision
+        if (a instanceof Player || b instanceof Player) {
+
+            Player player;
+            PhysicsBody other;
+            Fixture fixturePlayer;
+
+            if (a instanceof Player) {
+                player = (Player) a;
+                other = (PhysicsBody) b;
+                fixturePlayer = contact.getFixtureA();
+            } else {
+                player = (Player) b;
+                other = (PhysicsBody) a;
+                fixturePlayer = contact.getFixtureB();
+            }
+
+            // Handle player landing on physics bodies
+            if (fixturePlayer == player.getFixture(Player.Fixtures.GROUND_SENSOR)) {
+                Gdx.app.log(TAG, "increment foot contacts");
+                player.mover().incNumFootContacts();
             }
         }
     }
@@ -49,6 +74,20 @@ public class DareContactListener implements ContactListener {
     @Override
     public void endContact(Contact contact) {
 
+        Object a = contact.getFixtureA().getBody().getUserData();
+        Object b = contact.getFixtureB().getBody().getUserData();
+
+        if (a instanceof Player || b instanceof Player) {
+
+            // Make it so we cannot jump indefinitely
+            Player player = (Player) ((a instanceof Player) ? a : b);
+            Fixture playerFixture = (a instanceof Player) ? contact.getFixtureA() : contact.getFixtureB();
+
+            if (playerFixture == player.getFixture(Player.Fixtures.GROUND_SENSOR)) {
+                Gdx.app.log(TAG, "decrement foot contacts");
+                player.mover().decNumFootContacts();
+            }
+        }
     }
 
     @Override

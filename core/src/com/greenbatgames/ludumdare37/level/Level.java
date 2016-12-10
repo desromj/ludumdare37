@@ -46,8 +46,8 @@ public class Level implements Initializable {
 
         // TODO: Testing values, replace with LevelLoading
         player = new Player(
-                20f,
                 40f,
+                80f,
                 Constants.PLAYER_RADIUS * 2f,
                 Constants.PLAYER_RADIUS * 4f,
                 world);
