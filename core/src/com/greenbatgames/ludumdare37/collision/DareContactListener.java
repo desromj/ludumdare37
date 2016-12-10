@@ -38,9 +38,10 @@ public class DareContactListener implements ContactListener {
             //Check if there is physical contact
             if(!fixA.isSensor() && !fixB.isSensor()){
                 ((Threat) b).touchPlayer((Player) a);
+            //Check if any sensor fixtures have found the player
             } else if(!fixA.isSensor() && fixB.isSensor()){
                 if(b instanceof Turret){
-
+                    ((Turret) b).setPlayerInRange(true);
                 } else {
                     ((Threat) b).touchPlayer((Player) a);   // Default to sensors touching the player too
                 }
@@ -48,9 +49,13 @@ public class DareContactListener implements ContactListener {
         } else if (b instanceof Player && a instanceof Threat) {
             if (!fixA.isSensor() && !fixB.isSensor()) {
                 ((Threat) a).touchPlayer((Player) b);
-            } else if(!fixA.isSensor() && fixB.isSensor()){
-                ((Threat) a).touchPlayer((Player) b);   // Default to sensors touching the player too
-            }
+            } else if(fixA.isSensor() && !fixB.isSensor()){
+                if(a instanceof Turret){
+                    ((Turret) a).setPlayerInRange(true);
+                } else {
+                    ((Threat) a).touchPlayer((Player) b);   // Default to sensors touching the player too
+                }
+           }
         }
 
         // Player-specific collision
@@ -92,6 +97,28 @@ public class DareContactListener implements ContactListener {
         Object a = contact.getFixtureA().getBody().getUserData();
         Object b = contact.getFixtureB().getBody().getUserData();
 
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        if(a instanceof Player && b instanceof Threat){
+            if(!fixA.isSensor() && fixB.isSensor()){
+                if(b instanceof Turret){
+                    ((Turret) b).setPlayerInRange(false);
+                }
+            }
+        } else if (b instanceof Player && a instanceof Threat) {
+            if(fixA.isSensor() && !fixB.isSensor()){
+                if(a instanceof Turret){
+                    ((Turret) a).setPlayerInRange(false);
+                }
+            }
+        }
+
+        if(!(a instanceof PhysicsBody) || !(b instanceof  PhysicsBody)){
+            return;
+        }
+
+        //User-specific collision
         if (a instanceof Player || b instanceof Player) {
 
             // Make it so we cannot jump indefinitely

@@ -17,6 +17,7 @@ import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.threat.Goon;
 import com.greenbatgames.ludumdare37.threat.Lava;
+import com.greenbatgames.ludumdare37.threat.Turret;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
@@ -36,6 +37,9 @@ public class Level implements Initializable {
     // Platform platform;
     // ExitPoint exitPoint;
     // Lava lava;
+    Turret turret;
+    //Platform platform;
+    ExitPoint exitPoint;
 
     public Level() {
         init();
@@ -56,9 +60,11 @@ public class Level implements Initializable {
                 Constants.PLAYER_RADIUS * 4f,
                 world);
 
-        //platform = new Platform(0f, 0f, 400f, 40f, world);
+        turret = new Turret(600f, 80f, Constants.PLAYER_RADIUS * 2f,Constants.PLAYER_RADIUS * 2f, world);
+
 
         stage.addActor(player);
+        stage.addActor(turret);
         //stage.addActor(platform);
 
         /*
@@ -108,6 +114,10 @@ public class Level implements Initializable {
     // Getters and Setters
     public Player getPlayer(){
         return player;
+    }
+
+    public World getWorld(){
+        return world;
     }
 
     public Viewport getViewport()
