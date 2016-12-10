@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
@@ -81,6 +82,6 @@ public class Ghost extends PhysicsBody implements Threat {
     public void act(float delta){
         super.act(delta);
 
-        mover.update(Player.getInstance(), delta);
+        mover.update(GameScreen.level().getPlayer(), delta);
     }
 }

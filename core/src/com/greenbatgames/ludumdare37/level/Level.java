@@ -26,7 +26,6 @@ public class Level implements Initializable {
 
     World world;
     Stage stage;
-    DareContactListener dareContactListener;
 
     Box2DDebugRenderer debugRenderer;
     Matrix4 debugMatrix;
@@ -40,7 +39,7 @@ public class Level implements Initializable {
 
     @Override public void init() {
         world = new World(Constants.GRAVITY, true);
-        world.setContactListener(dareContactListener);
+        world.setContactListener(new DareContactListener());
         stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
 
         debugRenderer = new Box2DDebugRenderer();
@@ -86,6 +85,10 @@ public class Level implements Initializable {
     }
 
     // Getters and Setters
+    public Player getPlayer(){
+        return player;
+    }
+
     public Viewport getViewport()
     {
         return stage.getViewport();
