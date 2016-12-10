@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
+import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
@@ -21,6 +22,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
 // Goons move back and forth on the platform they are standing on, or until hitting a wall
 public class Goon extends PhysicsBody implements Threat {
 
+    private Platform parent = null;
     private GoonMoveComponent mover;
 
     public Goon(float x, float y, float width, float height, World world) {
@@ -109,4 +111,14 @@ public class Goon extends PhysicsBody implements Threat {
 
         mover.update(delta);
     }
+
+    public boolean hasParentPlatform() {
+        return parent != null;
+    }
+
+    public void setParentPlatform(Platform parent) {
+        this.parent = parent;
+    }
+
+    public Platform getParentPlatform() { return parent; }
 }
