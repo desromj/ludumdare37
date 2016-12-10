@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.greenbatgames.ludumdare37.collision.DareContactListener;
+import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
@@ -32,6 +33,7 @@ public class Level implements Initializable {
 
     Player player;
     //Platform platform;
+    ExitPoint exitPoint;
 
     public Level() {
         init();
@@ -56,6 +58,14 @@ public class Level implements Initializable {
 
         stage.addActor(player);
         //stage.addActor(platform);
+
+        exitPoint = new ExitPoint(
+                600f,
+                80,
+                Constants.TILE_WIDTH * 2f,
+                Constants.TILE_WIDTH * 3f,
+                world);
+        stage.addActor(exitPoint);
     }
 
     public void render(float delta) {

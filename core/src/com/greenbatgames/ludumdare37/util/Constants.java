@@ -16,6 +16,8 @@ public class Constants {
     public static final float WORLD_WIDTH = 1600;
     public static final float WORLD_HEIGHT = WORLD_WIDTH * 4f / 5f;
 
+    public static final float TILE_WIDTH = 32f; // Tiles are 32x32 pixels
+
     // User controls
     public static int KEY_QUIT = Input.Keys.ESCAPE;
     public static int KEY_RESTART = Input.Keys.R;

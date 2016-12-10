@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
@@ -43,30 +44,40 @@ public class DareContactListener implements ContactListener {
                 }
             }
         } else if (b instanceof Player && a instanceof Threat) {
-            if(!fixA.isSensor() && !fixB.isSensor()){
+            if (!fixA.isSensor() && !fixB.isSensor()) {
                 ((Threat) a).touchPlayer((Player) b);
+            }
+        }
 
         // Player-specific collision
         if (a instanceof Player || b instanceof Player) {
 
             Player player;
             PhysicsBody other;
-            Fixture fixturePlayer;
+            Fixture fixturePlayer, fixtureOther;
 
             if (a instanceof Player) {
                 player = (Player) a;
                 other = (PhysicsBody) b;
                 fixturePlayer = contact.getFixtureA();
+                fixtureOther = contact.getFixtureB();
             } else {
                 player = (Player) b;
                 other = (PhysicsBody) a;
                 fixturePlayer = contact.getFixtureB();
+                fixtureOther = contact.getFixtureA();
             }
 
             // Handle player landing on physics bodies
-            if (fixturePlayer == player.getFixture(Player.Fixtures.GROUND_SENSOR)) {
-                Gdx.app.log(TAG, "increment foot contacts");
+            if (!(fixtureOther.isSensor())
+                    && fixturePlayer == player.getFixture(Player.Fixtures.GROUND_SENSOR)) {
                 player.mover().incNumFootContacts();
+            }
+
+            // Player colliding with the exit point
+            if (other instanceof ExitPoint) {
+                // TODO: Load the next level, or display all levels complete
+                Gdx.app.log(TAG, "Exit point triggered");
             }
         }
     }
@@ -82,9 +93,10 @@ public class DareContactListener implements ContactListener {
             // Make it so we cannot jump indefinitely
             Player player = (Player) ((a instanceof Player) ? a : b);
             Fixture playerFixture = (a instanceof Player) ? contact.getFixtureA() : contact.getFixtureB();
+            Fixture otherFixture = (a instanceof Player) ? contact.getFixtureB() : contact.getFixtureA();
 
-            if (playerFixture == player.getFixture(Player.Fixtures.GROUND_SENSOR)) {
-                Gdx.app.log(TAG, "decrement foot contacts");
+            if (!(otherFixture.isSensor())
+                    && playerFixture == player.getFixture(Player.Fixtures.GROUND_SENSOR)) {
                 player.mover().decNumFootContacts();
             }
         }
