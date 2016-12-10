@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="32">
- <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="2" columns="0">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="3" columns="0">
   <tile id="0">
    <image width="32" height="32" source="../tiles/tileWall.png"/>
   </tile>
   <tile id="1">
    <image width="32" height="32" source="../tiles/tileBackground.png"/>
+  </tile>
+  <tile id="3">
+   <image width="32" height="32" source="../tiles/tileSpikes.png"/>
   </tile>
  </tileset>
  <layer name="Background" width="50" height="22">
@@ -77,15 +80,6 @@
   <object id="20" x="1568" y="480" width="32" height="192"/>
  </objectgroup>
  <objectgroup name="objects">
-  <object id="24" name="exitPoint" type="exitPoint" x="1472" y="576" width="64" height="96"/>
-  <object id="29" name="ghost" type="ghost" x="128" y="128" width="32" height="32">
-   <ellipse/>
-  </object>
-  <object id="30" name="goon" type="goon" x="1152" y="352" width="32" height="32">
-   <ellipse/>
-  </object>
-  <object id="31" name="goon" type="goon" x="1152" y="576" width="32" height="32">
-   <ellipse/>
-  </object>
+  <object id="24" name="exitpoint" x="1472" y="576" width="64" height="96"/>
  </objectgroup>
 </map>
