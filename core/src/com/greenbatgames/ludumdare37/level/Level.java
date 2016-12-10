@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.greenbatgames.ludumdare37.collision.DareContactListener;
 import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
@@ -25,6 +26,7 @@ public class Level implements Initializable {
 
     World world;
     Stage stage;
+    DareContactListener dareContactListener;
 
     Box2DDebugRenderer debugRenderer;
     Matrix4 debugMatrix;
@@ -38,6 +40,7 @@ public class Level implements Initializable {
 
     @Override public void init() {
         world = new World(Constants.GRAVITY, true);
+        world.setContactListener(dareContactListener);
         stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
 
         debugRenderer = new Box2DDebugRenderer();

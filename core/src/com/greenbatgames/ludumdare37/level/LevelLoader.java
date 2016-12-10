@@ -53,7 +53,6 @@ public class LevelLoader {
                 for(MapObject object : layer.getObjects()){
                     String name = object.getProperties().get("type", String.class);
 
-                    Gdx.app.log("", name);
                     if(object instanceof EllipseMapObject){
                         Ellipse e = ((EllipseMapObject) object).getEllipse();
                         if(name.equals("ghost")){
