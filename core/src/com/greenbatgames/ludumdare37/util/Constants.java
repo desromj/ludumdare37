@@ -52,4 +52,13 @@ public class Constants {
     public static final float GOON_MOVE_SPEED = WORLD_WIDTH / 128f;
     public static final float GOON_WAIT_TIME = 2f;
     public static final float GOON_WALK_TIME = 3f;
+
+    //Turret Values
+    public static final float TURRET_RANGE = 300f;
+    public static final float TURRET_ANG_RADIUS = 0.5f;
+    public static final float TURRET_WAIT_TIME = 1.5f;
+    public static final float TURRET_AIM_TIME = 0.5f;
+    public static final float TURRET_ROTATION_SPEED = 0.3f;
+    public static final float TURRET_MIN_ANGLE = 0;
+    public static final float TURRET_MAX_ANGLE = (float) Math.PI;
 }

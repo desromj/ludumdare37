@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.threat.Turret;
 
 /**
  * Created by Quiv on 10-12-2016.
@@ -25,10 +26,25 @@ public class DareContactListener implements ContactListener {
         Object a = contact.getFixtureA().getBody().getUserData();
         Object b = contact.getFixtureB().getBody().getUserData();
 
-        // Ignore if we aren't working with two physics bodies
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
         if(!(a instanceof PhysicsBody) || !(b instanceof  PhysicsBody)){
             return;
         }
+
+        if(a instanceof Player && b instanceof Threat){
+            //Check if there is physical contact
+            if(!fixA.isSensor() && !fixB.isSensor()){
+                ((Threat) b).touchPlayer((Player) a);
+            } else if(!fixA.isSensor() && fixB.isSensor()){
+                if(b instanceof Turret){
+
+                }
+            }
+        } else if (b instanceof Player && a instanceof Threat) {
+            if(!fixA.isSensor() && !fixB.isSensor()){
+                ((Threat) a).touchPlayer((Player) b);
 
         // Player-specific collision
         if (a instanceof Player || b instanceof Player) {
@@ -46,9 +62,6 @@ public class DareContactListener implements ContactListener {
                 other = (PhysicsBody) a;
                 fixturePlayer = contact.getFixtureB();
             }
-
-            // Handle object interactions with player
-            handlePlayerContact(player, other);
 
             // Handle player landing on physics bodies
             if (fixturePlayer == player.getFixture(Player.Fixtures.GROUND_SENSOR)) {
@@ -85,11 +98,5 @@ public class DareContactListener implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
-    }
-
-    private void handlePlayerContact(Player player, PhysicsBody body){
-        if(body instanceof Threat){
-            ((Threat) body).touchPlayer(player);
-        }
     }
 }
