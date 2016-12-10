@@ -2,6 +2,7 @@ package com.greenbatgames.ludumdare37.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -50,10 +51,10 @@ public class Level implements Initializable {
                 Constants.PLAYER_RADIUS * 4f,
                 world);
 
-        platform = new Platform(0f, 0f, 400f, 40f, world);
+        //platform = new Platform(0f, 0f, 400f, 40f, world);
 
         stage.addActor(player);
-        stage.addActor(platform);
+        //stage.addActor(platform);
     }
 
     public void render(float delta) {

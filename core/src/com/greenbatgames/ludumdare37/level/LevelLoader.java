@@ -36,6 +36,8 @@ public class LevelLoader {
                                                             rect.getWidth(),
                                                             rect.getHeight(),
                                                             loadedLevel.world);
+
+                        loadedLevel.stage.addActor(platform);
                     }
                 }
             }
