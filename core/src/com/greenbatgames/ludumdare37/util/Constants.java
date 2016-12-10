@@ -41,9 +41,13 @@ public class Constants {
     public static final float PLAYER_MAX_CLIMB_RATIO = 1.0f;
     public static final float PLAYER_CLIMB_TIME = 0.5f;
 
-    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 100f;
+    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 160f;
+    public static final float PLAYER_DASH_SPEED = PLAYER_MOVE_SPEED * 5.0f;
+    public static final float PLAYER_DASH_DURATION = 0.1f;
+    public static final float PLAYER_DASH_COOLDOWN = 1.3f;
+
     public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f,
-            5f * PLAYER_RADIUS * PLAYER_DENSITY);
+            3f * PLAYER_RADIUS * PLAYER_DENSITY);
 
     public static final float HORIZONTAL_MOVE_DAMPEN = 0.5f;
 
