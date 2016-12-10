@@ -44,14 +44,25 @@ public class MoveComponent extends PlayerComponent {
         // Horizontal hopping movement
         Body body = player.getBody();
 
-        // Then determine what to do based on if we're in the air or one the ground
-        if (isOnGround()) {
-
+        // Handle movement (left/right)
+        if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT)) {
+            body.setLinearVelocity(
+                    Constants.PLAYER_MOVE_SPEED,
+                    body.getLinearVelocity().y);
+        } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT)) {
+            body.setLinearVelocity(
+                    -Constants.PLAYER_MOVE_SPEED,
+                    body.getLinearVelocity().y);
         }
 
-        // Limit velocity based on walking, running, jumping, etc
-        if (player.isWalkButtonHeld()) {
-
+        // Add impulse for single jump
+        if (Gdx.input.isKeyJustPressed(Constants.KEY_JUMP)) {
+            jump();
+            body.applyLinearImpulse(
+                Constants.PLAYER_JUMP_IMPULSE,
+                body.getPosition(),
+                true
+            );
         }
 
         return true;

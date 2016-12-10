@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.util;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Quiv on 09-12-2016.
@@ -36,5 +37,7 @@ public class Constants {
     public static final float PLAYER_MAX_CLIMB_RATIO = 1.0f;
     public static final float PLAYER_CLIMB_TIME = 1.0f;
 
+    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 12f;
+    public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f, 400f);
 
 }
