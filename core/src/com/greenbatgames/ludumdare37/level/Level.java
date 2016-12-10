@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.threat.Goon;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
@@ -29,7 +30,9 @@ public class Level implements Initializable {
     Matrix4 debugMatrix;
 
     Player player;
-    Platform platform;
+    //Platform platform;
+
+    Goon goon;
 
 
 
@@ -53,7 +56,15 @@ public class Level implements Initializable {
 
         //platform = new Platform(0f, 0f, 400f, 40f, world);
 
+        goon = new Goon(
+                1000f,
+                40f,
+                Constants.PLAYER_RADIUS * 2f,
+                Constants.PLAYER_RADIUS * 4f,
+                world);
+
         stage.addActor(player);
+        stage.addActor(goon);
         //stage.addActor(platform);
     }
 
