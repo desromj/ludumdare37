@@ -76,4 +76,11 @@ public class Ghost extends PhysicsBody implements Threat {
     public void touchPlayer(Player player) {
 
     }
+
+    @Override
+    public void act(float delta){
+        super.act(delta);
+
+        mover.update(Player.getInstance(), delta);
+    }
 }

@@ -18,6 +18,8 @@ import com.greenbatgames.ludumdare37.util.Constants;
  */
 
 public class Player extends PhysicsBody implements Initializable {
+    private static Player instance;
+
     public enum Fixtures {
         BASE,
         BODY,
@@ -31,6 +33,8 @@ public class Player extends PhysicsBody implements Initializable {
     public Player(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world);
+
+        instance = this;
 
         mover = new MoveComponent(this);
         climber = new ClimbComponent(this);
@@ -184,6 +188,10 @@ public class Player extends PhysicsBody implements Initializable {
     /*
         Getters and Setters
      */
+
+    public static Player getInstance(){
+        return instance;
+    }
 
     public Fixture getFixture(Fixtures type) {
         for (Fixture fix: body.getFixtureList())
