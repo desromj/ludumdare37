@@ -43,8 +43,10 @@ public class DareContactListener implements ContactListener {
                 }
             }
         } else if (b instanceof Player && a instanceof Threat) {
-            if(!fixA.isSensor() && !fixB.isSensor()){
+            if (!fixA.isSensor() && !fixB.isSensor()) {
                 ((Threat) a).touchPlayer((Player) b);
+            }
+        }
 
         // Player-specific collision
         if (a instanceof Player || b instanceof Player) {
