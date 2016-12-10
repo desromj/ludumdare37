@@ -17,7 +17,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
  * Created by Quiv on 10-12-2016.
  */
 
-// TODO: Goons move back and forth on the platform they are standing on, or until hitting a wall
+// Goons move back and forth on the platform they are standing on, or until hitting a wall
 public class Goon extends PhysicsBody implements Threat {
 
     private GoonMoveComponent mover;
@@ -32,7 +32,6 @@ public class Goon extends PhysicsBody implements Threat {
 
     @Override
     protected void initPhysics(World world) {
-        //TODO: Copied over from Player class, should be altered.
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(

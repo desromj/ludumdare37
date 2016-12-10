@@ -41,11 +41,15 @@ public class DareContactListener implements ContactListener {
             } else if(!fixA.isSensor() && fixB.isSensor()){
                 if(b instanceof Turret){
 
+                } else {
+                    ((Threat) b).touchPlayer((Player) a);   // Default to sensors touching the player too
                 }
             }
         } else if (b instanceof Player && a instanceof Threat) {
             if (!fixA.isSensor() && !fixB.isSensor()) {
                 ((Threat) a).touchPlayer((Player) b);
+            } else if(!fixA.isSensor() && fixB.isSensor()){
+                ((Threat) a).touchPlayer((Player) b);   // Default to sensors touching the player too
             }
         }
 
