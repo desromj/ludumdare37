@@ -1,25 +1,38 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.iface.Initializable;
+import com.greenbatgames.ludumdare37.screen.RestartScreen;
+import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
  * Created by Quiv on 10-12-2016.
  */
 
-// TODO: Fill up the screen from the bottom (or top, depending)
 public class PoisonGas extends Actor implements Initializable {
 
+    //initial duration will be used for drawing the rising cloud of gas
+    private float initialDuration;
+    private float duration;
     private boolean fromTop;
 
     public PoisonGas(boolean fromTop) {
         this.fromTop = fromTop;
+        init();
     }
 
     @Override
     public void init() {
-        // TODO: Add the Timer to the game stage after initialization
+        initialDuration = Constants.GAS_DURATION;
+        duration = initialDuration;
     }
 
-    // TODO: Update the timer counter here. When it is 0, just kill the player
+    @Override
+    public void act(float delta){
+        duration -= delta;
+        if(duration <= 0){
+            DareGame.setScreen(RestartScreen.class);
+        }
+    }
 }
