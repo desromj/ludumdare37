@@ -4,7 +4,6 @@ package com.greenbatgames.ludumdare37.level;
  * Created by Quiv on 09-12-2016.
  */
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
@@ -17,10 +16,6 @@ import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.threat.*;
 import com.greenbatgames.ludumdare37.util.Constants;
 
-import org.w3c.dom.css.Rect;
-
-import java.util.Iterator;
-
 public class LevelLoader {
     private LevelLoader() {}
 
@@ -31,6 +26,7 @@ public class LevelLoader {
 
         //Create new level object to load level data into
         Level loadedLevel = new Level();
+        loadedLevel.setTiledMap(tiledMap);
 
         //Populate the map with the relevant objects
         for (MapLayer layer : tiledMap.getLayers()){

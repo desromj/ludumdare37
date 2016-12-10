@@ -2,7 +2,10 @@ package com.greenbatgames.ludumdare37.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -37,14 +40,10 @@ public class Level implements Initializable {
     Box2DDebugRenderer debugRenderer;
     Matrix4 debugMatrix;
 
+    TiledMap tiledMap;
+    TiledMapRenderer tiledMapRenderer;
+
     Player player;
-    // Platform platform;
-    // ExitPoint exitPoint;
-    // Lava lava;
-    Turret turret;
-    //Platform platform;
-    ExitPoint exitPoint;
-    LaserGrid laserGrid;
 
     public Level() {
         init();
@@ -57,7 +56,7 @@ public class Level implements Initializable {
 
         debugRenderer = new Box2DDebugRenderer();
 
-        // TODO: Testing values, replace with LevelLoading
+        // TODO: Move player to spawn points from map editor
         player = new Player(
                 40f,
                 80f,
@@ -65,37 +64,7 @@ public class Level implements Initializable {
                 Constants.PLAYER_RADIUS * 4f,
                 world);
 
-        turret = new Turret(600f, 80f, Constants.PLAYER_RADIUS * 2f,Constants.PLAYER_RADIUS * 2f, world);
-
-
         stage.addActor(player);
-        stage.addActor(turret);
-        //stage.addActor(platform);
-
-        laserGrid = new LaserGrid(
-                600f,
-                300f,
-                Constants.TILE_WIDTH * 5f,
-                Constants.TILE_WIDTH * 2f,
-                world);
-        stage.addActor(laserGrid);
-
-        /*
-        lava = new Lava(600f,
-                80,
-                Constants.TILE_WIDTH * 2f,
-                Constants.TILE_WIDTH * 3f,
-                world);
-        stage.addActor(lava);
-
-        exitPoint = new ExitPoint(
-                600f,
-                80,
-                Constants.TILE_WIDTH * 2f,
-                Constants.TILE_WIDTH * 3f,
-                world);
-        stage.addActor(exitPoint);
-        */
     }
 
     public void render(float delta) {
@@ -106,6 +75,7 @@ public class Level implements Initializable {
 
         // Prepare viewports and projection matricies
         stage.getViewport().apply();
+        tiledMapRenderer.setView((OrthographicCamera) stage.getViewport().getCamera());
 
         // Scale the debug Matrix to box2d sizes
         debugMatrix = stage.getViewport().getCamera().combined.cpy().scale(
@@ -118,6 +88,7 @@ public class Level implements Initializable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // Render
+        tiledMapRenderer.render();
         stage.draw();
 
         // Render the debug physics engine settings
@@ -149,5 +120,11 @@ public class Level implements Initializable {
 
     public void killPlayer() {
         DareGame.setScreen(RestartScreen.class);
+    }
+
+    // When loading a level, set the TiledMap reference so the level can render it later
+    public void setTiledMap(TiledMap tiledMap) {
+        this.tiledMap = tiledMap;
+        this.tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
     }
 }
