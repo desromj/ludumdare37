@@ -16,6 +16,8 @@ public class MoveComponent extends PlayerComponent {
     private boolean doubleJumped, facingRight;
     private float cannotJumpFor, disableCollisionFor;
 
+    private float cannotDashFor, dashCooldown;
+
     public MoveComponent(Player player) {
         super(player);
     }
@@ -29,6 +31,8 @@ public class MoveComponent extends PlayerComponent {
         facingRight = true;
         cannotJumpFor = 0.0f;
         disableCollisionFor = 0.0f;
+        cannotDashFor = 0.0f;
+        dashCooldown = 0.0f;
     }
 
 
@@ -38,13 +42,32 @@ public class MoveComponent extends PlayerComponent {
     {
         cannotJumpFor -= delta;
         disableCollisionFor -= delta;
+        cannotDashFor -= delta;
+        dashCooldown -= delta;
 
         // Horizontal hopping movement
         Body body = player.getBody();
 
-        // Handle movement (left/right)
-        if (player.isWalkButtonHeld()) {
+        // check to see if we should dash first
+        if (canDash()) {
+            cannotDashFor = Constants.PLAYER_DASH_DURATION;
+            dashCooldown = Constants.PLAYER_DASH_COOLDOWN;
+        }
 
+        // Handle dashing, until finished
+        if (isDashing()) {
+            if (facingRight) {
+                body.setLinearVelocity(
+                        Constants.PLAYER_DASH_SPEED,
+                        body.getLinearVelocity().y);
+            } else {
+                body.setLinearVelocity(
+                        -Constants.PLAYER_DASH_SPEED,
+                        body.getLinearVelocity().y);
+            }
+        } else if (player.isWalkButtonHeld()) {
+
+            // Handle movement (left/right)
             if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT)) {
                 body.setLinearVelocity(
                         Constants.PLAYER_MOVE_SPEED,
@@ -111,4 +134,12 @@ public class MoveComponent extends PlayerComponent {
     public boolean isOnGround() { return numFootContacts > 0; }
     public boolean isInAir() { return numFootContacts <= 0; }
     public boolean isFacingRight() { return facingRight; }
+    public boolean isDashing() { return cannotDashFor >= 0f; }
+    
+    public boolean canDash() {
+        return
+                player.getBody().getLinearVelocity().x != 0
+                && Gdx.input.isKeyJustPressed(Constants.KEY_ATTACK)
+                && dashCooldown < 0.0f;
+    }
 }

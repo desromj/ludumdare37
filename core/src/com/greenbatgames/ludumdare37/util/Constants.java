@@ -16,6 +16,8 @@ public class Constants {
     public static final float WORLD_WIDTH = 1600;
     public static final float WORLD_HEIGHT = WORLD_WIDTH * 4f / 5f;
 
+    public static final float TILE_WIDTH = 32f; // Tiles are 32x32 pixels
+
     // User controls
     public static int KEY_QUIT = Input.Keys.ESCAPE;
     public static int KEY_RESTART = Input.Keys.R;
@@ -39,9 +41,13 @@ public class Constants {
     public static final float PLAYER_MAX_CLIMB_RATIO = 1.0f;
     public static final float PLAYER_CLIMB_TIME = 0.5f;
 
-    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 100f;
+    public static final float PLAYER_MOVE_SPEED = WORLD_WIDTH / 160f;
+    public static final float PLAYER_DASH_SPEED = PLAYER_MOVE_SPEED * 5.0f;
+    public static final float PLAYER_DASH_DURATION = 0.1f;
+    public static final float PLAYER_DASH_COOLDOWN = 1.3f;
+
     public static final Vector2 PLAYER_JUMP_IMPULSE = new Vector2(0f,
-            5f * PLAYER_RADIUS * PLAYER_DENSITY);
+            3f * PLAYER_RADIUS * PLAYER_DENSITY);
 
     public static final float HORIZONTAL_MOVE_DAMPEN = 0.5f;
 
