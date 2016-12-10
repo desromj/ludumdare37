@@ -12,6 +12,7 @@ import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.threat.Goon;
 import com.greenbatgames.ludumdare37.threat.Turret;
 
@@ -97,10 +98,15 @@ public class DareContactListener implements ContactListener {
                 player.mover().incNumFootContacts();
             }
 
-            // Player colliding with the exit point
+            // Player colliding with the exit point - load next level
             if (other instanceof ExitPoint) {
-                // TODO: Load the next level, or display all levels complete
-                Gdx.app.log(TAG, "Exit point triggered");
+                ExitPoint point = (ExitPoint) other;
+
+                if (!point.alreadyTriggered()) {
+                    point.trigger();
+                    GameScreen.getInstance().nextLevel();
+                    Gdx.app.log(TAG, "Exit point triggered");
+                }
             }
         }
     }
