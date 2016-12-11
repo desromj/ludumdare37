@@ -212,6 +212,8 @@ public class Player extends PhysicsBody implements Initializable {
         body.setLinearVelocity(0f, 0f);
     }
 
+    public boolean isDead() { return dead; }
+
     public boolean isJumpButtonHeld() {
         return Gdx.input.isKeyPressed(Constants.KEY_JUMP);
     }

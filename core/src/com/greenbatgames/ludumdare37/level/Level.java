@@ -109,9 +109,12 @@ public class Level implements Initializable {
         return world;
     }
 
-    public Viewport getViewport()
-    {
+    public Viewport getViewport() {
         return stage.getViewport();
+    }
+
+    public float getLevelElapsedTime() {
+        return gameHUD.getElapsedTime();
     }
 
     public void addActorToStage(Actor actor) { stage.addActor(actor); }
@@ -124,13 +127,18 @@ public class Level implements Initializable {
     }
 
     public void killPlayer() {
-        player.setDead(true);
-        restartHUD.show();
+
+        if (!endLevelHUD.isVisible()) {
+            player.setDead(true);
+            restartHUD.show();
+        }
+
         stopTimer();
     }
 
     public void showEndLevelHUD() {
-        endLevelHUD.show();
+        if (!restartHUD.isVisible())
+            endLevelHUD.show();
     }
 
     public void stopTimer() {

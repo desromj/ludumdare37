@@ -47,4 +47,6 @@ public class Levels {
     }
 
     public int getCurrentLevelNumber() { return currentLevelIdx + 1; }
+
+    public int size() { return list.size(); }
 }

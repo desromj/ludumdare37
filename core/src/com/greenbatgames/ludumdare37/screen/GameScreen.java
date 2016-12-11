@@ -51,12 +51,14 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
         if (levelList.hasNextLevel())
             level = LevelLoader.loadLevel(levelList.nextResource());
         else
-            DareGame.setScreen(StartScreen.class);
+            DareGame.setScreen(ScoreScreen.class);
     }
 
+    // Save the elapsed time for the current level somewhere here
     public void saveCurrentLevelTime() {
-        // TODO: Save the elapsed time for the current level somewhere here
-
+        DareGame.score().setScore(
+                levelList.getCurrentLevelNumber(),
+                level.getLevelElapsedTime());
     }
 
     public void reloadCurrentLevel() {
@@ -66,6 +68,8 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
     public int getCurrentLevel() {
         return levelList.getCurrentLevelNumber();
     }
+
+    public int getTotalNumberLevels() { return levelList.size(); }
 
 
 

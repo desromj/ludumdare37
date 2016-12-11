@@ -50,7 +50,6 @@ public class EndLevelHUD extends Actor implements Initializable {
             GameScreen.getInstance().reloadCurrentLevel();
             return;
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-            GameScreen.getInstance().saveCurrentLevelTime();
             GameScreen.getInstance().nextLevel();
         }
     }
@@ -76,5 +75,6 @@ public class EndLevelHUD extends Actor implements Initializable {
     public void show() {
         visible = true;
     }
+    public boolean isVisible() { return visible; }
 
 }
