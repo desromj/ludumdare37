@@ -8,24 +8,17 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.collision.DareContactListener;
-import com.greenbatgames.ludumdare37.entity.ExitPoint;
-import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.hud.RestartHUD;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
-import com.greenbatgames.ludumdare37.screen.GameScreen;
-import com.greenbatgames.ludumdare37.screen.RestartScreen;
-import com.greenbatgames.ludumdare37.threat.Goon;
-import com.greenbatgames.ludumdare37.threat.LaserGrid;
-import com.greenbatgames.ludumdare37.threat.Lava;
-import com.greenbatgames.ludumdare37.threat.Turret;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
