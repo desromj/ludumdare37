@@ -109,9 +109,12 @@ public class Level implements Initializable {
         return world;
     }
 
-    public Viewport getViewport()
-    {
+    public Viewport getViewport() {
         return stage.getViewport();
+    }
+
+    public float getLevelElapsedTime() {
+        return gameHUD.getElapsedTime();
     }
 
     public void addActorToStage(Actor actor) { stage.addActor(actor); }
