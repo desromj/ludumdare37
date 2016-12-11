@@ -65,8 +65,9 @@ public class Constants {
 
     //Pressure Plate Values
     public static final float PRESSURE_PLATE_HEIGHT = 10f;
-    public static final float PRESSURE_PLATE_DURATION = 2f;
+    public static final float PRESSURE_PLATE_DURATION = 1.0f;
     public static final float PRESSURE_PLATE_EXPLOSION_RADIUS = 150f;
+    public static final float PRESSURE_PLATE_EXPLOSION_DURATION = 0.75f;
 
     //Turret Values
     public static final float TURRET_RANGE = 300f;

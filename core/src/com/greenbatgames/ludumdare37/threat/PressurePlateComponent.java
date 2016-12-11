@@ -1,5 +1,6 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Gdx;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
@@ -13,10 +14,12 @@ public class PressurePlateComponent implements Initializable{
 
     boolean pressed;
     boolean exploded;
+    boolean explosionDone;
 
     boolean playerInRange;
 
     float pressedTimer;
+    float explodedTimer;
 
     public PressurePlateComponent(PressurePlate pressurePlate){
         this.pressurePlate = pressurePlate;
@@ -40,10 +43,17 @@ public class PressurePlateComponent implements Initializable{
                 explode();
             }
         }
+        if(exploded){
+            explodedTimer -= delta;
+            if(explodedTimer <= 0){
+                explosionDone = true;
+            }
+        }
     }
 
     public void explode(){
         exploded = true;
+        explodedTimer = Constants.PRESSURE_PLATE_EXPLOSION_DURATION;
         if(playerInRange){
             pressurePlate.touchPlayer(GameScreen.level().getPlayer());
         }

@@ -67,7 +67,7 @@ public class Level implements Initializable {
                 Constants.PLAYER_RADIUS * 2f,
                 Constants.PLAYER_RADIUS * 4f,
                 world);
-        plate = new PressurePlate(1200f, 80f, 32, Constants.PRESSURE_PLATE_HEIGHT, world);
+        plate = new PressurePlate(1200f, 32f, 32, Constants.PRESSURE_PLATE_HEIGHT, world);
         restartHUD = new RestartHUD();
       
         stage.addActor(player);
