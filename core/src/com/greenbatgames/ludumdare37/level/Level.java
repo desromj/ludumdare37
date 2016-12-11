@@ -24,6 +24,7 @@ import com.greenbatgames.ludumdare37.screen.RestartScreen;
 import com.greenbatgames.ludumdare37.threat.Goon;
 import com.greenbatgames.ludumdare37.threat.LaserGrid;
 import com.greenbatgames.ludumdare37.threat.Lava;
+import com.greenbatgames.ludumdare37.threat.PressurePlate;
 import com.greenbatgames.ludumdare37.threat.Turret;
 import com.greenbatgames.ludumdare37.util.Constants;
 
@@ -44,6 +45,7 @@ public class Level implements Initializable {
     TiledMapRenderer tiledMapRenderer;
 
     Player player;
+    PressurePlate plate;
 
     public Level() {
         init();
@@ -63,8 +65,10 @@ public class Level implements Initializable {
                 Constants.PLAYER_RADIUS * 2f,
                 Constants.PLAYER_RADIUS * 4f,
                 world);
+        plate = new PressurePlate(1200f, 80f, 32, Constants.PRESSURE_PLATE_HEIGHT, world);
 
         stage.addActor(player);
+        stage.addActor(plate);
     }
 
     public void render(float delta) {

@@ -63,6 +63,31 @@ public class PressurePlate extends PhysicsBody implements Threat {
             shape.dispose();
         }
 
+        {
+            PolygonShape shape = new PolygonShape();
+
+
+            float r = getWidth()/2/Constants.PTM;
+            float h = getHeight()/2/Constants.PTM;
+
+            shape.set(new float[]{
+                    r, 0,
+                    r, h,
+                    -r, h,
+                    -r, 0
+            });
+
+            FixtureDef fixtureDef = new FixtureDef();
+            fixtureDef.shape = shape;
+            fixtureDef.density = Constants.PLAYER_DENSITY;
+            fixtureDef.restitution = 0f;
+            fixtureDef.isSensor = false;
+
+            body.createFixture(fixtureDef);
+            shape.dispose();
+        }
+
+
         body.setUserData(this);
     }
 
@@ -73,7 +98,11 @@ public class PressurePlate extends PhysicsBody implements Threat {
 
     @Override
     public void touchPlayer(Player player) {
-        GameScreen.level().killPlayer();
+        if(presser.exploded) {
+            GameScreen.level().killPlayer();
+        } else {
+            presser.pressDown();
+        }
     }
 
     @Override
