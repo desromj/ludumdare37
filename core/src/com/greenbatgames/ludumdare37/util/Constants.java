@@ -87,4 +87,8 @@ public class Constants {
     public static final float END_LEVEL_FONT_SCALE = 4.0f;
     public static final Color END_LEVEL_FONT_COLOR = Color.CYAN;
 
+    public static final float SCORE_SCREEN_FONT_SCALE = 2.5f;
+    public static final Color SCORE_SCREEN_FONT_COLOR = Color.CYAN;
+    public static final float SCORE_FONT_SPACING = 40f;
+
 }

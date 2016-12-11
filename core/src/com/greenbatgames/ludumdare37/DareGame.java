@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.screen.Score;
+import com.greenbatgames.ludumdare37.screen.ScoreScreen;
 import com.greenbatgames.ludumdare37.screen.StartScreen;
 
 public class DareGame extends Game {
@@ -38,6 +39,8 @@ public class DareGame extends Game {
                     "A TO A",
                     "Game for Ludum Dare 37\nBy Arne 'S Jegers and Mike Desrochers",
                     0.8f));
+        } else if (type == ScoreScreen.class) {
+            instance.setScreen(new ScoreScreen());
         }
     }
 

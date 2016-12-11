@@ -1,7 +1,7 @@
 package com.greenbatgames.ludumdare37.screen;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Quiv on 11-12-2016.
@@ -9,25 +9,43 @@ import java.util.Map;
 
 public class Score {
 
-    Map<Integer, Float> scores;
+    List<Integer> levels;
+    List<Float> scores;
 
     public Score() {
-        scores = new HashMap<Integer, Float>(GameScreen.getInstance().getTotalNumberLevels());
+        levels = new ArrayList<Integer>(GameScreen.getInstance().getTotalNumberLevels());
+        scores = new ArrayList<Float>(GameScreen.getInstance().getTotalNumberLevels());
     }
 
     // Sets the record low time for a level. If there is no previous time, save the passed
     // time. Otherwise, compare to the last time and save the lowest
     public void setScore(int levelNumber, float elapsedTime) {
-        Integer num = levelNumber;
-        Float time = elapsedTime;
 
-        if (scores.containsKey(num)) {
-            Float previousTime = scores.get(num);
+        int idx = -1;
 
-            if (time.compareTo(previousTime) < 0)
-                scores.put(num, time);
-        } else {
-            scores.put(num, time);
+        for (int i = 0; i < levels.size(); i++) {
+            if (levelNumber == levels.get(i)) {
+                idx = i;
+                break;
+            }
         }
+
+        if (idx < 0) {
+            levels.add(levelNumber);
+            scores.add(elapsedTime);
+        } else {
+            float prevTime = scores.get(idx);
+
+            if (elapsedTime < prevTime)
+                scores.set(idx, elapsedTime);
+        }
+    }
+
+    public List<Integer> getLevels() {
+        return levels;
+    }
+
+    public List<Float> getScores() {
+        return scores;
     }
 }
