@@ -91,6 +91,8 @@ public class LevelLoader {
                             t.getAimer().setRange(object.getProperties().get("range", Constants.TURRET_RANGE, Float.class));
                             t.getAimer().setFixed(object.getProperties().get("fixed", false, Boolean.class));
                             t.getAimer().setFixedAngle(object.getProperties().get("fixedAngle", Constants.TURRET_MIN_ANGLE, Float.class)*MathUtils.degRad);
+                            t.getAimer().setWaitTime(object.getProperties().get("waitTime", Constants.TURRET_WAIT_TIME, Float.class));
+                            t.getAimer().setRotationSpeed(object.getProperties().get("rotationSpeed", Constants.TURRET_ROTATION_SPEED, Float.class));
 
                             loadedLevel.stage.addActor(t);
                         }

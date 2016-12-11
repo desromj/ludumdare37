@@ -199,4 +199,12 @@ public class TurretAimComponent implements Initializable {
     public void setRange(float range){
         this.range = range;
     }
+
+    public void setRotationSpeed(float rotationSpeed){
+        this.rotationSpeed = rotationSpeed;
+    }
+
+    public void setWaitTime(float waitTime){
+        this.waitTime = waitTime;
+    }
 }
