@@ -82,7 +82,7 @@ public class MoveComponent extends PlayerComponent {
             }
         } else if (player.isWalkButtonHeld()) {
             walkSoundTimer -= delta;
-            if(walkSoundTimer < 0){
+            if(isOnGround() && walkSoundTimer < 0){
                 walkSoundTimer = Constants.WALK_SOUND_TIME;
                 int s = MathUtils.floor(MathUtils.random(1, 4.99f));
                 if(s == 1){
