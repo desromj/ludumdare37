@@ -1,5 +1,9 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -17,11 +21,14 @@ import com.greenbatgames.ludumdare37.util.Constants;
  */
 
 public class Ghost extends PhysicsBody implements Threat {
+
     GhostMoveComponent mover;
+    Sprite sprite;
 
     public Ghost(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
         mover = new GhostMoveComponent(this);
+        sprite = new Sprite(new Texture(Gdx.files.internal("graphics/ghost.png")));
     }
 
     @Override
@@ -83,5 +90,29 @@ public class Ghost extends PhysicsBody implements Threat {
         super.act(delta);
 
         mover.update(GameScreen.level().getPlayer(), delta);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+
+        // TODO: Fine-tune this when an actual ghost is in a level
+        batch.draw(
+                sprite.getTexture(),
+                getX(),
+                getY(),
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight(),
+                1f,
+                1f,
+                0f,
+                0,
+                0,
+                sprite.getRegionWidth(),
+                sprite.getRegionHeight(),
+                !mover.isFacingRight(),
+                false
+        );
     }
 }

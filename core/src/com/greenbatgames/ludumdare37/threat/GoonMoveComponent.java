@@ -12,6 +12,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
 public class GoonMoveComponent implements Initializable {
 
     Goon goon;
+    boolean facingRight;
 
     private enum State {
         WALK,
@@ -35,6 +36,7 @@ public class GoonMoveComponent implements Initializable {
         currentState = State.WALK;
         stateTimer = Constants.GOON_WAIT_TIME;
         walkingSpeed = Constants.GOON_MOVE_SPEED;
+        facingRight = true;
     }
 
     public void update(float delta){
@@ -57,12 +59,14 @@ public class GoonMoveComponent implements Initializable {
                 } else {
                     newX = walkingSpeed;
                 }
+                facingRight = true;
             } else if (walkingSpeed < 0) {
                 if (goon.getLeft() <= goon.getParentPlatform().getLeft()) {
                     newX = 0;
                 } else {
                     newX = walkingSpeed;
                 }
+                facingRight = false;
             }
 
             body.setLinearVelocity(
@@ -85,7 +89,10 @@ public class GoonMoveComponent implements Initializable {
                 stateTimer = Constants.GOON_WALK_TIME;
             }
         }
+    }
 
+    public boolean isFacingRight() {
+        return facingRight;
     }
 
 }

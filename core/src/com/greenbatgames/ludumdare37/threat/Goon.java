@@ -1,5 +1,9 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -24,11 +28,13 @@ public class Goon extends PhysicsBody implements Threat {
 
     private Platform parent = null;
     private GoonMoveComponent mover;
+    private Sprite sprite;
 
     public Goon(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
 
         mover = new GoonMoveComponent(this);
+        sprite = new Sprite(new Texture(Gdx.files.internal("graphics/goon.png")));
 
         init();
     }
@@ -110,6 +116,29 @@ public class Goon extends PhysicsBody implements Threat {
         super.act(delta);
 
         mover.update(delta);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+
+        batch.draw(
+                sprite.getTexture(),
+                getX(),
+                getY() + Constants.PLAYER_RADIUS * 2f,
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight(),
+                1f,
+                1f,
+                0f,
+                0,
+                0,
+                sprite.getRegionWidth(),
+                sprite.getRegionHeight(),
+                !mover.isFacingRight(),
+                false
+        );
     }
 
     public boolean hasParentPlatform() {
