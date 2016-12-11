@@ -7,11 +7,15 @@ package com.greenbatgames.ludumdare37.level;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Ellipse;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.threat.*;
@@ -68,10 +72,27 @@ public class LevelLoader {
                         Rectangle r = ((RectangleMapObject) object).getRectangle();
                         if(name.compareTo("exitpoint") == 0){
                             loadedLevel.stage.addActor(new ExitPoint(r.x, r.y - r.height/2f, r.width, r.height, loadedLevel.world));
-                        } if(name.compareTo("lasergrid") == 0){
+                        } else if(name.compareTo("lasergrid") == 0) {
                             loadedLevel.stage.addActor(new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world));
+                        } else if(name.compareTo("mine") == 0){
+                            loadedLevel.stage.addActor(new PressurePlate(r.x, r.y + Constants.PRESSURE_PLATE_HEIGHT/2f, r.width, Constants.PRESSURE_PLATE_HEIGHT, loadedLevel.world));
                         } else if(name.compareTo("spikes") == 0){
                             loadedLevel.stage.addActor(new Spike(r.x, r.y, r.width, r.height, loadedLevel.world));
+                        }
+                    } else if(object instanceof PolygonMapObject){
+                        Polygon p = ((PolygonMapObject) object).getPolygon();
+                        if(name.compareTo("turret") == 0){
+                            Turret t = new Turret(
+                                    p.getX(),
+                                    p.getY() - Constants.TILE_WIDTH*2.5f,
+                                    p.getBoundingRectangle().getWidth(),
+                                    p.getBoundingRectangle().getHeight(),
+                                    loadedLevel.world);
+                            t.getAimer().setRange(object.getProperties().get("range", Constants.TURRET_RANGE, Float.class));
+                            t.getAimer().setFixed(object.getProperties().get("fixed", false, Boolean.class));
+                            t.getAimer().setFixedAngle(object.getProperties().get("fixedAngle", Constants.TURRET_MIN_ANGLE, Float.class)*MathUtils.degRad);
+
+                            loadedLevel.stage.addActor(t);
                         }
                     }
                 }

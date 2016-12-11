@@ -51,7 +51,7 @@ public class Turret extends PhysicsBody implements Threat {
         bodyDef.type = BodyDef.BodyType.KinematicBody;
         bodyDef.position.set(
                 (getX() + getWidth() / 2.0f) / Constants.PTM,
-                (getY() + getHeight() / 2.0f) / Constants.PTM
+                (getY() + getHeight()) / Constants.PTM
         );
         bodyDef.fixedRotation = true;
 
@@ -107,7 +107,7 @@ public class Turret extends PhysicsBody implements Threat {
         batch.draw(
                 base.getTexture(),
                 getX(),
-                getY(),
+                getY()-getHeight()/2f,
                 getX(),
                 getY(),
                 getWidth(),
@@ -128,8 +128,8 @@ public class Turret extends PhysicsBody implements Threat {
         // Values are hardcoded, sorry :c Couldn't figure out how to get around issues with large sprite scaling
         batch.draw(
                 gunInactive.getTexture(),
-                getX() - Constants.TILE_WIDTH * 1.25f,
-                getY() + Constants.TILE_WIDTH * 1.6f,
+                getX() - Constants.TILE_WIDTH * 1.30f,
+                getY() + Constants.TILE_WIDTH * 0.65f,
                 Constants.TILE_WIDTH * 2.3f,
                 Constants.TILE_WIDTH * 0.4f,
                 getWidth() * (gunInactive.getWidth() / gunInactive.getHeight()) * 0.4f,
@@ -152,8 +152,8 @@ public class Turret extends PhysicsBody implements Threat {
             batch.setColor(1, 1, 1, activeRatio);
             batch.draw(
                     gunActive.getTexture(),
-                    getX() - Constants.TILE_WIDTH * 1.25f,
-                    getY() + Constants.TILE_WIDTH * 1.6f,
+                    getX() - Constants.TILE_WIDTH * 1.30f,
+                    getY() + Constants.TILE_WIDTH * 0.65f,
                     Constants.TILE_WIDTH * 2.3f,
                     Constants.TILE_WIDTH * 0.4f,
                     getWidth() * (gunActive.getWidth() / gunActive.getHeight()) * 0.4f,
@@ -186,5 +186,9 @@ public class Turret extends PhysicsBody implements Threat {
     public void setAim(float angle){
         Body b = getBody();
         getBody().setTransform(b.getPosition().x, b.getPosition().y, angle);
+    }
+
+    public TurretAimComponent getAimer(){
+        return aimer;
     }
 }

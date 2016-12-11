@@ -1,6 +1,10 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -20,12 +24,14 @@ import com.greenbatgames.ludumdare37.util.Constants;
 // TODO: Pressure Plates explode after x seconds of stepping on them
 public class PressurePlate extends PhysicsBody implements Threat {
     PressurePlateComponent presser;
+    private Sprite sprite;
 
     boolean pressedDone;
 
     public PressurePlate(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
         presser = new PressurePlateComponent(this);
+        sprite = new Sprite(new Texture(Gdx.files.internal("graphics/pressurePlate.png")));
         pressedDone = false;
 
         init();
@@ -118,6 +124,30 @@ public class PressurePlate extends PhysicsBody implements Threat {
             //getBody().setTransform((getX() + getWidth()/2f)/Constants.PTM, (getY()-Constants.PRESSURE_PLATE_HEIGHT)/Constants.PTM, 0);
             pressedDone = true;
         }
+    }
+
+    public void draw(Batch batch, float parentAlpha) {
+
+        if (pressedDone) return;
+
+        batch.draw(
+                sprite.getTexture(),
+                getX(),
+                getY() + getHeight()/2,
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight(),
+                1f,
+                1f,
+                0f,
+                0,
+                0,
+                sprite.getRegionWidth(),
+                sprite.getRegionHeight(),
+                false,
+                false
+        );
     }
 
     public void setPlayerInRange(boolean inRange){

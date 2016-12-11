@@ -39,7 +39,6 @@ public class Level implements Initializable {
     TiledMapRenderer tiledMapRenderer;
 
     Player player;
-    PressurePlate plate;
     RestartHUD restartHUD;
     GameHUD gameHUD;
 
@@ -61,12 +60,10 @@ public class Level implements Initializable {
                 Constants.PLAYER_RADIUS * 2f,
                 Constants.PLAYER_RADIUS * 4f,
                 world);
-        plate = new PressurePlate(1200f, 32f, 32, Constants.PRESSURE_PLATE_HEIGHT, world);
         restartHUD = new RestartHUD();
         gameHUD = new GameHUD();
       
         stage.addActor(player);
-        stage.addActor(plate);
         stage.addActor(restartHUD);
         stage.addActor(gameHUD);
     }
