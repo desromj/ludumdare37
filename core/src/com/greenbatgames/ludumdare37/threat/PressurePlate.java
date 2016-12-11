@@ -109,8 +109,9 @@ public class PressurePlate extends PhysicsBody implements Threat {
     public void act(float delta){
         presser.update(delta);
         if(presser.pressed){
-            Vector2 p = getBody().getPosition();
-            getBody().setTransform(p.x, p.y-Constants.PRESSURE_PLATE_HEIGHT, 0);
+            float x = getX();
+            float y = getY();
+            getBody().setTransform(x/Constants.PTM, (y-Constants.PRESSURE_PLATE_HEIGHT)/Constants.PTM, 0);
         }
     }
 
