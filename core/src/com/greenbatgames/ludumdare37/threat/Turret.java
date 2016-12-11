@@ -42,7 +42,7 @@ public class Turret extends PhysicsBody implements Threat {
         // Utility unit = one player radius expressed in Box2D units
         float b2Unit = Constants.PLAYER_RADIUS / Constants.PTM;
 
-        // Square sensor for floor contact (1x1, offset 1 unit down)
+        // Cone-shaped sensor representing the turret's field of view
         {
             PolygonShape shape = new PolygonShape();
 
