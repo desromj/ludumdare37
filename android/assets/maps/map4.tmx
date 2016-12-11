@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="35">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="36">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="3" columns="0">
   <tile id="0">
    <image width="32" height="32" source="../tiles/tileWall.png"/>
@@ -85,5 +85,8 @@
    <ellipse/>
   </object>
   <object id="34" name="spikes" x="320" y="648" width="640" height="24"/>
+  <object id="35" name="goon" x="832" y="160">
+   <ellipse/>
+  </object>
  </objectgroup>
 </map>

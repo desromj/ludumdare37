@@ -78,6 +78,8 @@ public class LevelLoader {
                             loadedLevel.stage.addActor(new PressurePlate(r.x, r.y + Constants.PRESSURE_PLATE_HEIGHT/2f, r.width, Constants.PRESSURE_PLATE_HEIGHT, loadedLevel.world));
                         } else if(name.compareTo("spikes") == 0){
                             loadedLevel.stage.addActor(new Spike(r.x, r.y, r.width, r.height, loadedLevel.world));
+                        } else if(name.compareTo("lava") == 0){
+                            loadedLevel.stage.addActor(new Lava(r.x, r.y, r.width, r.height, loadedLevel.world));
                         }
                     } else if(object instanceof PolygonMapObject){
                         Polygon p = ((PolygonMapObject) object).getPolygon();
