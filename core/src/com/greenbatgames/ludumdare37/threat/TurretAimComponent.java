@@ -71,7 +71,7 @@ public class TurretAimComponent implements Initializable {
                 Vector2 aimVector = new Vector2((float) Math.cos(currentAngle), (float) Math.sin(currentAngle));
 
                 float angle = aimVector.angleRad(toPlayer);
-                currentAngle += MathUtils.clamp(angle, -Constants.TURRET_ROTATION_SPEED*delta, Constants.TURRET_ROTATION_SPEED*delta);
+                currentAngle += MathUtils.clamp(angle, -Constants.TURRET_ROTATION_SPEED_FAST*delta, Constants.TURRET_ROTATION_SPEED_FAST*delta);
             }
 
         } else {

@@ -65,7 +65,7 @@ public class Constants {
 
     //Pressure Plate Values
     public static final float PRESSURE_PLATE_HEIGHT = 10f;
-    public static final float PRESSURE_PLATE_DURATION = 1.0f;
+    public static final float PRESSURE_PLATE_DURATION = 0.5f;
     public static final float PRESSURE_PLATE_EXPLOSION_RADIUS = 150f;
     public static final float PRESSURE_PLATE_EXPLOSION_DURATION = 0.75f;
 
@@ -74,7 +74,8 @@ public class Constants {
     public static final float TURRET_ANG_RADIUS = 0.5f;
     public static final float TURRET_WAIT_TIME = 1.5f;
     public static final float TURRET_AIM_TIME = 1f;
-    public static final float TURRET_ROTATION_SPEED = MathUtils.PI/4;
+    public static final float TURRET_ROTATION_SPEED = MathUtils.PI/2;
+    public static final float TURRET_ROTATION_SPEED_FAST = MathUtils.PI*3/4;
     public static final float TURRET_MIN_ANGLE = 0;
     public static final float TURRET_MAX_ANGLE = MathUtils.PI;
 
