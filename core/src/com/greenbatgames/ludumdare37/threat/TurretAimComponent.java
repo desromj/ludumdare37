@@ -24,6 +24,7 @@ public class TurretAimComponent implements Initializable {
     boolean playerInRange;
     boolean playerInSight;
     boolean playerInCrosshairs;
+    boolean fired;
 
     private float waitTime;
     private float waitTimer;
@@ -56,6 +57,7 @@ public class TurretAimComponent implements Initializable {
         range = Constants.TURRET_RANGE;
         playerInRange = false;
         playerInSight = false;
+        fired = false;
 
         waitTime = Constants.TURRET_WAIT_TIME;
         waitTimer = 0;
@@ -80,12 +82,21 @@ public class TurretAimComponent implements Initializable {
         Player player = GameScreen.level().getPlayer();
         if(playerInSight){
             if(!highBeepDone) {
+                DareSounds.CHARGE.stop();
                 DareSounds.BEEPHIGH.play();
+                DareSounds.CHARGE.play();
                 highBeepDone = true;
             }
             aimTimer -= delta;
             if(aimTimer <= 0 && playerInCrosshairs){
-                turret.touchPlayer(GameScreen.level().getPlayer());
+                if(!fired){
+                    DareSounds.CHARGE.stop();
+                    DareSounds.DISCHARGE.play();
+                    DareSounds.FIRE.play();
+                    turret.touchPlayer(GameScreen.level().getPlayer());
+                    fired = true;
+                }
+
             } else {
                 //Follow player as long as line of sight is held
                 Vector2 toPlayer = new Vector2(player.getX() - turret.getX(), player.getY() - turret.getY());
@@ -97,6 +108,10 @@ public class TurretAimComponent implements Initializable {
 
         } else {
             aimTimer = Constants.TURRET_AIM_TIME;
+            if(highBeepDone){
+                DareSounds.CHARGE.stop();
+                DareSounds.DISCHARGE.play();
+            }
             highBeepDone = false;
             if(isFixed){
                 Vector2 toPlayer = new Vector2((float) Math.cos(minAngle), (float) Math.sin(minAngle));
@@ -104,7 +119,6 @@ public class TurretAimComponent implements Initializable {
 
                 float angle = aimVector.angleRad(toPlayer);
                 currentAngle += MathUtils.clamp(angle, -rotationSpeed*delta, rotationSpeed*delta);
-                Gdx.app.log("", String.valueOf(minAngle));
             } else {
                 //moving
                 if (state == State.MOVING) {

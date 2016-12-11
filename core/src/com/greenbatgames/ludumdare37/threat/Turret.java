@@ -180,7 +180,6 @@ public class Turret extends PhysicsBody implements Threat {
 
     public void setPlayerInRange(boolean inRange){
         aimer.playerInRange = inRange;
-        Gdx.app.log("", "In range: " + String.valueOf(inRange));
     }
 
     public void setAim(float angle){

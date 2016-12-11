@@ -39,6 +39,10 @@ public enum DareSounds{
         sound.play(instVolume);
     }
 
+    public void stop(){
+        sound.stop();
+    }
+
     /*
     Getters and setters
      */
