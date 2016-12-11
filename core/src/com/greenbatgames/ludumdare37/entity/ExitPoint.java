@@ -19,12 +19,13 @@ import com.greenbatgames.ludumdare37.util.Constants;
 public class ExitPoint extends PhysicsBody {
 
     boolean triggered;
-    Sprite sprite;
+    Sprite spriteClosed, spriteOpened;
 
     public ExitPoint(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
         triggered = false;
-        sprite = new Sprite(new Texture(Gdx.files.internal("graphics/doorInactive.png")));
+        spriteClosed = new Sprite(new Texture(Gdx.files.internal("graphics/doorInactive.png")));
+        spriteOpened = new Sprite(new Texture(Gdx.files.internal("graphics/doorActive.png")));
     }
 
     @Override
@@ -74,8 +75,10 @@ public class ExitPoint extends PhysicsBody {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
+        Sprite toDraw = (triggered) ? spriteOpened : spriteClosed;
+
         batch.draw(
-                sprite.getTexture(),
+                toDraw.getTexture(),
                 getX(),
                 getY() + getHeight() / 2f,
                 getX(),
@@ -87,8 +90,8 @@ public class ExitPoint extends PhysicsBody {
                 0f,
                 0,
                 0,
-                sprite.getRegionWidth(),
-                sprite.getRegionHeight(),
+                toDraw.getRegionWidth(),
+                toDraw.getRegionHeight(),
                 false,
                 false
         );
