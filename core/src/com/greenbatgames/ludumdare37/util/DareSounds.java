@@ -13,13 +13,13 @@ public enum DareSounds{
     STEP2("sounds/step2.mp3", 0.5f),
     STEP3("sounds/step3.mp3", 0.5f),
     STEP4("sounds/step4.mp3", 0.5f),
-    STEPLOW1("sounds/stepLow1.mp3", 1),
-    STEPLOW2("sounds/stepLow2.mp3", 1),
-    STEPLOW3("sounds/stepLow3.mp3", 1),
+    STEPLOW1("sounds/stepLow1.mp3", 0.3f),
+    STEPLOW2("sounds/stepLow2.mp3", 0.3f),
+    STEPLOW3("sounds/stepLow3.mp3", 0.3f),
     BEEPHIGH("sounds/beepHigh.mp3", 0.5f),
     BEEPLOW("sounds/beepLow.mp3", 0.1f),
-    CHARGE("sounds/turretCharge.mp3", 1),
-    DISCHARGE("sounds/turretDischarge.mp3", 1),
+    CHARGE("sounds/turretCharge.mp3", 0.5f),
+    DISCHARGE("sounds/turretDischarge.mp3", 0.5f),
     FIRE("sounds/turretFire.mp3", 1);
 
     Sound sound;
