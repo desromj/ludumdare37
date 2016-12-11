@@ -63,6 +63,7 @@ public class Constants {
     public static final float GAS_DURATION = 30f;
 
     //Pressure Plate Values
+    public static final float PRESSURE_PLATE_HEIGHT = 10f;
     public static final float PRESSURE_PLATE_DURATION = 2f;
     public static final float PRESSURE_PLATE_EXPLOSION_RADIUS = 150f;
 

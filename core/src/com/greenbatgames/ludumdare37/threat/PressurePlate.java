@@ -1,6 +1,8 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
@@ -70,7 +73,16 @@ public class PressurePlate extends PhysicsBody implements Threat {
 
     @Override
     public void touchPlayer(Player player) {
+        GameScreen.level().killPlayer();
+    }
 
+    @Override
+    public void act(float delta){
+        presser.update(delta);
+        if(presser.pressed){
+            Vector2 p = getBody().getPosition();
+            getBody().setTransform(p.x, p.y-Constants.PRESSURE_PLATE_HEIGHT, 0);
+        }
     }
 
     public void setPlayerInRange(boolean inRange){

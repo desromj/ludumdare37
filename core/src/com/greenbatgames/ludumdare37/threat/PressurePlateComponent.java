@@ -33,7 +33,7 @@ public class PressurePlateComponent implements Initializable{
         pressed = true;
     }
 
-    public void act(float delta){
+    public void update(float delta){
         if(pressed && !exploded){
             pressedTimer -= delta;
             if(pressedTimer <= 0){
