@@ -35,7 +35,7 @@ public class Ghost extends PhysicsBody implements Threat {
 
     @Override
     protected void initPhysics(World world) {
-        //TODO: Copied over from Player class, should be altered.
+
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(
@@ -97,7 +97,6 @@ public class Ghost extends PhysicsBody implements Threat {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        // TODO: Fine-tune this when an actual ghost is in a level
         batch.draw(
                 sprite.getTexture(),
                 getX(),

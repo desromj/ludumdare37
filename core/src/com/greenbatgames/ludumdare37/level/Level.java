@@ -3,6 +3,8 @@ package com.greenbatgames.ludumdare37.level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -13,21 +15,20 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.greenbatgames.ludumdare37.collision.DareContactListener;
+import com.greenbatgames.ludumdare37.entity.Background;
 import com.greenbatgames.ludumdare37.hud.EndLevelHUD;
 import com.greenbatgames.ludumdare37.hud.GameHUD;
 import com.greenbatgames.ludumdare37.hud.RestartHUD;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
-import com.greenbatgames.ludumdare37.threat.PressurePlate;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
  * Created by Quiv on 09-12-2016.
  */
 
-// TODO: All game logic goes here
+// All game logic goes here
 public class Level implements Initializable {
 
     World world;
@@ -39,6 +40,7 @@ public class Level implements Initializable {
     TiledMap tiledMap;
     TiledMapRenderer tiledMapRenderer;
 
+    Background background;
     Player player;
     RestartHUD restartHUD;
     GameHUD gameHUD;
@@ -55,7 +57,9 @@ public class Level implements Initializable {
 
         debugRenderer = new Box2DDebugRenderer();
 
-        // TODO: Move player to spawn points from map editor
+        // Initialize the first few objects in every level
+        background = new Background("graphics/bg.jpg");
+
         player = new Player(
                 40f,
                 80f,
@@ -65,7 +69,7 @@ public class Level implements Initializable {
         restartHUD = new RestartHUD();
         gameHUD = new GameHUD();
         endLevelHUD = new EndLevelHUD();
-      
+
         stage.addActor(player);
         stage.addActor(restartHUD);
         stage.addActor(gameHUD);
@@ -89,10 +93,11 @@ public class Level implements Initializable {
                 0
         );
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);    // Black background
+        Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // Render
+        background.render();
         tiledMapRenderer.render();
         stage.draw();
 

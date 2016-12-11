@@ -21,7 +21,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
  * Created by Quiv on 10-12-2016.
  */
 
-// TODO: Turrets patrol back and forth with a sensor cone, looking for the player
+// Turrets patrol back and forth with a sensor cone, looking for the player
 public class Turret extends PhysicsBody implements Threat {
 
     TurretAimComponent aimer;

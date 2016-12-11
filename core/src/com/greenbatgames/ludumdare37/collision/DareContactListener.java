@@ -22,7 +22,7 @@ import com.greenbatgames.ludumdare37.threat.Turret;
  * Created by Quiv on 10-12-2016.
  */
 
-// TODO: All contacts and collisions go here
+// All contacts and collisions go here
 public class DareContactListener implements ContactListener {
 
     public static final String TAG = DareContactListener.class.getSimpleName();

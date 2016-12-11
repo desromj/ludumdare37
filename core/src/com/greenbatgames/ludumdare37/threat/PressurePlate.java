@@ -21,7 +21,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
  * Created by Quiv on 10-12-2016.
  */
 
-// TODO: Pressure Plates explode after x seconds of stepping on them
+// Pressure Plates explode after x seconds of stepping on them
 public class PressurePlate extends PhysicsBody implements Threat {
     PressurePlateComponent presser;
     private Sprite sprite;

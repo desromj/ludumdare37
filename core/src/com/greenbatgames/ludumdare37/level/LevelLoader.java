@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.threat.*;
@@ -24,7 +23,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
 public class LevelLoader {
     private LevelLoader() {}
 
-    // TODO: Can be passed parameters to load resources from outside editors
+    // Can be passed parameters to load resources from outside editors
     public static Level loadLevel(String filename) {
         //Load tmx file into TiledMap object
         TiledMap tiledMap = new TmxMapLoader().load(filename);
