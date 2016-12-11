@@ -129,7 +129,7 @@ public class DareContactListener implements ContactListener {
                 if(b instanceof Turret){
                     ((Turret) b).setPlayerInRange(false);
                 } else if(b instanceof PressurePlate) {
-                    ((PressurePlate) b).setPlayerInRange(true);
+                    ((PressurePlate) b).setPlayerInRange(false);
                 }
             }
         } else if (b instanceof Player && a instanceof Threat) {
@@ -137,7 +137,7 @@ public class DareContactListener implements ContactListener {
                 if(a instanceof Turret){
                     ((Turret) a).setPlayerInRange(false);
                 } else if(a instanceof PressurePlate) {
-                    ((PressurePlate) a).setPlayerInRange(true);
+                    ((PressurePlate) a).setPlayerInRange(false);
                 }
             }
         }

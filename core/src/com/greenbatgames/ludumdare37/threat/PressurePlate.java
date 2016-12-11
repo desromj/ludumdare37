@@ -21,9 +21,12 @@ import com.greenbatgames.ludumdare37.util.Constants;
 public class PressurePlate extends PhysicsBody implements Threat {
     PressurePlateComponent presser;
 
+    boolean pressedDone;
+
     public PressurePlate(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
         presser = new PressurePlateComponent(this);
+        pressedDone = false;
 
         init();
     }
@@ -98,19 +101,22 @@ public class PressurePlate extends PhysicsBody implements Threat {
 
     @Override
     public void touchPlayer(Player player) {
-        if(presser.exploded) {
-            GameScreen.level().killPlayer();
-        } else {
-            presser.pressDown();
+        if(!presser.explosionDone) {
+            if (presser.exploded) {
+                GameScreen.level().killPlayer();
+            } else {
+                presser.pressDown();
+            }
         }
     }
 
     @Override
     public void act(float delta){
         presser.update(delta);
-        if(presser.pressed){
-            Vector2 p = getBody().getPosition();
-            getBody().setTransform(p.x, p.y-Constants.PRESSURE_PLATE_HEIGHT, 0);
+        if(presser.pressed && !pressedDone){
+            setPosition(getX(), getY() - Constants.PRESSURE_PLATE_HEIGHT);
+            //getBody().setTransform((getX() + getWidth()/2f)/Constants.PTM, (getY()-Constants.PRESSURE_PLATE_HEIGHT)/Constants.PTM, 0);
+            pressedDone = true;
         }
     }
 
