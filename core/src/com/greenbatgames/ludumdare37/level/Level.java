@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.greenbatgames.ludumdare37.collision.DareContactListener;
+import com.greenbatgames.ludumdare37.hud.EndLevelHUD;
 import com.greenbatgames.ludumdare37.hud.GameHUD;
 import com.greenbatgames.ludumdare37.hud.RestartHUD;
 import com.greenbatgames.ludumdare37.iface.Initializable;
@@ -41,6 +42,7 @@ public class Level implements Initializable {
     Player player;
     RestartHUD restartHUD;
     GameHUD gameHUD;
+    EndLevelHUD endLevelHUD;
 
     public Level() {
         init();
@@ -62,10 +64,12 @@ public class Level implements Initializable {
                 world);
         restartHUD = new RestartHUD();
         gameHUD = new GameHUD();
+        endLevelHUD = new EndLevelHUD();
       
         stage.addActor(player);
         stage.addActor(restartHUD);
         stage.addActor(gameHUD);
+        stage.addActor(endLevelHUD);
     }
 
     public void render(float delta) {
@@ -85,7 +89,7 @@ public class Level implements Initializable {
                 0
         );
 
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);    // Black background
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // Render
@@ -123,6 +127,10 @@ public class Level implements Initializable {
         player.setDead(true);
         restartHUD.show();
         stopTimer();
+    }
+
+    public void showEndLevelHUD() {
+        endLevelHUD.show();
     }
 
     public void stopTimer() {

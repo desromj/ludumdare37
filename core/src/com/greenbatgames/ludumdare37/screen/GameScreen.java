@@ -54,6 +54,11 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
             DareGame.setScreen(StartScreen.class);
     }
 
+    public void saveCurrentLevelTime() {
+        // TODO: Save the elapsed time for the current level somewhere here
+
+    }
+
     public void reloadCurrentLevel() {
         level = LevelLoader.loadLevel(levelList.currentResource());
     }

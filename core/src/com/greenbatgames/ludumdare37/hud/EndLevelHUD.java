@@ -14,42 +14,50 @@ import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
- * Created by Quiv on 10-12-2016.
+ * Created by Quiv on 11-12-2016.
  */
 
-// Any required HUD goes here for normal gameplay
-public class GameHUD extends Actor implements Initializable {
-    public static final String TAG = GameHUD.class.getSimpleName();
+public class EndLevelHUD extends Actor implements Initializable {
+    public static final String TAG = EndLevelHUD.class.getSimpleName();
 
     BitmapFont font;
-    long startTime;
-    float elapsedTime;
-    boolean stopTimer;
+    String text;
 
-    public GameHUD() {
+    boolean visible;
+
+    public EndLevelHUD() {
         font = new BitmapFont();
 
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.getData().setScale(Constants.RESTART_FONT_SCALE);
-        font.setColor(Constants.RESTART_FONT_COLOR);
+        font.getData().setScale(Constants.END_LEVEL_FONT_SCALE);
+        font.setColor(Constants.END_LEVEL_FONT_COLOR);
+
+        text = "Press 'R' to replay the level, or any other key to continue!";
 
         init();
     }
 
     @Override
     public void init() {
-        startTime = TimeUtils.nanoTime();
-        stopTimer = false;
+        visible = false;
     }
 
     @Override
     public void act(float delta) {
-        if (!stopTimer)
-            elapsedTime = TimeUtils.nanosToMillis((TimeUtils.nanoTime() - startTime)) / 1000f;
+        if (!visible) return;
+
+        if(Gdx.input.isKeyPressed(Input.Keys.R)){
+            GameScreen.getInstance().reloadCurrentLevel();
+            return;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
+            GameScreen.getInstance().saveCurrentLevelTime();
+            GameScreen.getInstance().nextLevel();
+        }
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        if (!visible) return;
 
         // Move on to sprites and fonts
         Viewport viewport = GameScreen.level().getViewport();
@@ -57,18 +65,16 @@ public class GameHUD extends Actor implements Initializable {
 
         font.draw(
                 batch,
-                "Time: " + elapsedTime + " sec\n" +
-                "Current Level: " + GameScreen.getInstance().getCurrentLevel(),
+                text,
                 Constants.HUD_MARGIN,
-                viewport.getWorldHeight() - Constants.HUD_MARGIN,
-                0f,
-                Align.topLeft,
-                false);
+                viewport.getWorldHeight() / 1.4f,
+                viewport.getWorldWidth() - Constants.HUD_MARGIN * 2f,
+                Align.center,
+                true);
     }
 
-    public void setStopTimer(boolean val) {
-        stopTimer = val;
+    public void show() {
+        visible = true;
     }
 
-    public float getElapsedTime() { return elapsedTime; }
 }
