@@ -110,7 +110,8 @@ public class DareContactListener implements ContactListener {
                 if (!point.alreadyTriggered()) {
                     point.trigger();
                     GameScreen.level().stopTimer();
-                    GameScreen.getInstance().nextLevel();
+                    GameScreen.level().showEndLevelHUD();
+                    // GameScreen.getInstance().nextLevel();
                 }
             }
         }

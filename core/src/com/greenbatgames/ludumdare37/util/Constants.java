@@ -80,6 +80,10 @@ public class Constants {
 
     // HUD values
     public static final float RESTART_FONT_SCALE = 5.0f;
-    public static final Color RESTART_FONT_COLOR = Color.BLACK;
+    public static final Color RESTART_FONT_COLOR = Color.CYAN;
     public static final float HUD_MARGIN = WORLD_WIDTH / 200f;
+
+    public static final float END_LEVEL_FONT_SCALE = 4.0f;
+    public static final Color END_LEVEL_FONT_COLOR = Color.CYAN;
+
 }
