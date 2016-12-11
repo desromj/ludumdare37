@@ -10,7 +10,9 @@ import com.greenbatgames.ludumdare37.util.Constants;
  */
 
 public class GhostMoveComponent implements Initializable {
+
     Ghost ghost;
+    boolean facingRight;
 
     GhostMoveComponent(Ghost ghost){
         this.ghost = ghost;
@@ -19,7 +21,7 @@ public class GhostMoveComponent implements Initializable {
     }
 
     public void init(){
-
+        facingRight = true;
     }
 
     public void update(Player player, float delta){
@@ -29,5 +31,9 @@ public class GhostMoveComponent implements Initializable {
                 toPlayer.x,
                 toPlayer.y
         );
+
+        facingRight = ghost.getBody().getLinearVelocity().x >= 0;
     }
+
+    public boolean isFacingRight() { return facingRight; }
 }
