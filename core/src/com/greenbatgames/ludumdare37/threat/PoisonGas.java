@@ -1,9 +1,8 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.iface.Initializable;
-import com.greenbatgames.ludumdare37.screen.RestartScreen;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
@@ -32,7 +31,7 @@ public class PoisonGas extends Actor implements Initializable {
     public void act(float delta){
         duration -= delta;
         if(duration <= 0){
-            DareGame.setScreen(RestartScreen.class);
+            GameScreen.level().killPlayer();
         }
     }
 }

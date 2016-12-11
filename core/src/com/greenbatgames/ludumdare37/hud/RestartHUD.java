@@ -2,21 +2,14 @@ package com.greenbatgames.ludumdare37.hud;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
-import com.greenbatgames.ludumdare37.screen.RestartScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
@@ -25,7 +18,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
 
 // TODO: Draw the "YOU DIED, Press R to restart" line here
 public class RestartHUD extends Actor implements Initializable {
-    public static final String TAG = RestartScreen.class.getSimpleName();
+    public static final String TAG = RestartHUD.class.getSimpleName();
 
     BitmapFont font;
 

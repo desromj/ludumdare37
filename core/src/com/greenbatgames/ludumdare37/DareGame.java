@@ -1,14 +1,9 @@
 package com.greenbatgames.ludumdare37;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
-import com.greenbatgames.ludumdare37.screen.RestartScreen;
 import com.greenbatgames.ludumdare37.screen.StartScreen;
 
 public class DareGame extends Game {
@@ -39,8 +34,6 @@ public class DareGame extends Game {
                     "TENTATIVE TITLE",
                     "Game for Ludum Dare 37\nBy Arne 'S Jegers and Mike Desrochers",
                     0.8f));
-        } else if(type == RestartScreen.class){
-            instance.setScreen(new RestartScreen());
         }
     }
 }

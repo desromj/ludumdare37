@@ -110,7 +110,6 @@ public class DareContactListener implements ContactListener {
                 if (!point.alreadyTriggered()) {
                     point.trigger();
                     GameScreen.getInstance().nextLevel();
-                    Gdx.app.log(TAG, "Exit point triggered");
                 }
             }
         }
