@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.greenbatgames.ludumdare37.util.Constants;
@@ -20,6 +21,10 @@ public class MoveComponent extends PlayerComponent {
 
     private float cannotDashFor, dashCooldown;
 
+    private Sound walkSound1;
+    private Sound walkSound2;
+    private Sound walkSound3;
+    private Sound walkSound4;
     private float walkSoundTimer;
 
     public MoveComponent(Player player) {
@@ -37,6 +42,11 @@ public class MoveComponent extends PlayerComponent {
         disableCollisionFor = 0.0f;
         cannotDashFor = 0.0f;
         dashCooldown = 0.0f;
+
+        walkSound1 = DareSounds.STEP1.getSound();
+        walkSound2 = DareSounds.STEP2.getSound();
+        walkSound3 = DareSounds.STEP3.getSound();
+        walkSound4 = DareSounds.STEP4.getSound();
         walkSoundTimer = 0;
     }
 
@@ -76,13 +86,13 @@ public class MoveComponent extends PlayerComponent {
                 walkSoundTimer = Constants.WALK_SOUND_TIME;
                 int s = MathUtils.floor(MathUtils.random(1, 4.99f));
                 if(s == 1){
-                    DareSounds.STEP1.play();
+                    walkSound1.play(DareSounds.STEP1.getVolume());
                 } else if(s == 2){
-                    DareSounds.STEP2.play();
+                    walkSound2.play(DareSounds.STEP2.getVolume());
                 } else if(s == 3){
-                    DareSounds.STEP3.play();
+                    walkSound3.play(DareSounds.STEP3.getVolume());
                 } else if(s == 4){
-                    DareSounds.STEP4.play();
+                    walkSound4.play(DareSounds.STEP4.getVolume());
                 }
             }
             // Handle movement (left/right)
