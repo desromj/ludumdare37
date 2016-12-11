@@ -69,6 +69,9 @@ public class Constants {
     public static final float PRESSURE_PLATE_EXPLOSION_RADIUS = 150f;
     public static final float PRESSURE_PLATE_EXPLOSION_DURATION = 0.75f;
 
+    //Sound Values
+    public static final float TURRET_BEEP_TIME = 2.0f;
+
     //Turret Values
     public static final float TURRET_RANGE = 300f;
     public static final float TURRET_ANG_RADIUS = 0.5f;

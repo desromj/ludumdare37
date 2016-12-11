@@ -11,6 +11,7 @@ import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
+import com.greenbatgames.ludumdare37.util.DareSounds;
 
 /**
  * Created by arne on 10-12-2016.
@@ -36,6 +37,8 @@ public class TurretAimComponent implements Initializable {
 
 
     float aimTimer;
+    float beepTimer;
+    boolean highBeepDone;
 
     State state;
 
@@ -57,6 +60,7 @@ public class TurretAimComponent implements Initializable {
         waitTime = Constants.TURRET_WAIT_TIME;
         waitTimer = 0;
         aimTimer = 0;
+        beepTimer = MathUtils.random(0, Constants.TURRET_BEEP_TIME);
 
         currentAngle = 0;
         minAngle = Constants.TURRET_MIN_ANGLE;
@@ -75,6 +79,10 @@ public class TurretAimComponent implements Initializable {
 
         Player player = GameScreen.level().getPlayer();
         if(playerInSight){
+            if(!highBeepDone) {
+                DareSounds.BEEPHIGH.play();
+                highBeepDone = true;
+            }
             aimTimer -= delta;
             if(aimTimer <= 0 && playerInCrosshairs){
                 turret.touchPlayer(GameScreen.level().getPlayer());
@@ -89,6 +97,7 @@ public class TurretAimComponent implements Initializable {
 
         } else {
             aimTimer = Constants.TURRET_AIM_TIME;
+            highBeepDone = false;
             if(isFixed){
                 Vector2 toPlayer = new Vector2((float) Math.cos(minAngle), (float) Math.sin(minAngle));
                 Vector2 aimVector = new Vector2((float) Math.cos(currentAngle), (float) Math.sin(currentAngle));
@@ -122,6 +131,13 @@ public class TurretAimComponent implements Initializable {
             }
         }
         turret.setAim(currentAngle);
+
+
+        beepTimer -= delta;
+        if(beepTimer < 0){
+            beepTimer = Constants.TURRET_BEEP_TIME;
+            DareSounds.BEEPLOW.play();
+        }
     }
 
     public void checkPlayerInSight(){
