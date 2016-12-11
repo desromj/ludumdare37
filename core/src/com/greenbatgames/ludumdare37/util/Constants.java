@@ -79,6 +79,7 @@ public class Constants {
     public static final float TURRET_MAX_ANGLE = MathUtils.PI;
 
     // HUD values
-    public static final float RESTART_FONT_SCALE = 6.0f;
+    public static final float RESTART_FONT_SCALE = 5.0f;
     public static final Color RESTART_FONT_COLOR = Color.BLACK;
+    public static final float HUD_MARGIN = WORLD_WIDTH / 200f;
 }

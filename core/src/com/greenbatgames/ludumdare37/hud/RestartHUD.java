@@ -16,7 +16,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
  * Created by Quiv on 10-12-2016.
  */
 
-// TODO: Draw the "YOU DIED, Press R to restart" line here
+// Draw the "YOU DIED, Press R to restart" line here
 public class RestartHUD extends Actor implements Initializable {
     public static final String TAG = RestartHUD.class.getSimpleName();
 

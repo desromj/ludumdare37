@@ -32,7 +32,7 @@ public class Levels {
 
     // Increments the current level index counter
     public String nextResource() {
-        if (currentLevelIdx + 1 == list.size())
+        if (currentLevelIdx + 1 >= list.size())
             currentLevelIdx = 0;
         else
             currentLevelIdx++;
@@ -43,4 +43,6 @@ public class Levels {
     public boolean hasNextLevel() {
         return (currentLevelIdx + 1 < list.size());
     }
+
+    public int getCurrentLevelNumber() { return currentLevelIdx + 1; }
 }
