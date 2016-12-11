@@ -9,10 +9,10 @@ import com.badlogic.gdx.math.MathUtils;
  */
 
 public enum DareSounds{
-    STEP1("sounds/step1.mp3", 1),
-    STEP2("sounds/step2.mp3", 1),
-    STEP3("sounds/step3.mp3", 1),
-    STEP4("sounds/step4.mp3", 1),
+    STEP1("sounds/step1.mp3", 0.25f),
+    STEP2("sounds/step2.mp3", 0.5f),
+    STEP3("sounds/step3.mp3", 0.5f),
+    STEP4("sounds/step4.mp3", 0.5f),
     STEPLOW1("sounds/stepLow1.mp3", 1),
     STEPLOW2("sounds/stepLow2.mp3", 1),
     STEPLOW3("sounds/stepLow3.mp3", 1),

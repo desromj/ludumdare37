@@ -71,6 +71,7 @@ public class Constants {
 
     //Sound Values
     public static final float TURRET_BEEP_TIME = 2.0f;
+    public static final float WALK_SOUND_TIME = 0.2f;
 
     //Turret Values
     public static final float TURRET_RANGE = 300f;
