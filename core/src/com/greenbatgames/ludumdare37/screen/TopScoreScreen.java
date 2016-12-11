@@ -19,7 +19,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
  * Created by Quiv on 11-12-2016.
  */
 
-public class ScoreScreen extends ScreenAdapter {
+public class TopScoreScreen extends ScreenAdapter {
 
     Viewport viewport;
 
@@ -27,7 +27,7 @@ public class ScoreScreen extends ScreenAdapter {
     ShapeRenderer renderer;
     BitmapFont font;
 
-    public ScoreScreen() {
+    public TopScoreScreen() {
         viewport = new ExtendViewport(
                 Constants.WORLD_WIDTH,
                 Constants.WORLD_HEIGHT);
@@ -44,8 +44,7 @@ public class ScoreScreen extends ScreenAdapter {
 
         // Go back to start screen on any input
         if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-            DareGame.score().reset();
-            DareGame.setScreen(TopScoreScreen.class);
+            DareGame.setScreen(StartScreen.class);
         }
 
         viewport.apply();
@@ -70,7 +69,7 @@ public class ScoreScreen extends ScreenAdapter {
         // Title
         font.draw(
                 batch,
-                "Scores",
+                "High Scores",
                 viewport.getWorldWidth() * 0.5f,
                 viewport.getWorldHeight() * 0.9f,
                 0f,
@@ -91,34 +90,17 @@ public class ScoreScreen extends ScreenAdapter {
             );
         }
 
-        // Draw scores
-        for (int i = 0; i < DareGame.score().getScores().size(); i++) {
+        // Draw high scores
+        for (int i = 0; i < DareGame.score().getTopScores().size(); i++) {
             font.draw(
                     batch,
-                    "   " + DareGame.score().getScores().get(i) + " sec",
+                    "   " + DareGame.score().getTopScores().get(i) + " sec",
                     viewport.getWorldWidth() * 0.5f,
                     viewport.getWorldHeight() * 0.9f - ((2+i) * Constants.SCORE_FONT_SPACING),
                     0f,
                     Align.left,
                     false
             );
-        }
-
-        // Draw records beat, only if top score is beat
-        for (int i = 0; i < DareGame.score().getScores().size(); i++) {
-            font.setColor(Constants.SCORE_RECORD_COLOR);
-
-            if (DareGame.score().beatTopScore(i)) {
-                font.draw(
-                        batch,
-                        " * * * NEW RECORD * * * ",
-                        viewport.getWorldWidth() * 0.6f,
-                        viewport.getWorldHeight() * 0.9f - ((2 + i) * Constants.SCORE_FONT_SPACING),
-                        0f,
-                        Align.left,
-                        false
-                );
-            }
         }
 
         batch.end();

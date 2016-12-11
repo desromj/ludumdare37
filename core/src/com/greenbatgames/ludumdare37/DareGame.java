@@ -7,6 +7,7 @@ import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.screen.Score;
 import com.greenbatgames.ludumdare37.screen.ScoreScreen;
 import com.greenbatgames.ludumdare37.screen.StartScreen;
+import com.greenbatgames.ludumdare37.screen.TopScoreScreen;
 
 public class DareGame extends Game {
 
@@ -41,6 +42,8 @@ public class DareGame extends Game {
                     0.8f));
         } else if (type == ScoreScreen.class) {
             instance.setScreen(new ScoreScreen());
+        } else if (type == TopScoreScreen.class) {
+            instance.setScreen(new TopScoreScreen());
         }
     }
 
