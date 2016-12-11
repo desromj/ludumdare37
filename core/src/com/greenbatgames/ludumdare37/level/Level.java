@@ -8,24 +8,17 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.greenbatgames.ludumdare37.collision.DareContactListener;
+import com.greenbatgames.ludumdare37.hud.GameHUD;
 import com.greenbatgames.ludumdare37.hud.RestartHUD;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
-import com.greenbatgames.ludumdare37.screen.GameScreen;
-import com.greenbatgames.ludumdare37.screen.RestartScreen;
-import com.greenbatgames.ludumdare37.threat.Goon;
-import com.greenbatgames.ludumdare37.threat.LaserGrid;
-import com.greenbatgames.ludumdare37.threat.Lava;
 import com.greenbatgames.ludumdare37.threat.PressurePlate;
-import com.greenbatgames.ludumdare37.threat.Turret;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 /**
@@ -47,6 +40,7 @@ public class Level implements Initializable {
     Player player;
     PressurePlate plate;
     RestartHUD restartHUD;
+    GameHUD gameHUD;
 
     public Level() {
         init();
@@ -68,10 +62,12 @@ public class Level implements Initializable {
                 world);
         plate = new PressurePlate(1200f, 80f, 32, Constants.PRESSURE_PLATE_HEIGHT, world);
         restartHUD = new RestartHUD();
+        gameHUD = new GameHUD();
       
         stage.addActor(player);
         stage.addActor(plate);
         stage.addActor(restartHUD);
+        stage.addActor(gameHUD);
     }
 
     public void render(float delta) {
@@ -128,6 +124,11 @@ public class Level implements Initializable {
     public void killPlayer() {
         player.setDead(true);
         restartHUD.show();
+        stopTimer();
+    }
+
+    public void stopTimer() {
+        gameHUD.setStopTimer(true);
     }
 
     // When loading a level, set the TiledMap reference so the level can render it later
