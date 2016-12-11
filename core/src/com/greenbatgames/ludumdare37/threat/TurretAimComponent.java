@@ -29,7 +29,12 @@ public class TurretAimComponent implements Initializable {
 
     float aimTimer;
 
-    int state;
+    State state;
+
+    private enum State {
+        MOVING,
+        WAITING
+    }
 
     public TurretAimComponent(Turret turret){
         this.turret = turret;
@@ -44,7 +49,7 @@ public class TurretAimComponent implements Initializable {
         aimTimer = 0;
         currentAngle = 0;
         rotationSpeed = Constants.TURRET_ROTATION_SPEED;
-        state = 0;
+        state = State.MOVING;
     }
 
     public void update(float delta){
@@ -72,25 +77,25 @@ public class TurretAimComponent implements Initializable {
         } else {
             //moving
             aimTimer = Constants.TURRET_AIM_TIME;
-            if(state == 0){
+            if(state == State.MOVING){
                 currentAngle += rotationSpeed*delta;
                 if(currentAngle < Constants.TURRET_MIN_ANGLE){
                     currentAngle = Constants.TURRET_MIN_ANGLE;
                     waitTimer = Constants.TURRET_WAIT_TIME;
-                    state = 1;
+                    state = State.WAITING;
 
                 } else if(currentAngle > Constants.TURRET_MAX_ANGLE){
                     currentAngle = Constants.TURRET_MAX_ANGLE;
                     waitTimer = Constants.TURRET_WAIT_TIME;
-                    state = 1;
+                    state = State.WAITING;
 
                 }
 
             //waiting
-            } else if(state == 1){
+            } else if(state == State.WAITING){
                 if(waitTimer <= 0){
                     rotationSpeed = -rotationSpeed;
-                    state = 0;
+                    state = State.MOVING;
                 }
             }
         }
@@ -147,4 +152,15 @@ public class TurretAimComponent implements Initializable {
     /*
     Getters and setters
      */
+
+    public float getCurrentAngle() { return currentAngle; }
+
+    public float getPercentCharged() {
+
+        if (!playerInSight) return 0;
+
+        float ratio = (Constants.TURRET_AIM_TIME - (Constants.TURRET_AIM_TIME - aimTimer))
+                / Constants.TURRET_AIM_TIME;
+        return 1.0f - ratio;
+    }
 }

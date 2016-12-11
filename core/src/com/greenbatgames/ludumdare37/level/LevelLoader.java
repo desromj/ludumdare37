@@ -62,7 +62,7 @@ public class LevelLoader {
                         } else if(name.compareTo("goon") == 0) {
                             loadedLevel.stage.addActor(new Goon(e.x, e.y, 2*Constants.PLAYER_RADIUS * 2f,Constants.PLAYER_RADIUS * 4f, loadedLevel.world));
                         } else if(name.compareTo("turret") == 0){
-                            loadedLevel.stage.addActor(new Turret(e.x, e.y, 20f, 20f, loadedLevel.world));
+                            loadedLevel.stage.addActor(new Turret(e.x, e.y, Constants.TILE_WIDTH * 2f, Constants.TILE_WIDTH * 2f, loadedLevel.world));
                         }
                     } else if(object instanceof RectangleMapObject){
                         Rectangle r = ((RectangleMapObject) object).getRectangle();

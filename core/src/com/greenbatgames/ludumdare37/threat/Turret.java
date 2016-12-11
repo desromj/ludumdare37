@@ -1,7 +1,11 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -19,16 +23,30 @@ import com.greenbatgames.ludumdare37.util.Constants;
 
 // TODO: Turrets patrol back and forth with a sensor cone, looking for the player
 public class Turret extends PhysicsBody implements Threat {
+
     TurretAimComponent aimer;
+
+    Sprite base, gunInactive, gunActive;
+    Vector2 jointLocation;
 
     public Turret(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
 
+        jointLocation = new Vector2(
+                x + width / 2f,
+                y + height
+        );
+
         aimer = new TurretAimComponent(this);
+
+        base = new Sprite(new Texture(Gdx.files.internal("graphics/turretMount.png")));
+        gunInactive = new Sprite(new Texture(Gdx.files.internal("graphics/turretInactive.png")));
+        gunActive = new Sprite(new Texture(Gdx.files.internal("graphics/turretActive.png")));
     }
 
     @Override
     protected void initPhysics(World world) {
+
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
         bodyDef.position.set(
@@ -38,9 +56,6 @@ public class Turret extends PhysicsBody implements Threat {
         bodyDef.fixedRotation = true;
 
         body = world.createBody(bodyDef);
-
-        // Utility unit = one player radius expressed in Box2D units
-        float b2Unit = Constants.PLAYER_RADIUS / Constants.PTM;
 
         // Cone-shaped sensor representing the turret's field of view
         {
@@ -83,6 +98,78 @@ public class Turret extends PhysicsBody implements Threat {
         super.act(delta);
 
         aimer.update(delta);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+
+        // Draw the mount
+        batch.draw(
+                base.getTexture(),
+                getX(),
+                getY(),
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight(),
+                1f,
+                1f,
+                0f,
+                0,
+                0,
+                base.getRegionWidth(),
+                base.getRegionHeight(),
+                false,
+                false
+        );
+
+        // Draw inactive gun
+        batch.draw(
+                gunInactive.getTexture(),
+                getX(),
+                getY(),
+                gunInactive.getX(),
+                gunInactive.getY(),
+                getWidth() * (gunInactive.getWidth() / gunInactive.getHeight()) * 0.4f,
+                getHeight() * 0.4f,
+                1f,
+                1f,
+                MathUtils.radiansToDegrees * aimer.getCurrentAngle() + 180f,
+                0,
+                0,
+                gunInactive.getRegionWidth(),
+                gunInactive.getRegionHeight(),
+                false,
+                false
+        );
+
+        // Draw active gun, blended depending on how close it is to firing
+        float activeRatio = aimer.getPercentCharged();
+
+        if (activeRatio > 0) {
+            batch.setColor(1, 1, 1, activeRatio);
+            batch.draw(
+                    gunActive.getTexture(),
+                    getX(),
+                    getY(),
+                    gunActive.getX(),
+                    gunActive.getY(),
+                    getWidth() * (gunActive.getWidth() / gunActive.getHeight()) * 0.4f,
+                    getHeight() * 0.4f,
+                    1f,
+                    1f,
+                    MathUtils.radiansToDegrees * aimer.getCurrentAngle() + 180f,
+                    0,
+                    0,
+                    gunActive.getRegionWidth(),
+                    gunActive.getRegionHeight(),
+                    false,
+                    false
+            );
+        }
+
+        // Reset colour to no tint on finish
+        batch.setColor(1, 1, 1, 1);
     }
 
     /*
