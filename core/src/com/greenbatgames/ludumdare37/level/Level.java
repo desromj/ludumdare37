@@ -17,6 +17,7 @@ import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.collision.DareContactListener;
 import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.Platform;
+import com.greenbatgames.ludumdare37.hud.RestartHUD;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
@@ -46,6 +47,7 @@ public class Level implements Initializable {
 
     Player player;
     PressurePlate plate;
+    RestartHUD restartHUD;
 
     public Level() {
         init();
@@ -66,9 +68,11 @@ public class Level implements Initializable {
                 Constants.PLAYER_RADIUS * 4f,
                 world);
         plate = new PressurePlate(1200f, 80f, 32, Constants.PRESSURE_PLATE_HEIGHT, world);
-
+        restartHUD = new RestartHUD();
+      
         stage.addActor(player);
         stage.addActor(plate);
+        stage.addActor(restartHUD);
     }
 
     public void render(float delta) {
@@ -123,7 +127,8 @@ public class Level implements Initializable {
     }
 
     public void killPlayer() {
-        DareGame.setScreen(RestartScreen.class);
+        player.setDead(true);
+        restartHUD.show();
     }
 
     // When loading a level, set the TiledMap reference so the level can render it later

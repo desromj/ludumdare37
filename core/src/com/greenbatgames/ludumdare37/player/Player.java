@@ -1,7 +1,9 @@
 package com.greenbatgames.ludumdare37.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -28,12 +30,16 @@ public class Player extends PhysicsBody implements Initializable {
     private MoveComponent mover;
     private ClimbComponent climber;
 
+    private boolean dead;
+    private Sprite sprite;
+
     public Player(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world);
 
         mover = new MoveComponent(this);
         climber = new ClimbComponent(this);
+        sprite = new Sprite(new Texture(Gdx.files.internal("graphics/player.png")));
 
         init();
     }
@@ -44,6 +50,7 @@ public class Player extends PhysicsBody implements Initializable {
     {
         mover.init();
         climber.init();
+        dead = false;
     }
 
 
@@ -139,6 +146,9 @@ public class Player extends PhysicsBody implements Initializable {
 
     @Override
     public void act(float delta) {
+
+        if (dead) return;
+
         super.act(delta);
 
         // Run Component updates in sequence, and break through
@@ -156,7 +166,27 @@ public class Player extends PhysicsBody implements Initializable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Draw the player shape here
+
+        if (dead) return;
+
+        batch.draw(
+                sprite.getTexture(),
+                getX(),
+                getY() + Constants.PLAYER_RADIUS,
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight(),
+                1f,
+                1f,
+                0f,
+                0,
+                0,
+                sprite.getRegionWidth(),
+                sprite.getRegionHeight(),
+                !mover.isFacingRight(),
+                false
+        );
     }
 
 
@@ -176,6 +206,11 @@ public class Player extends PhysicsBody implements Initializable {
 
     public MoveComponent mover() { return mover; }
     public ClimbComponent climber() { return climber; }
+
+    public void setDead(boolean value) {
+        this.dead = value;
+        body.setLinearVelocity(0f, 0f);
+    }
 
     public boolean isJumpButtonHeld() {
         return Gdx.input.isKeyPressed(Constants.KEY_JUMP);
