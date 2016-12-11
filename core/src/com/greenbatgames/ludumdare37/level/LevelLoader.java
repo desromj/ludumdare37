@@ -61,12 +61,13 @@ public class LevelLoader {
                         if(name.compareTo("gas") == 0){
                             loadedLevel.stage.addActor(new PoisonGas(true));
                         } if(name.compareTo("ghost") == 0){
-                            //TODO: Build the dimensions into the classes?
-                            loadedLevel.stage.addActor(new Ghost(e.x, e.y, 20f, 20f, loadedLevel.world));
+                            Ghost g = new Ghost(e.x, e.y, 20f, 20f, loadedLevel.world);
+
+                            g.setWallhack(object.getProperties().get("wallhack", false, Boolean.class));
+
+                            loadedLevel.stage.addActor(g);
                         } else if(name.compareTo("goon") == 0) {
                             loadedLevel.stage.addActor(new Goon(e.x, e.y, 2*Constants.PLAYER_RADIUS * 2f,Constants.PLAYER_RADIUS * 4f, loadedLevel.world));
-                        } else if(name.compareTo("turret") == 0){
-                            loadedLevel.stage.addActor(new Turret(e.x, e.y, Constants.TILE_WIDTH * 2f, Constants.TILE_WIDTH * 2f, loadedLevel.world));
                         }
                     } else if(object instanceof RectangleMapObject){
                         Rectangle r = ((RectangleMapObject) object).getRectangle();

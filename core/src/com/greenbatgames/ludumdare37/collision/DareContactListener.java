@@ -13,6 +13,7 @@ import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
+import com.greenbatgames.ludumdare37.threat.Ghost;
 import com.greenbatgames.ludumdare37.threat.Goon;
 import com.greenbatgames.ludumdare37.threat.PressurePlate;
 import com.greenbatgames.ludumdare37.threat.Turret;
@@ -164,7 +165,18 @@ public class DareContactListener implements ContactListener {
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
+        Object a = contact.getFixtureA().getBody().getUserData();
+        Object b = contact.getFixtureB().getBody().getUserData();
 
+        if(a instanceof Ghost){
+            if(((Ghost) a).isWallhack()){
+                contact.setEnabled(false);
+            }
+        } else if(b instanceof Ghost){
+            if(((Ghost) b).isWallhack()){
+                contact.setEnabled(false);
+            }
+        }
     }
 
     @Override

@@ -25,6 +25,8 @@ public class Ghost extends PhysicsBody implements Threat {
     GhostMoveComponent mover;
     Sprite sprite;
 
+    private boolean isWallhacker;
+
     public Ghost(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
         mover = new GhostMoveComponent(this);
@@ -114,5 +116,17 @@ public class Ghost extends PhysicsBody implements Threat {
                 !mover.isFacingRight(),
                 false
         );
+    }
+
+    /*
+     *  Getters and setters
+     */
+
+    public boolean isWallhack(){
+        return isWallhacker;
+    }
+
+    public void setWallhack(boolean wallHack){
+        isWallhacker = wallHack;
     }
 }

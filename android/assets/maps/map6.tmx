@@ -84,7 +84,10 @@
  </objectgroup>
  <objectgroup name="objects">
   <object id="24" name="exitpoint" x="1472" y="352" width="64" height="96"/>
-  <object id="32" name="ghost" x="1384" y="368">
+  <object id="32" name="ghost" x="1392" y="368">
+   <properties>
+    <property name="wallhack" type="bool" value="true"/>
+   </properties>
    <ellipse/>
   </object>
   <object id="37" name="spikes" x="896" y="192" width="352" height="32"/>

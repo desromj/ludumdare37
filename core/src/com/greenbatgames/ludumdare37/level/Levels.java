@@ -20,11 +20,12 @@ public class Levels {
     }
 
     private void loadList() {
-        list.add("maps/map5.tmx");
+        list.add("maps/map6.tmx");
         list.add("maps/map2.tmx");
         list.add("maps/map3.tmx");
         list.add("maps/map4.tmx");
         list.add("maps/map5.tmx");
+        list.add("maps/map6.tmx");
     }
 
     public String currentResource() {
