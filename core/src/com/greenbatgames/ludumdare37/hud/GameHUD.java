@@ -57,7 +57,8 @@ public class GameHUD extends Actor implements Initializable {
 
         font.draw(
                 batch,
-                "Time: " + elapsedTime + " sec",
+                "Time: " + elapsedTime + " sec\n" +
+                "Current Level: " + GameScreen.getInstance().getCurrentLevel(),
                 Constants.HUD_MARGIN,
                 viewport.getWorldHeight() - Constants.HUD_MARGIN,
                 0f,

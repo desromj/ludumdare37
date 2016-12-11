@@ -58,6 +58,10 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
         level = LevelLoader.loadLevel(levelList.currentResource());
     }
 
+    public int getCurrentLevel() {
+        return levelList.getCurrentLevelNumber();
+    }
+
 
 
     /*
