@@ -19,13 +19,21 @@ import com.greenbatgames.ludumdare37.util.Constants;
 public class TurretAimComponent implements Initializable {
     Turret turret;
 
+    private float range;
     boolean playerInRange;
     boolean playerInSight;
     boolean playerInCrosshairs;
 
-    float waitTimer;
-    float currentAngle;
-    float rotationSpeed;
+    private float waitTime;
+    private float waitTimer;
+
+    private float currentAngle;
+    private float minAngle;
+    private float maxAngle;
+    private float rotationSpeed;
+
+    boolean isFixed;
+
 
     float aimTimer;
 
@@ -42,12 +50,17 @@ public class TurretAimComponent implements Initializable {
     }
 
     public void init(){
+        range = Constants.TURRET_RANGE;
         playerInRange = false;
         playerInSight = false;
 
+        waitTime = Constants.TURRET_WAIT_TIME;
         waitTimer = 0;
         aimTimer = 0;
+
         currentAngle = 0;
+        minAngle = Constants.TURRET_MIN_ANGLE;
+        maxAngle = Constants.TURRET_MAX_ANGLE;
         rotationSpeed = Constants.TURRET_ROTATION_SPEED;
         state = State.MOVING;
     }
@@ -75,27 +88,36 @@ public class TurretAimComponent implements Initializable {
             }
 
         } else {
-            //moving
             aimTimer = Constants.TURRET_AIM_TIME;
-            if(state == State.MOVING){
-                currentAngle += rotationSpeed*delta;
-                if(currentAngle < Constants.TURRET_MIN_ANGLE){
-                    currentAngle = Constants.TURRET_MIN_ANGLE;
-                    waitTimer = Constants.TURRET_WAIT_TIME;
-                    state = State.WAITING;
+            if(isFixed){
+                Vector2 toPlayer = new Vector2((float) Math.cos(minAngle), (float) Math.sin(minAngle));
+                Vector2 aimVector = new Vector2((float) Math.cos(currentAngle), (float) Math.sin(currentAngle));
 
-                } else if(currentAngle > Constants.TURRET_MAX_ANGLE){
-                    currentAngle = Constants.TURRET_MAX_ANGLE;
-                    waitTimer = Constants.TURRET_WAIT_TIME;
-                    state = State.WAITING;
+                float angle = aimVector.angleRad(toPlayer);
+                currentAngle += MathUtils.clamp(angle, -rotationSpeed*delta, rotationSpeed*delta);
+                Gdx.app.log("", String.valueOf(minAngle));
+            } else {
+                //moving
+                if (state == State.MOVING) {
+                    currentAngle += rotationSpeed * delta;
+                    if (currentAngle < minAngle) {
+                        currentAngle = minAngle;
+                        waitTimer = waitTime;
+                        state = State.WAITING;
 
-                }
+                    } else if (currentAngle > maxAngle) {
+                        currentAngle = maxAngle;
+                        waitTimer = waitTime;
+                        state = State.WAITING;
 
-            //waiting
-            } else if(state == State.WAITING){
-                if(waitTimer <= 0){
-                    rotationSpeed = -rotationSpeed;
-                    state = State.MOVING;
+                    }
+
+                    //waiting
+                } else if (state == State.WAITING) {
+                    if (waitTimer <= 0) {
+                        rotationSpeed = -rotationSpeed;
+                        state = State.MOVING;
+                    }
                 }
             }
         }
@@ -105,7 +127,7 @@ public class TurretAimComponent implements Initializable {
     public void checkPlayerInSight(){
         playerInCrosshairs = false;
         Vector2 origin = turret.getBody().getPosition();
-        Vector2 ray = new Vector2(Constants.TURRET_RANGE*MathUtils.cos(currentAngle), Constants.TURRET_RANGE*MathUtils.sin(currentAngle));
+        Vector2 ray = new Vector2(range*MathUtils.cos(currentAngle), range*MathUtils.sin(currentAngle));
         ray.add(origin);
         Vector2 playerPos = GameScreen.level().getPlayer().getBody().getPosition();
 
@@ -162,5 +184,19 @@ public class TurretAimComponent implements Initializable {
         float ratio = (Constants.TURRET_AIM_TIME - (Constants.TURRET_AIM_TIME - aimTimer))
                 / Constants.TURRET_AIM_TIME;
         return 1.0f - ratio;
+    }
+
+    public void setFixed(boolean fixed){
+        this.isFixed = fixed;
+    }
+
+    public void setFixedAngle(float fixedAngle){
+        this.minAngle = fixedAngle;
+        this.maxAngle = fixedAngle;
+        currentAngle = fixedAngle;
+    }
+
+    public void setRange(float range){
+        this.range = range;
     }
 }
