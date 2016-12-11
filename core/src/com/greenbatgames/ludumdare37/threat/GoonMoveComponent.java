@@ -68,6 +68,8 @@ public class GoonMoveComponent implements Initializable {
 
                 if (goon.getRight() >= goon.getParentPlatform().getRight()) {
                     newX = 0;
+                    currentState = State.WAIT;
+                    stateTimer = Constants.GOON_WAIT_TIME;
                 } else {
                     newX = walkingSpeed;
                 }
@@ -75,6 +77,8 @@ public class GoonMoveComponent implements Initializable {
             } else if (walkingSpeed < 0) {
                 if (goon.getLeft() <= goon.getParentPlatform().getLeft()) {
                     newX = 0;
+                    currentState = State.WAIT;
+                    stateTimer = Constants.GOON_WAIT_TIME;
                 } else {
                     newX = walkingSpeed;
                 }
