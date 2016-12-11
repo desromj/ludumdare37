@@ -14,6 +14,7 @@ import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.threat.Goon;
+import com.greenbatgames.ludumdare37.threat.PressurePlate;
 import com.greenbatgames.ludumdare37.threat.Turret;
 
 /**
@@ -55,8 +56,10 @@ public class DareContactListener implements ContactListener {
                 ((Threat) b).touchPlayer((Player) a);
             //Check if any sensor fixtures have found the player
             } else if(!fixA.isSensor() && fixB.isSensor()){
-                if(b instanceof Turret){
+                if(b instanceof Turret) {
                     ((Turret) b).setPlayerInRange(true);
+                } else if(b instanceof PressurePlate) {
+                    ((PressurePlate) b).setPlayerInRange(true);
                 } else {
                     ((Threat) b).touchPlayer((Player) a);   // Default to sensors touching the player too
                 }
@@ -67,6 +70,8 @@ public class DareContactListener implements ContactListener {
             } else if(fixA.isSensor() && !fixB.isSensor()){
                 if(a instanceof Turret){
                     ((Turret) a).setPlayerInRange(true);
+                } else if(a instanceof PressurePlate) {
+                    ((PressurePlate) a).setPlayerInRange(true);
                 } else {
                     ((Threat) a).touchPlayer((Player) b);   // Default to sensors touching the player too
                 }
@@ -124,12 +129,16 @@ public class DareContactListener implements ContactListener {
             if(!fixA.isSensor() && fixB.isSensor()){
                 if(b instanceof Turret){
                     ((Turret) b).setPlayerInRange(false);
+                } else if(b instanceof PressurePlate) {
+                    ((PressurePlate) b).setPlayerInRange(true);
                 }
             }
         } else if (b instanceof Player && a instanceof Threat) {
             if(fixA.isSensor() && !fixB.isSensor()){
                 if(a instanceof Turret){
                     ((Turret) a).setPlayerInRange(false);
+                } else if(a instanceof PressurePlate) {
+                    ((PressurePlate) a).setPlayerInRange(true);
                 }
             }
         }
