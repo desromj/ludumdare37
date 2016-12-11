@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.greenbatgames.ludumdare37.iface.Initializable;
@@ -28,6 +29,9 @@ public class GoonMoveComponent implements Initializable {
     // 1 is right, -1 is left
     private float walkingSpeed;
 
+    private Sound walkSound1;
+    private Sound walkSound2;
+    private Sound walkSound3;
     private float walkSoundTimer;
 
     GoonMoveComponent(Goon goon){
@@ -42,6 +46,9 @@ public class GoonMoveComponent implements Initializable {
         walkingSpeed = Constants.GOON_MOVE_SPEED;
         facingRight = true;
 
+        walkSound1 = DareSounds.STEPLOW1.getSound();
+        walkSound2 = DareSounds.STEPLOW2.getSound();
+        walkSound3 = DareSounds.STEPLOW3.getSound();
         walkSoundTimer = 0;
     }
 
@@ -90,11 +97,11 @@ public class GoonMoveComponent implements Initializable {
                     walkSoundTimer = Constants.GOON_WALK_SOUND_TIME;
                     int s = MathUtils.floor(MathUtils.random(1, 3.99f));
                     if (s == 1) {
-                        DareSounds.STEPLOW1.play();
+                        walkSound1.play(DareSounds.STEPLOW1.getVolume());
                     } else if (s == 2) {
-                        DareSounds.STEPLOW2.play();
+                        walkSound2.play(DareSounds.STEPLOW2.getVolume());
                     } else if (s == 3) {
-                        DareSounds.STEPLOW3.play();
+                        walkSound3.play(DareSounds.STEPLOW3.getVolume());
                     }
                 }
             }

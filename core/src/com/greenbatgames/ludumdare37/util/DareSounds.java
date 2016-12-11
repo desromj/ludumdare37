@@ -20,34 +20,26 @@ public enum DareSounds{
     BEEPLOW("sounds/beepLow.mp3", 0.1f),
     CHARGE("sounds/turretCharge.mp3", 0.5f),
     DISCHARGE("sounds/turretDischarge.mp3", 0.5f),
-    FIRE("sounds/turretFire.mp3", 1);
+    FIRE("sounds/turretFire.mp3", 1),
+    GHOSTHOVER("sounds/ghostHover.mp3", 0.5f),
+    GHOSTHAUNT("sounds/ghostHaunt.mp3", 1);
 
-    Sound sound;
+    String fileName;
     float volume;
 
-
-    private DareSounds(String filename, float v){
-        sound = Gdx.audio.newSound(Gdx.files.internal(filename));
+    private DareSounds(String fileName, float v){
+        this.fileName = fileName;
         volume = v;
-    }
-
-    public void play(){
-        sound.play(volume);
-    }
-
-    public void play(float instVolume){
-        sound.play(instVolume);
-    }
-
-    public void stop(){
-        sound.stop();
     }
 
     /*
     Getters and setters
      */
+    public Sound getSound(){
+        return Gdx.audio.newSound(Gdx.files.internal(fileName));
+    }
 
-    public void setVolume(float v){
-        volume = MathUtils.clamp(v, 0, 1);
+    public float getVolume(){
+        return volume;
     }
 }

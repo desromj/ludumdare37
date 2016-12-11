@@ -2,6 +2,7 @@ package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -41,6 +42,12 @@ public class TurretAimComponent implements Initializable {
     float beepTimer;
     boolean highBeepDone;
 
+    Sound beepHighSound;
+    Sound beepLowSound;
+    Sound chargeSound;
+    Sound dischargeSound;
+    Sound fireSound;
+
     State state;
 
     private enum State {
@@ -64,6 +71,12 @@ public class TurretAimComponent implements Initializable {
         aimTimer = 0;
         beepTimer = MathUtils.random(0, Constants.TURRET_BEEP_TIME);
 
+        beepHighSound = DareSounds.BEEPHIGH.getSound();
+        beepLowSound = DareSounds.BEEPLOW.getSound();
+        chargeSound = DareSounds.CHARGE.getSound();
+        dischargeSound = DareSounds.DISCHARGE.getSound();
+        fireSound = DareSounds.FIRE.getSound();
+
         currentAngle = 0;
         minAngle = Constants.TURRET_MIN_ANGLE;
         maxAngle = Constants.TURRET_MAX_ANGLE;
@@ -82,17 +95,17 @@ public class TurretAimComponent implements Initializable {
         Player player = GameScreen.level().getPlayer();
         if(playerInSight){
             if(!highBeepDone) {
-                DareSounds.CHARGE.stop();
-                DareSounds.BEEPHIGH.play();
-                DareSounds.CHARGE.play();
+                chargeSound.stop();
+                beepHighSound.play(DareSounds.BEEPHIGH.getVolume());
+                chargeSound.play(DareSounds.CHARGE.getVolume());
                 highBeepDone = true;
             }
             aimTimer -= delta;
             if(aimTimer <= 0 && playerInCrosshairs){
                 if(!fired){
-                    DareSounds.CHARGE.stop();
-                    DareSounds.DISCHARGE.play();
-                    DareSounds.FIRE.play();
+                    chargeSound.stop();
+                    dischargeSound.play(DareSounds.DISCHARGE.getVolume());
+                    fireSound.play(DareSounds.FIRE.getVolume());
                     turret.touchPlayer(GameScreen.level().getPlayer());
                     fired = true;
                 }
@@ -109,8 +122,8 @@ public class TurretAimComponent implements Initializable {
         } else {
             aimTimer = Constants.TURRET_AIM_TIME;
             if(highBeepDone){
-                DareSounds.CHARGE.stop();
-                DareSounds.DISCHARGE.play();
+                chargeSound.stop();
+                dischargeSound.play(DareSounds.DISCHARGE.getVolume());
             }
             highBeepDone = false;
             if(isFixed){
@@ -150,7 +163,7 @@ public class TurretAimComponent implements Initializable {
         beepTimer -= delta;
         if(beepTimer < 0){
             beepTimer = Constants.TURRET_BEEP_TIME;
-            DareSounds.BEEPLOW.play();
+            beepLowSound.play(DareSounds.BEEPLOW.getVolume());
         }
     }
 
