@@ -51,7 +51,7 @@ public class StartScreen extends ScreenAdapter {
         this.title = title;
         this.subtitle = subtitle;
         this.fadeTime = fadeTime;
-        scale = 0.2f;
+        scale = 0.5f;
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
         font = new BitmapFont();
@@ -161,7 +161,7 @@ public class StartScreen extends ScreenAdapter {
         // titles
         else if (period >= 7 && period <= 10) {
 
-            font.getData().setScale(2.5f);
+            font.getData().setScale(Constants.START_SCREEN_TITLE_SCALE);
             font.setColor(1, 1, 1, alpha);
 
             font.draw(
@@ -174,7 +174,7 @@ public class StartScreen extends ScreenAdapter {
                     false
             );
 
-            font.getData().setScale(1.0f);
+            font.getData().setScale(Constants.START_SCREEN_SUBTITLE_SCALE);
             font.draw(
                     batch,
                     subtitle,
