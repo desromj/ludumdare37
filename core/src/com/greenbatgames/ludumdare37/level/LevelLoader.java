@@ -68,8 +68,10 @@ public class LevelLoader {
                         Rectangle r = ((RectangleMapObject) object).getRectangle();
                         if(name.compareTo("exitpoint") == 0){
                             loadedLevel.stage.addActor(new ExitPoint(r.x, r.y - r.height/2f, r.width, r.height, loadedLevel.world));
-                        } if(name.compareTo("lasergrid") == 0){
+                        } else if(name.compareTo("lasergrid") == 0) {
                             loadedLevel.stage.addActor(new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world));
+                        } else if(name.compareTo("mine") == 0){
+                            loadedLevel.stage.addActor(new PressurePlate(r.x, r.y + Constants.PRESSURE_PLATE_HEIGHT/2f, r.width, Constants.PRESSURE_PLATE_HEIGHT, loadedLevel.world));
                         } else if(name.compareTo("spikes") == 0){
                             loadedLevel.stage.addActor(new Spike(r.x, r.y, r.width, r.height, loadedLevel.world));
                         }
