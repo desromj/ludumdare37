@@ -28,6 +28,8 @@ public class Player extends PhysicsBody implements Initializable {
     private MoveComponent mover;
     private ClimbComponent climber;
 
+    private boolean dead;
+
     public Player(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world);
@@ -44,6 +46,7 @@ public class Player extends PhysicsBody implements Initializable {
     {
         mover.init();
         climber.init();
+        dead = false;
     }
 
 
@@ -139,6 +142,9 @@ public class Player extends PhysicsBody implements Initializable {
 
     @Override
     public void act(float delta) {
+
+        if (dead) return;
+
         super.act(delta);
 
         // Run Component updates in sequence, and break through
@@ -156,7 +162,11 @@ public class Player extends PhysicsBody implements Initializable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Draw the player shape here
+
+        if (dead) return;
+
+        // TODO: Draw the player sprite here
+
     }
 
 
@@ -176,6 +186,11 @@ public class Player extends PhysicsBody implements Initializable {
 
     public MoveComponent mover() { return mover; }
     public ClimbComponent climber() { return climber; }
+
+    public void setDead(boolean value) {
+        this.dead = value;
+        body.setLinearVelocity(0f, 0f);
+    }
 
     public boolean isJumpButtonHeld() {
         return Gdx.input.isKeyPressed(Constants.KEY_JUMP);

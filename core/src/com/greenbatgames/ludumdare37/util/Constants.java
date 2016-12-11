@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.util;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
@@ -70,4 +71,8 @@ public class Constants {
     public static final float TURRET_ROTATION_SPEED = MathUtils.PI/4;
     public static final float TURRET_MIN_ANGLE = 0;
     public static final float TURRET_MAX_ANGLE = MathUtils.PI;
+
+    // HUD values
+    public static final float RESTART_FONT_SCALE = 6.0f;
+    public static final Color RESTART_FONT_COLOR = Color.BLACK;
 }

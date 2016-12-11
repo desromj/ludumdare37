@@ -54,6 +54,10 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
             DareGame.setScreen(StartScreen.class);
     }
 
+    public void reloadCurrentLevel() {
+        level = LevelLoader.loadLevel(levelList.currentResource());
+    }
+
 
 
     /*
@@ -75,8 +79,6 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
     {
         if (keycode == Constants.KEY_QUIT)
             Gdx.app.exit();
-        else if (keycode == Constants.KEY_RESTART)
-            DareGame.setScreen(StartScreen.class);
 
         return true;
     }
