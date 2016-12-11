@@ -1,8 +1,15 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
@@ -17,16 +24,23 @@ import com.greenbatgames.ludumdare37.util.Constants;
 // Laser grids turn on and off periodically, and if on, will kill player on contact
 public class LaserGrid extends PhysicsBody implements Threat {
 
-    private float onPeriod, offPeriod, timeUntilSwitch;
+    private float onPeriod, offPeriod, timeUntilSwitch, warmupTime;
     private boolean active;
+
+    private Sprite bottom, top, laser;
 
     public LaserGrid(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
 
         onPeriod = 2f;
         offPeriod = 3f;
+        warmupTime = 0.5f;
         timeUntilSwitch = onPeriod;
         active = true;
+
+        bottom = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridBase.png")));
+        top = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridTop.png")));
+        laser = new Sprite(new Texture(Gdx.files.internal("graphics/laserGrid.png")));
     }
 
     @Override
@@ -37,7 +51,52 @@ public class LaserGrid extends PhysicsBody implements Threat {
             trigger();
     }
 
-    // TODO: Override the draw method to draw lasers when active
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+
+        // Draw the lasers if active. If not active, draw their alpha based on percentage of warmup
+        // Use circleOut interpolation with this percentage
+        float ratio;
+
+        if (active) {
+            ratio = 1.0f;
+        } else if (timeUntilSwitch > warmupTime) {
+            ratio = 0.0f;
+        } else {
+            ratio = (warmupTime - timeUntilSwitch) / warmupTime;
+            ratio = Interpolation.circleOut.apply(ratio);
+        }
+
+        // Draw lasers if the ratio is above 0
+        if (ratio > 0f) {
+            batch.setColor(1, 1, 1, ratio);
+            batch.draw(
+                    laser,
+                    getX(),
+                    getY(),
+                    getWidth(),
+                    getHeight()
+            );
+            batch.setColor(1, 1, 1, 1);
+        }
+
+        // Then draw the bottom and top over the lasers, always
+        batch.draw(
+                bottom,
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight()
+        );
+
+        batch.draw(
+                top,
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight()
+        );
+    }
 
     @Override
     protected void initPhysics(World world) {
@@ -91,5 +150,33 @@ public class LaserGrid extends PhysicsBody implements Threat {
         }
 
         active = !active;
+
+        // Check for player collision if we immediately trigger
+        if (active) {
+
+            // Check if the player is within range, if active
+            if (active) {
+                GameScreen.level().getWorld().QueryAABB(
+                        new QueryCallback() {
+                            @Override
+                            public boolean reportFixture(Fixture fixture) {
+
+                                if (!(fixture.getBody().getUserData() instanceof LaserGrid))
+                                    Gdx.app.log(TAG, "AABB QueryCallback triggered for " + fixture.getBody().getUserData());
+
+                                Player player = GameScreen.level().getPlayer();
+                                if (fixture.getBody().getUserData() == player && !player.isDead()) {
+                                    touchPlayer(player);
+                                    Gdx.app.log(TAG, "AABB QueryCallback triggered for Player");
+                                }
+                                return true;
+                            }
+                        },
+                        (getLeft() - getWidth() / 4f) / Constants.PTM,
+                        (getBottom() - getHeight() / 4f) / Constants.PTM,
+                        (getRight() + getWidth() / 4f) / Constants.PTM,
+                        (getTop() + getHeight() / 4f) / Constants.PTM);
+            }
+        }
     }
 }
