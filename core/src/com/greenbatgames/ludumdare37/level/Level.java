@@ -124,13 +124,18 @@ public class Level implements Initializable {
     }
 
     public void killPlayer() {
-        player.setDead(true);
-        restartHUD.show();
+
+        if (!endLevelHUD.isVisible()) {
+            player.setDead(true);
+            restartHUD.show();
+        }
+
         stopTimer();
     }
 
     public void showEndLevelHUD() {
-        endLevelHUD.show();
+        if (!restartHUD.isVisible())
+            endLevelHUD.show();
     }
 
     public void stopTimer() {

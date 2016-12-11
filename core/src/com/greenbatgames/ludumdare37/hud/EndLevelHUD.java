@@ -76,5 +76,6 @@ public class EndLevelHUD extends Actor implements Initializable {
     public void show() {
         visible = true;
     }
+    public boolean isVisible() { return visible; }
 
 }
