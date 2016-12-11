@@ -124,12 +124,14 @@ public class Turret extends PhysicsBody implements Threat {
         );
 
         // Draw inactive gun
+
+        // Values are hardcoded, sorry :c Couldn't figure out how to get around issues with large sprite scaling
         batch.draw(
                 gunInactive.getTexture(),
-                getX(),
-                getY(),
-                gunInactive.getX(),
-                gunInactive.getY(),
+                getX() - Constants.TILE_WIDTH * 1.25f,
+                getY() + Constants.TILE_WIDTH * 1.6f,
+                Constants.TILE_WIDTH * 2.3f,
+                Constants.TILE_WIDTH * 0.4f,
                 getWidth() * (gunInactive.getWidth() / gunInactive.getHeight()) * 0.4f,
                 getHeight() * 0.4f,
                 1f,
@@ -150,10 +152,10 @@ public class Turret extends PhysicsBody implements Threat {
             batch.setColor(1, 1, 1, activeRatio);
             batch.draw(
                     gunActive.getTexture(),
-                    getX(),
-                    getY(),
-                    gunActive.getX(),
-                    gunActive.getY(),
+                    getX() - Constants.TILE_WIDTH * 1.25f,
+                    getY() + Constants.TILE_WIDTH * 1.6f,
+                    Constants.TILE_WIDTH * 2.3f,
+                    Constants.TILE_WIDTH * 0.4f,
                     getWidth() * (gunActive.getWidth() / gunActive.getHeight()) * 0.4f,
                     getHeight() * 0.4f,
                     1f,

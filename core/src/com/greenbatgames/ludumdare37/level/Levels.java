@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Quiv on 10-12-2016.
  */
 
-// TODO: Handle the array of levels to be loaded through resource files
+// Handle the array of levels to be loaded through resource files
 public class Levels {
 
     private List<String> list;
