@@ -21,7 +21,6 @@ public class GoonMoveComponent implements Initializable {
         WAIT
     }
 
-    //TODO: Put this in an enum instead
     private State currentState;
     private float stateTimer;
 
