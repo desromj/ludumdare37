@@ -36,7 +36,6 @@ public class ScoreScreen extends ScreenAdapter {
         renderer = new ShapeRenderer();
         font = new BitmapFont();
         font.getData().setScale(Constants.SCORE_SCREEN_FONT_SCALE);
-        font.setColor(Constants.SCORE_SCREEN_FONT_COLOR);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
@@ -45,6 +44,7 @@ public class ScoreScreen extends ScreenAdapter {
 
         // Go back to start screen on any input
         if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
+            DareGame.score().reset();
             DareGame.setScreen(StartScreen.class);
         }
 
@@ -64,6 +64,8 @@ public class ScoreScreen extends ScreenAdapter {
         // Move on to sprites and fonts
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
+
+        font.setColor(Constants.SCORE_SCREEN_FONT_COLOR);
 
         // Title
         font.draw(
@@ -100,6 +102,23 @@ public class ScoreScreen extends ScreenAdapter {
                     Align.left,
                     false
             );
+        }
+
+        // Draw records beat, only if top score is beat
+        for (int i = 0; i < DareGame.score().getScores().size(); i++) {
+            font.setColor(Constants.SCORE_RECORD_COLOR);
+
+            if (DareGame.score().beatTopScore(i)) {
+                font.draw(
+                        batch,
+                        " * * * NEW RECORD * * * ",
+                        viewport.getWorldWidth() * 0.6f,
+                        viewport.getWorldHeight() * 0.9f - ((2 + i) * Constants.SCORE_FONT_SPACING),
+                        0f,
+                        Align.left,
+                        false
+                );
+            }
         }
 
         batch.end();

@@ -12,9 +12,12 @@ public class Score {
     List<Integer> levels;
     List<Float> scores;
 
+    List<Float> topScores;
+
     public Score() {
         levels = new ArrayList<Integer>(GameScreen.getInstance().getTotalNumberLevels());
         scores = new ArrayList<Float>(GameScreen.getInstance().getTotalNumberLevels());
+        topScores = new ArrayList<Float>(GameScreen.getInstance().getTotalNumberLevels());
     }
 
     // Sets the record low time for a level. If there is no previous time, save the passed
@@ -47,5 +50,28 @@ public class Score {
 
     public List<Float> getScores() {
         return scores;
+    }
+
+    public List<Float> getTopScores() {
+        return topScores;
+    }
+
+    public void reset() {
+        if (topScores.isEmpty()) {
+            topScores.addAll(scores);
+        } else {
+            for (int i = 0; i < scores.size(); i++) {
+                if (scores.get(i).compareTo(topScores.get(i)) < 0)
+                    topScores.set(i, scores.get(i));
+            }
+        }
+
+        for (int i = 0; i < scores.size(); i++)
+            scores.set(i, 999999f);
+    }
+
+    public boolean beatTopScore(int idx) {
+        if (topScores.isEmpty()) return false;
+        return (scores.get(idx).compareTo(topScores.get(idx)) < 0);
     }
 }
