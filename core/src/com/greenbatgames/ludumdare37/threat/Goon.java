@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -67,6 +68,8 @@ public class Goon extends PhysicsBody implements Threat {
             fixtureDef.restitution = 0f;
             fixtureDef.friction = Constants.PLAYER_GROUND_FRICTION;
             fixtureDef.isSensor = false;
+            fixtureDef.filter.categoryBits = 0x0004;
+            fixtureDef.filter.maskBits = (short) 0xFFFB;
 
             body.createFixture(fixtureDef);
             shape.dispose();
