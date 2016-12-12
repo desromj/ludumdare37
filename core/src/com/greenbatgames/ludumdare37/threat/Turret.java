@@ -39,7 +39,7 @@ public class Turret extends PhysicsBody implements Threat {
     Sprite base, gunInactive, gunActive;
     Vector2 jointLocation;
 
-    public Turret(float x, float y, float width, float height, float range, float fov, World world, RayHandler rayHandler) {
+    public Turret(float x, float y, float width, float height, World world, RayHandler rayHandler) {
         super(x, y, width, height, world);
 
         jointLocation = new Vector2(

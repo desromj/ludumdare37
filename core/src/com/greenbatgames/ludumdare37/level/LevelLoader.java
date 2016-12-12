@@ -105,8 +105,23 @@ public class LevelLoader {
                                     p.getY() - Constants.TILE_WIDTH*2.5f,
                                     p.getBoundingRectangle().getWidth(),
                                     p.getBoundingRectangle().getHeight(),
-                                    object.getProperties().get("range", Constants.TURRET_RANGE, Float.class),
-                                    object.getProperties().get("fov", Constants.TURRET_ANG_RADIUS, Float.class)*MathUtils.degRad,
+                                    loadedLevel.world,
+                                    loadedLevel.rayHandler);
+                            t.getAimer().setFixed(object.getProperties().get("fixed", false, Boolean.class));
+                            t.getAimer().setMinAngle(object.getProperties().get("minAngle", Constants.TURRET_MIN_ANGLE, Float.class)*MathUtils.degRad);
+                            t.getAimer().setMaxAngle(object.getProperties().get("maxAngle", Constants.TURRET_MAX_ANGLE, Float.class)*MathUtils.degRad);
+                            t.getAimer().setFixedAngle(object.getProperties().get("fixedAngle", Constants.TURRET_MIN_ANGLE, Float.class)*MathUtils.degRad);
+                            t.getAimer().setWaitTime(object.getProperties().get("waitTime", Constants.TURRET_WAIT_TIME, Float.class));
+                            t.getAimer().setWaitTimer(t.getAimer().getWaitTime() - object.getProperties().get("timeOffset", 0f, Float.class));
+                            t.getAimer().setRotationSpeed(object.getProperties().get("rotationSpeed", Constants.TURRET_ROTATION_SPEED, Float.class));
+
+                            loadedLevel.stage.addActor(t);
+                        } else if(name.compareTo("turretS") == 0){
+                            TurretSniper t = new TurretSniper(
+                                    p.getX(),
+                                    p.getY() - Constants.TILE_WIDTH*2.5f,
+                                    p.getBoundingRectangle().getWidth(),
+                                    p.getBoundingRectangle().getHeight(),
                                     loadedLevel.world,
                                     loadedLevel.rayHandler);
                             t.getAimer().setFixed(object.getProperties().get("fixed", false, Boolean.class));

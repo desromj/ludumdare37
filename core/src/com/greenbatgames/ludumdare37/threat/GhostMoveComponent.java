@@ -17,8 +17,8 @@ public class GhostMoveComponent implements Initializable {
     Ghost ghost;
     boolean facingRight;
 
-    Sound soundHover;
-    Sound soundHaunt;
+    private Sound soundHover;
+    private Sound soundHaunt;
     long hauntSoundID;
 
     boolean soundPlaying;
@@ -64,5 +64,7 @@ public class GhostMoveComponent implements Initializable {
 
     public void stopPlayingSound(){
         soundShouldBePlaying = false;
+        soundHover.stop();
+        soundHaunt.stop();
     }
 }

@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Disposable;
 import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
@@ -29,7 +30,7 @@ import box2dLight.RayHandler;
  */
 
 // Laser grids turn on and off periodically, and if on, will kill player on contact
-public class LaserGrid extends PhysicsBody implements Threat {
+public class LaserGrid extends PhysicsBody implements Threat, Disposable {
 
     private float onPeriod, offPeriod, timeUntilSwitch, warmupTime;
     private boolean active;
@@ -206,6 +207,10 @@ public class LaserGrid extends PhysicsBody implements Threat {
                         (getTop() + getHeight() / 4f) / Constants.PTM);
             }
         }
+    }
+
+    public void dispose(){
+        laserSound.stop();
     }
 
     /*

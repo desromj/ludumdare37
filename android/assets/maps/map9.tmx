@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="74">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="79">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="4" columns="0">
   <tile id="0">
    <image width="32" height="32" source="../tiles/tileWall.png"/>
@@ -62,7 +62,7 @@
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
@@ -81,24 +81,15 @@
   <object id="18" x="0" y="480" width="32" height="192"/>
   <object id="19" x="0" y="672" width="1600" height="32"/>
   <object id="20" x="1568" y="480" width="32" height="192"/>
+  <object id="77" x="768" y="640" width="32" height="32"/>
+  <object id="78" x="1216" y="640" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="objects">
   <object id="24" name="exitpoint" x="1472" y="128" width="64" height="96"/>
-  <object id="59" name="turret" x="80" y="368">
-   <properties>
-    <property name="fixed" type="bool" value="true"/>
-    <property name="fixedAngle" type="float" value="0"/>
-    <property name="range" type="float" value="800"/>
-   </properties>
-   <polygon points="16,16 -16,80 48,80"/>
-  </object>
   <object id="60" name="start" x="112" y="144">
    <ellipse/>
   </object>
-  <object id="62" name="goon" x="304" y="656">
-   <ellipse/>
-  </object>
-  <object id="63" name="goon" x="1232" y="656">
+  <object id="62" name="goon" x="688" y="400">
    <ellipse/>
   </object>
   <object id="69" name="lasergrid" x="576" y="32" width="32" height="192">
@@ -127,6 +118,19 @@
     <property name="warmupTime" type="float" value="0.25"/>
    </properties>
   </object>
+  <object id="74" name="ghost" x="1488" y="336">
+   <properties>
+    <property name="wallhack" type="bool" value="false"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="75" name="ghost" x="112" y="360">
+   <properties>
+    <property name="wallhack" type="bool" value="false"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="76" name="lava" x="800" y="640" width="416" height="32"/>
  </objectgroup>
  <objectgroup name="lights" visible="0">
   <object id="49" name="light" x="144" y="264">
