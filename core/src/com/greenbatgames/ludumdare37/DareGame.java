@@ -22,7 +22,7 @@ public class DareGame extends Game {
         instance = this;
         score = new Score();
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/LD37.wav"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/LD37music.mp3"));
         music.setLooping(true);
         music.play();
 
