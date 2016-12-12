@@ -19,6 +19,7 @@ import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.hud.EndLevelHUD;
 import com.greenbatgames.ludumdare37.hud.GameHUD;
 import com.greenbatgames.ludumdare37.hud.RestartHUD;
+import com.greenbatgames.ludumdare37.iface.Disposable;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.util.Constants;
@@ -33,12 +34,11 @@ import box2dLight.RayHandler;
  */
 
 // All game logic goes here
-public class Level implements Initializable {
+public class Level implements Initializable, Disposable {
 
     World world;
     Stage stage;
 
-    //TODO: dispose() this.
     RayHandler rayHandler;
     List<DareLight> lights;
 
@@ -188,5 +188,15 @@ public class Level implements Initializable {
         lights.add(l);
         stage.addActor(l);
         return l;
+    }
+
+    // Dispose lights and actor to prepare for next level
+    public void dispose() {
+        rayHandler.removeAll();
+        rayHandler.dispose();
+        for (Actor actor: stage.getActors()) {
+            if (actor instanceof Disposable)
+                ((Disposable) actor).dispose();
+        }
     }
 }
