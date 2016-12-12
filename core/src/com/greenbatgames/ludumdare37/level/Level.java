@@ -19,6 +19,7 @@ import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.hud.EndLevelHUD;
 import com.greenbatgames.ludumdare37.hud.GameHUD;
 import com.greenbatgames.ludumdare37.hud.RestartHUD;
+import com.greenbatgames.ludumdare37.iface.Disposable;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.util.Constants;
@@ -33,17 +34,13 @@ import box2dLight.RayHandler;
  */
 
 // All game logic goes here
-public class Level implements Initializable {
+public class Level implements Initializable, Disposable {
 
     World world;
     Stage stage;
 
-    //TODO: dispose() this.
     RayHandler rayHandler;
     List<DareLight> lights;
-
-    Box2DDebugRenderer debugRenderer;
-    Matrix4 debugMatrix;
 
     TiledMap tiledMap;
     TiledMapRenderer tiledMapRenderer;
@@ -66,9 +63,6 @@ public class Level implements Initializable {
         rayHandler = new RayHandler(world);
         rayHandler.setAmbientLight(0.2f);
         lights = new LinkedList<DareLight>();
-        //p.setSoftnessLength(0);
-
-        debugRenderer = new Box2DDebugRenderer();
 
         // Initialize the first few objects in every level
         background = new Background("graphics/bg.jpg");
@@ -96,13 +90,6 @@ public class Level implements Initializable {
         stage.getViewport().apply();
         tiledMapRenderer.setView((OrthographicCamera) stage.getViewport().getCamera());
 
-        // Scale the debug Matrix to box2d sizes
-        debugMatrix = stage.getViewport().getCamera().combined.cpy().scale(
-                Constants.PTM,
-                Constants.PTM,
-                1
-        );
-
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -111,16 +98,18 @@ public class Level implements Initializable {
         tiledMapRenderer.render();
         stage.draw();
 
-        rayHandler.setCombinedMatrix(debugMatrix);
+        // Scale the rayHandler to Box2D values
+        rayHandler.setCombinedMatrix(stage.getViewport().getCamera().combined.cpy().scale(
+                Constants.PTM,
+                Constants.PTM,
+                1));
         rayHandler.updateAndRender();
-        // Render the debug physics engine settings
-        debugRenderer.render(world, debugMatrix);
-
+      
         gameHUD.act(delta);
         restartHUD.act(delta);
         endLevelHUD.act(delta);
 
-        //TODO: Check if this is the correct way of rendering the HUDs
+        // Render HUDs after the main game world
         stage.getBatch().begin();
         gameHUD.draw(stage.getBatch(), 1f);
         restartHUD.draw(stage.getBatch(), 1f);
@@ -188,5 +177,15 @@ public class Level implements Initializable {
         lights.add(l);
         stage.addActor(l);
         return l;
+    }
+
+    // Dispose lights and actor to prepare for next level
+    public void dispose() {
+        rayHandler.removeAll();
+        rayHandler.dispose();
+        for (Actor actor: stage.getActors()) {
+            if (actor instanceof Disposable)
+                ((Disposable) actor).dispose();
+        }
     }
 }
