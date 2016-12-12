@@ -48,8 +48,10 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
     }
 
     public void nextLevel() {
+
+        level.dispose();
+
         if (levelList.hasNextLevel()) {
-            level.dispose();
             level = LevelLoader.loadLevel(levelList.nextResource());
         } else {
             DareGame.setScreen(ScoreScreen.class);
