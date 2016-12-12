@@ -193,13 +193,9 @@ public class LaserGrid extends PhysicsBody implements Threat {
                             @Override
                             public boolean reportFixture(Fixture fixture) {
 
-                                if (!(fixture.getBody().getUserData() instanceof LaserGrid))
-                                    Gdx.app.log(TAG, "AABB QueryCallback triggered for " + fixture.getBody().getUserData());
-
                                 Player player = GameScreen.level().getPlayer();
                                 if (fixture.getBody().getUserData() == player && !player.isDead()) {
                                     touchPlayer(player);
-                                    Gdx.app.log(TAG, "AABB QueryCallback triggered for Player");
                                 }
                                 return true;
                             }

@@ -89,8 +89,6 @@ public class Turret extends PhysicsBody implements Threat {
             float r = Constants.TURRET_RANGE/Constants.PTM;
             float a = Constants.TURRET_ANG_RADIUS*MathUtils.degRad;
 
-            Gdx.app.log("", String.valueOf(range/Constants.PTM) + " " + String.valueOf(Constants.TURRET_RANGE/Constants.PTM));
-            Gdx.app.log("", String.valueOf(range/Constants.PTM) + " " + String.valueOf(Constants.TURRET_RANGE/Constants.PTM));
             shape.set(new float[]{
                     0, 0,
                     r*MathUtils.cos(a), r*MathUtils.sin(a),
