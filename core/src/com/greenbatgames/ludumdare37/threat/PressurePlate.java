@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -26,6 +27,8 @@ public class PressurePlate extends PhysicsBody implements Threat {
     PressurePlateComponent presser;
     private Sprite sprite;
 
+    ParticleEffect particleEffect;
+
     boolean pressedDone;
 
     public PressurePlate(float x, float y, float width, float height, World world) {
@@ -33,6 +36,13 @@ public class PressurePlate extends PhysicsBody implements Threat {
         presser = new PressurePlateComponent(this);
         sprite = new Sprite(new Texture(Gdx.files.internal("graphics/pressurePlate.png")));
         pressedDone = false;
+
+        particleEffect = new ParticleEffect();
+        particleEffect.load(
+                Gdx.files.internal("graphics/explosion.pe"),
+                Gdx.files.internal("graphics")
+        );
+        particleEffect.setPosition(x, y);
 
         init();
     }
@@ -119,6 +129,11 @@ public class PressurePlate extends PhysicsBody implements Threat {
     @Override
     public void act(float delta){
         presser.update(delta);
+
+        if (pressedDone) {
+            particleEffect.update(delta);
+        }
+
         if(presser.pressed && !pressedDone){
             setPosition(getX(), getY() - Constants.PRESSURE_PLATE_HEIGHT);
             //getBody().setTransform((getX() + getWidth()/2f)/Constants.PTM, (getY()-Constants.PRESSURE_PLATE_HEIGHT)/Constants.PTM, 0);
@@ -128,7 +143,10 @@ public class PressurePlate extends PhysicsBody implements Threat {
 
     public void draw(Batch batch, float parentAlpha) {
 
-        if (pressedDone) return;
+        if (pressedDone) {
+            particleEffect.draw(batch);
+            return;
+        }
 
         batch.draw(
                 sprite.getTexture(),
