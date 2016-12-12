@@ -88,7 +88,7 @@
    <properties>
     <property name="fixed" type="bool" value="true"/>
     <property name="fixedAngle" type="float" value="0"/>
-    <property name="range" type="float" value="3500"/>
+    <property name="range" type="float" value="800"/>
    </properties>
    <polygon points="16,16 -16,80 48,80"/>
   </object>

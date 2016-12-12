@@ -1,16 +1,12 @@
 package com.greenbatgames.ludumdare37.level;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -30,8 +26,6 @@ import com.greenbatgames.ludumdare37.util.Constants;
 import java.util.LinkedList;
 import java.util.List;
 
-import box2dLight.ConeLight;
-import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
 /**
@@ -90,9 +84,6 @@ public class Level implements Initializable {
         endLevelHUD = new EndLevelHUD();
 
         stage.addActor(player);
-        //stage.addActor(restartHUD);
-        //stage.addActor(gameHUD);
-        //stage.addActor(endLevelHUD);
     }
 
     public void render(float delta) {
@@ -123,7 +114,7 @@ public class Level implements Initializable {
         rayHandler.setCombinedMatrix(debugMatrix);
         rayHandler.updateAndRender();
         // Render the debug physics engine settings
-        debugRenderer.render(world, debugMatrix);
+        //debugRenderer.render(world, debugMatrix);
 
         gameHUD.act(delta);
         restartHUD.act(delta);

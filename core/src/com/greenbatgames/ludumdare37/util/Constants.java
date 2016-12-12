@@ -65,9 +65,14 @@ public class Constants {
     public static final float GOON_WAIT_TIME = 2f;
     public static final float GOON_WALK_TIME = 3f;
 
+    //Laser Grid Values
     public static final float LASERGRID_ON_TIME = 2f;
     public static final float LASERGRID_OFF_TIME = 3f;
     public static final float LASERGRID_WARMUP_TIME = 0.5f;
+
+    //Lava Values
+    public static final float LAVA_BUBBLE_LOW_TIME = 0.75f;
+    public static final float LAVA_BUBBLE_HIGH_TIME = 1.25f;
 
     //Poison Gas Values
     public static final float GAS_DURATION = 30f;
