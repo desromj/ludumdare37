@@ -1,10 +1,12 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -17,6 +19,9 @@ import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
+
 /**
  * Created by Quiv on 10-12-2016.
  */
@@ -27,9 +32,11 @@ public class LaserGrid extends PhysicsBody implements Threat {
     private float onPeriod, offPeriod, timeUntilSwitch, warmupTime;
     private boolean active;
 
+    PointLight light;
+
     private Sprite bottom, top, laser;
 
-    public LaserGrid(float x, float y, float width, float height, World world) {
+    public LaserGrid(float x, float y, float width, float height, World world, RayHandler rayHandler) {
         super(x, y, width, height, world);
 
         onPeriod = 2f;
@@ -37,6 +44,14 @@ public class LaserGrid extends PhysicsBody implements Threat {
         warmupTime = 0.5f;
         timeUntilSwitch = onPeriod;
         active = true;
+
+        light = new PointLight(
+                rayHandler,
+                20,
+                new Color(1f, 0.3f, 0.3f, 0.5f),
+                Math.max(height, width)/ Constants.PTM,
+                (x + width/2)/ Constants.PTM,
+                (y + height/2)/Constants.PTM);
 
         bottom = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridBase.png")));
         top = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridTop.png")));
@@ -58,13 +73,14 @@ public class LaserGrid extends PhysicsBody implements Threat {
         // Use circleOut interpolation with this percentage
         float ratio;
 
+        light.setActive(active);
         if (active) {
             ratio = 1.0f;
         } else if (timeUntilSwitch > warmupTime) {
             ratio = 0.0f;
         } else {
             ratio = (warmupTime - timeUntilSwitch) / warmupTime;
-            ratio = Interpolation.circleOut.apply(ratio);
+            ratio = Interpolation.circleOut.apply(ratio)*0.3f;
         }
 
         // Draw lasers if the ratio is above 0

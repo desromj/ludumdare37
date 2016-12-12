@@ -21,7 +21,7 @@ public class DareLight extends Actor implements Initializable{
     public DareLight(float x, float y, RayHandler rayHandler, World world){
         light = new ConeLight(
                 rayHandler,
-                50,
+                20,
                 new Color(1, 1, 1, 0.8f),
                 400/Constants.PTM,
                 x/Constants.PTM,

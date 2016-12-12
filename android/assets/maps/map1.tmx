@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="44">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="53">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="3" columns="0">
   <tile id="0">
    <image width="32" height="32" source="../tiles/tileWall.png"/>
@@ -63,7 +63,7 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
- <objectgroup name="collision">
+ <objectgroup name="collision" visible="0">
   <object id="1" x="0" y="0" width="1600" height="32"/>
   <object id="7" x="0" y="224" width="480" height="32"/>
   <object id="8" x="0" y="32" width="32" height="192"/>
@@ -81,31 +81,33 @@
  </objectgroup>
  <objectgroup name="objects">
   <object id="24" name="exitpoint" x="1472" y="576" width="64" height="96"/>
-  <object id="33" name="light" x="144" y="488">
+ </objectgroup>
+ <objectgroup name="lights">
+  <object id="44" name="light" x="144" y="40">
    <ellipse/>
   </object>
-  <object id="36" name="light" x="144" y="264">
+  <object id="45" name="light" x="816" y="264">
    <ellipse/>
   </object>
-  <object id="37" name="light" x="144" y="40">
+  <object id="46" name="light" x="816" y="40">
    <ellipse/>
   </object>
-  <object id="38" name="light" x="1456" y="488">
+  <object id="47" name="light" x="1456" y="264">
    <ellipse/>
   </object>
-  <object id="39" name="light" x="1456" y="264">
+  <object id="48" name="light" x="816" y="488">
    <ellipse/>
   </object>
-  <object id="40" name="light" x="1456" y="40">
+  <object id="49" name="light" x="144" y="264">
    <ellipse/>
   </object>
-  <object id="41" name="light" x="816" y="40">
+  <object id="50" name="light" x="1456" y="488">
    <ellipse/>
   </object>
-  <object id="42" name="light" x="816" y="264">
+  <object id="51" name="light" x="144" y="488">
    <ellipse/>
   </object>
-  <object id="43" name="light" x="816" y="488">
+  <object id="52" name="light" x="1456" y="40">
    <ellipse/>
   </object>
  </objectgroup>

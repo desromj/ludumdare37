@@ -4,6 +4,7 @@ package com.greenbatgames.ludumdare37.level;
  * Created by Quiv on 09-12-2016.
  */
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.Platform;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.threat.*;
 import com.greenbatgames.ludumdare37.util.Constants;
 
@@ -25,6 +27,10 @@ public class LevelLoader {
 
     // Can be passed parameters to load resources from outside editors
     public static Level loadLevel(String filename) {
+        if(GameScreen.level() != null){
+
+        }
+
         //Load tmx file into TiledMap object
         TiledMap tiledMap = new TmxMapLoader().load(filename);
 
@@ -40,18 +46,17 @@ public class LevelLoader {
                     if(object instanceof RectangleMapObject){
                         Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-                        Platform platform = new Platform(   rect.getX(),
-                                                            rect.getY(),
-                                                            rect.getWidth(),
-                                                            rect.getHeight(),
-                                                            loadedLevel.world);
+                        Platform platform = new Platform(
+                                rect.getX(),
+                                rect.getY(),
+                                rect.getWidth(),
+                                rect.getHeight(),
+                                loadedLevel.world);
 
                         loadedLevel.stage.addActor(platform);
                     }
                 }
-                continue;
-            }
-            if(layer.getName().equals("objects")){
+            } else if(layer.getName().equals("objects")){
                 for(MapObject object : layer.getObjects()){
                     String name = object.getName();
 
@@ -67,21 +72,19 @@ public class LevelLoader {
                             loadedLevel.stage.addActor(g);
                         } else if(name.compareTo("goon") == 0) {
                             loadedLevel.stage.addActor(new Goon(e.x, e.y, 2*Constants.PLAYER_RADIUS * 2f,Constants.PLAYER_RADIUS * 4f, loadedLevel.world));
-                        } else if(name.compareTo("light") == 0){
-                            loadedLevel.addLight(e.x, e.y);
                         }
                     } else if(object instanceof RectangleMapObject){
                         Rectangle r = ((RectangleMapObject) object).getRectangle();
                         if(name.compareTo("exitpoint") == 0){
                             loadedLevel.stage.addActor(new ExitPoint(r.x, r.y - r.height/2f, r.width, r.height, loadedLevel.world));
                         } else if(name.compareTo("lasergrid") == 0) {
-                            loadedLevel.stage.addActor(new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world));
+                            loadedLevel.stage.addActor(new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world, loadedLevel.rayHandler));
                         } else if(name.compareTo("mine") == 0){
                             loadedLevel.stage.addActor(new PressurePlate(r.x, r.y + Constants.PRESSURE_PLATE_HEIGHT/2f, r.width, Constants.PRESSURE_PLATE_HEIGHT, loadedLevel.world));
                         } else if(name.compareTo("spikes") == 0){
                             loadedLevel.stage.addActor(new Spike(r.x, r.y, r.width, r.height, loadedLevel.world));
                         } else if(name.compareTo("lava") == 0){
-                            loadedLevel.stage.addActor(new Lava(r.x, r.y, r.width, r.height, loadedLevel.world));
+                            loadedLevel.stage.addActor(new Lava(r.x, r.y, r.width, r.height, loadedLevel.world, loadedLevel.rayHandler));
                         }
                     } else if(object instanceof PolygonMapObject){
                         Polygon p = ((PolygonMapObject) object).getPolygon();
@@ -91,7 +94,8 @@ public class LevelLoader {
                                     p.getY() - Constants.TILE_WIDTH*2.5f,
                                     p.getBoundingRectangle().getWidth(),
                                     p.getBoundingRectangle().getHeight(),
-                                    loadedLevel.world);
+                                    loadedLevel.world,
+                                    loadedLevel.rayHandler);
                             t.getAimer().setRange(object.getProperties().get("range", Constants.TURRET_RANGE, Float.class));
                             t.getAimer().setFixed(object.getProperties().get("fixed", false, Boolean.class));
                             t.getAimer().setFixedAngle(object.getProperties().get("fixedAngle", Constants.TURRET_MIN_ANGLE, Float.class)*MathUtils.degRad);
@@ -100,6 +104,13 @@ public class LevelLoader {
 
                             loadedLevel.stage.addActor(t);
                         }
+                    }
+                }
+            } else if(layer.getName().equals("lights")){
+                for(MapObject object : layer.getObjects()) {
+                    if(object instanceof EllipseMapObject){
+                        Ellipse e = ((EllipseMapObject) object).getEllipse();
+                        loadedLevel.addLight(e.x, e.y);
                     }
                 }
             }
