@@ -3,6 +3,7 @@ package com.greenbatgames.ludumdare37.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -32,6 +33,7 @@ public class Player extends PhysicsBody implements Initializable {
 
     private boolean dead;
     private Sprite sprite;
+    private ParticleEffect deathEffect;
 
     public Player(float x, float y, float width, float height, World world)
     {
@@ -40,6 +42,13 @@ public class Player extends PhysicsBody implements Initializable {
         mover = new MoveComponent(this);
         climber = new ClimbComponent(this);
         sprite = new Sprite(new Texture(Gdx.files.internal("graphics/player.png")));
+
+        deathEffect = new ParticleEffect();
+        deathEffect.load(
+                Gdx.files.internal("graphics/blood-spurt.pe"),
+                Gdx.files.internal("graphics")
+        );
+        deathEffect.scaleEffect(0.5f);
 
         init();
     }
@@ -147,7 +156,13 @@ public class Player extends PhysicsBody implements Initializable {
     @Override
     public void act(float delta) {
 
-        if (dead) return;
+        if (dead) {
+            deathEffect.update(delta);
+            deathEffect.setPosition(
+                    getX() + getWidth() / 2f,
+                    getY() + getHeight() / 2f);
+            return;
+        }
 
         super.act(delta);
 
@@ -167,7 +182,10 @@ public class Player extends PhysicsBody implements Initializable {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        if (dead) return;
+        if (dead) {
+            deathEffect.draw(batch);
+            return;
+        }
 
         batch.draw(
                 sprite.getTexture(),
@@ -209,6 +227,14 @@ public class Player extends PhysicsBody implements Initializable {
 
     public void setDead(boolean value) {
         this.dead = value;
+
+        if (dead) {
+            deathEffect.setPosition(
+                    getX() + getWidth() / 2f,
+                    getY() + getHeight() / 2f);
+            deathEffect.start();
+        }
+
         body.setLinearVelocity(0f, 0f);
     }
 
