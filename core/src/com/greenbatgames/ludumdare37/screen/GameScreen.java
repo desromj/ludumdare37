@@ -71,6 +71,8 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
     public int getTotalNumberLevels() { return levelList.size(); }
 
+    public String currentTooltip() { return levelList.currentTooltip(); }
+    public boolean hasCurrentTooltip() { return levelList.hasCurrentTooltip(); }
 
 
     /*
