@@ -22,6 +22,8 @@ public class TurretAimComponent implements Initializable {
     Turret turret;
 
     private float range;
+    private float fov;
+
     boolean playerInRange;
     boolean playerInSight;
     boolean playerInCrosshairs;
@@ -62,6 +64,8 @@ public class TurretAimComponent implements Initializable {
 
     public void init(){
         range = Constants.TURRET_RANGE;
+        fov = Constants.TURRET_ANG_RADIUS*MathUtils.degRad;
+
         playerInRange = false;
         playerInSight = false;
         fired = false;
@@ -229,6 +233,18 @@ public class TurretAimComponent implements Initializable {
         return 1.0f - ratio;
     }
 
+    public float getRange(){
+        return range;
+    }
+
+    public float getFOV(){
+        return range;
+    }
+
+    public float getWaitTime(){
+        return waitTime;
+    }
+
     public void setFixed(boolean fixed){
         this.isFixed = fixed;
     }
@@ -239,8 +255,20 @@ public class TurretAimComponent implements Initializable {
         currentAngle = fixedAngle;
     }
 
-    public void setRange(float range){
-        this.range = range;
+    public void setMinAngle(float a){
+        minAngle = a;
+    }
+
+    public void setMaxAngle(float a){
+        maxAngle = a;
+    }
+
+    public void setRange(float r){
+        range = r;
+    }
+
+    public void setFOV(float f){
+        fov = f;
     }
 
     public void setRotationSpeed(float rotationSpeed){
@@ -249,5 +277,9 @@ public class TurretAimComponent implements Initializable {
 
     public void setWaitTime(float waitTime){
         this.waitTime = waitTime;
+    }
+
+    public void setWaitTimer(float time) {
+        waitTimer = time;
     }
 }

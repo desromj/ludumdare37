@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
@@ -30,13 +31,15 @@ import box2dLight.RayHandler;
 public class Turret extends PhysicsBody implements Threat {
 
     TurretAimComponent aimer;
+    private float range;
+    private float fov;
 
     PointLight glow;
 
     Sprite base, gunInactive, gunActive;
     Vector2 jointLocation;
 
-    public Turret(float x, float y, float width, float height, World world, RayHandler rayHandler) {
+    public Turret(float x, float y, float width, float height, float range, float fov, World world, RayHandler rayHandler) {
         super(x, y, width, height, world);
 
         jointLocation = new Vector2(
@@ -45,6 +48,10 @@ public class Turret extends PhysicsBody implements Threat {
         );
 
         aimer = new TurretAimComponent(this);
+        aimer.setRange(range);
+        this.range = range;
+        aimer.setFOV(fov);
+        this.fov = fov;
 
         glow = new PointLight(
                 rayHandler,
@@ -55,6 +62,7 @@ public class Turret extends PhysicsBody implements Threat {
                 jointLocation.y/Constants.PTM);
         glow.setActive(false);
         glow.setXray(true);
+        glow.setContactFilter(DareLight.getFilter());
 
         base = new Sprite(new Texture(Gdx.files.internal("graphics/turretMount.png")));
         gunInactive = new Sprite(new Texture(Gdx.files.internal("graphics/turretInactive.png")));
@@ -79,7 +87,10 @@ public class Turret extends PhysicsBody implements Threat {
             PolygonShape shape = new PolygonShape();
 
             float r = Constants.TURRET_RANGE/Constants.PTM;
-            float a = Constants.TURRET_ANG_RADIUS;
+            float a = Constants.TURRET_ANG_RADIUS*MathUtils.degRad;
+
+            Gdx.app.log("", String.valueOf(range/Constants.PTM) + " " + String.valueOf(Constants.TURRET_RANGE/Constants.PTM));
+            Gdx.app.log("", String.valueOf(range/Constants.PTM) + " " + String.valueOf(Constants.TURRET_RANGE/Constants.PTM));
             shape.set(new float[]{
                     0, 0,
                     r*MathUtils.cos(a), r*MathUtils.sin(a),

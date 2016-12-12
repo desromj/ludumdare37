@@ -1,20 +1,24 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
+import com.greenbatgames.ludumdare37.util.DareSounds;
 
 import box2dLight.ConeLight;
 import box2dLight.RayHandler;
@@ -32,6 +36,12 @@ public class Lava extends PhysicsBody implements Threat {
 
     ParticleEffect peLeft, peRight;
 
+    float bubbleLowTimer;
+    float bubbleHighTimer;
+    Sound bubbleLowSound;
+    Sound bubbleHighSound;
+    Sound fizzleSound;
+
     public Lava(float x, float y, float width, float height, World world, RayHandler rayHandler) {
         super(x, y, width, height, world);
         sprite = new Sprite(new Texture(Gdx.files.internal("tiles/lava.png")));
@@ -46,6 +56,7 @@ public class Lava extends PhysicsBody implements Threat {
                 (y+1)/Constants.PTM,
                 90f,
                 90f);
+        light.setContactFilter(DareLight.getFilter());
 
         // Load particle effects
         peLeft = new ParticleEffect();
@@ -63,6 +74,13 @@ public class Lava extends PhysicsBody implements Threat {
         peRight.setPosition(getX() + getWidth(), getY());
         peRight.scaleEffect(0.25f);
         peRight.start();
+
+        bubbleHighTimer = Constants.LAVA_BUBBLE_HIGH_TIME;
+        bubbleLowTimer = Constants.LAVA_BUBBLE_LOW_TIME;
+
+        bubbleHighSound = DareSounds.BUBBLEHIGH.getSound();
+        bubbleLowSound = DareSounds.BUBBLELOW.getSound();
+        fizzleSound = DareSounds.FIZZLE.getSound();
     }
 
     @Override
@@ -106,6 +124,7 @@ public class Lava extends PhysicsBody implements Threat {
     @Override
     public void touchPlayer(Player player) {
         GameScreen.level().killPlayer();
+        fizzleSound.play(DareSounds.FIZZLE.getVolume());
     }
 
     @Override
@@ -115,6 +134,20 @@ public class Lava extends PhysicsBody implements Threat {
 
         if (peLeft.isComplete()) peLeft.reset();
         if (peRight.isComplete()) peRight.reset();
+
+        bubbleLowTimer -= delta;
+        if(bubbleLowTimer < 0){
+            bubbleLowTimer = MathUtils.random(0.5f, 1.5f)*Constants.LAVA_BUBBLE_LOW_TIME;
+            long id = bubbleLowSound.play(DareSounds.BUBBLELOW.getVolume());
+            bubbleLowSound.setPitch(id, MathUtils.random(0.85f, 1.3f));
+        }
+
+        bubbleHighTimer -= delta;
+        if(bubbleHighTimer < 0){
+            bubbleHighTimer = MathUtils.random(0.5f, 1.5f)*Constants.LAVA_BUBBLE_HIGH_TIME;
+            long id = bubbleHighSound.play(DareSounds.BUBBLEHIGH.getVolume());
+            bubbleHighSound.setPitch(id, MathUtils.random(0.85f, 1.3f));
+        }
     }
 
     @Override

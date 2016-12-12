@@ -61,6 +61,8 @@ public class Ghost extends PhysicsBody implements Threat {
             fixtureDef.restitution = 0f;
             fixtureDef.friction = Constants.PLAYER_GROUND_FRICTION;
             fixtureDef.isSensor = false;
+            fixtureDef.filter.categoryBits = 0x0004;
+            fixtureDef.filter.maskBits = (short) 0xFFFB;
 
             body.createFixture(fixtureDef);
             shape.dispose();

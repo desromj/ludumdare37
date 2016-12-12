@@ -1,16 +1,12 @@
 package com.greenbatgames.ludumdare37.level;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -30,8 +26,6 @@ import com.greenbatgames.ludumdare37.util.Constants;
 import java.util.LinkedList;
 import java.util.List;
 
-import box2dLight.ConeLight;
-import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
 /**
@@ -43,7 +37,8 @@ public class Level implements Initializable {
 
     World world;
     Stage stage;
-    //TODO: Figure out where rayHandler should be dispose()'d
+
+    //TODO: dispose() this.
     RayHandler rayHandler;
     List<DareLight> lights;
 
@@ -89,9 +84,6 @@ public class Level implements Initializable {
         endLevelHUD = new EndLevelHUD();
 
         stage.addActor(player);
-        stage.addActor(restartHUD);
-        stage.addActor(gameHUD);
-        stage.addActor(endLevelHUD);
     }
 
     public void render(float delta) {
@@ -123,6 +115,17 @@ public class Level implements Initializable {
         rayHandler.updateAndRender();
         // Render the debug physics engine settings
         //debugRenderer.render(world, debugMatrix);
+
+        gameHUD.act(delta);
+        restartHUD.act(delta);
+        endLevelHUD.act(delta);
+
+        //TODO: Check if this is the correct way of rendering the HUDs
+        stage.getBatch().begin();
+        gameHUD.draw(stage.getBatch(), 1f);
+        restartHUD.draw(stage.getBatch(), 1f);
+        endLevelHUD.draw(stage.getBatch(), 1f);
+        stage.getBatch().end();
     }
 
     // Getters and Setters
@@ -180,7 +183,10 @@ public class Level implements Initializable {
         this.tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
     }
 
-    public void addLight(float x, float y){
-        lights.add(new DareLight(x, y, rayHandler, world));
+    public DareLight addLight(float x, float y){
+        DareLight l = new DareLight(x, y, rayHandler, world);
+        lights.add(l);
+        stage.addActor(l);
+        return l;
     }
 }

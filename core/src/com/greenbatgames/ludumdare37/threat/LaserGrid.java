@@ -1,23 +1,25 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.World;
+import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
+import com.greenbatgames.ludumdare37.util.DareSounds;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
@@ -36,6 +38,9 @@ public class LaserGrid extends PhysicsBody implements Threat {
 
     private Sprite bottom, top, laser;
 
+    Sound laserSound;
+    boolean soundPlaying;
+
     public LaserGrid(float x, float y, float width, float height, World world, RayHandler rayHandler) {
         super(x, y, width, height, world);
 
@@ -52,10 +57,14 @@ public class LaserGrid extends PhysicsBody implements Threat {
                 Math.max(height, width)/ Constants.PTM,
                 (x + width/2)/ Constants.PTM,
                 (y + height/2)/Constants.PTM);
+        light.setContactFilter(DareLight.getFilter());
 
         bottom = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridBase.png")));
         top = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridTop.png")));
         laser = new Sprite(new Texture(Gdx.files.internal("graphics/laserGrid.png")));
+
+        laserSound = DareSounds.LASERGRIDFIRE.getSound();
+        soundPlaying = false;
     }
 
     @Override
@@ -64,6 +73,13 @@ public class LaserGrid extends PhysicsBody implements Threat {
 
         if (timeUntilSwitch < 0f)
             trigger();
+        if(active && !soundPlaying){
+            laserSound.play(DareSounds.LASERGRIDFIRE.getVolume());
+            soundPlaying = true;
+        } else if(!active && soundPlaying){
+            laserSound.stop();
+            soundPlaying = false;
+        }
     }
 
     @Override
@@ -194,5 +210,29 @@ public class LaserGrid extends PhysicsBody implements Threat {
                         (getTop() + getHeight() / 4f) / Constants.PTM);
             }
         }
+    }
+
+    /*
+    Getters and setters
+     */
+
+    public float getOnPeriod(){
+        return onPeriod;
+    }
+
+    public void setOnPeriod(float t){
+        onPeriod = t;
+    }
+
+    public void setOffPeriod(float t){
+        offPeriod = t;
+    }
+
+    public void setWarmupTime(float t){
+        warmupTime = t;
+    }
+
+    public void setTimeUntilSwitch(float t){
+        timeUntilSwitch = t;
     }
 }

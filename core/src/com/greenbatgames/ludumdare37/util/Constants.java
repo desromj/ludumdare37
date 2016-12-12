@@ -52,6 +52,11 @@ public class Constants {
 
     public static final float HORIZONTAL_MOVE_DAMPEN = 0.5f;
 
+    //Light values
+    public static final float LIGHTS_AMBIENT_LEVEL = 0.2f;
+    public static final float LIGHTS_FLICKER_OFF_TIME = 0.1f;
+    public static final float LIGHTS_FLICKER_ON_TIME = 1f;
+
     //Ghost Values
     public static final float GHOST_MOVE_SPEED = WORLD_WIDTH / 256f;
 
@@ -59,6 +64,15 @@ public class Constants {
     public static final float GOON_MOVE_SPEED = WORLD_WIDTH / 160f;
     public static final float GOON_WAIT_TIME = 2f;
     public static final float GOON_WALK_TIME = 3f;
+
+    //Laser Grid Values
+    public static final float LASERGRID_ON_TIME = 2f;
+    public static final float LASERGRID_OFF_TIME = 3f;
+    public static final float LASERGRID_WARMUP_TIME = 0.5f;
+
+    //Lava Values
+    public static final float LAVA_BUBBLE_LOW_TIME = 0.75f;
+    public static final float LAVA_BUBBLE_HIGH_TIME = 1.25f;
 
     //Poison Gas Values
     public static final float GAS_DURATION = 30f;
@@ -76,7 +90,7 @@ public class Constants {
 
     //Turret Values
     public static final float TURRET_RANGE = 300f;
-    public static final float TURRET_ANG_RADIUS = 0.5f;
+    public static final float TURRET_ANG_RADIUS = 30f;
     public static final float TURRET_WAIT_TIME = 1.5f;
     public static final float TURRET_AIM_TIME = 1f;
     public static final float TURRET_ROTATION_SPEED = MathUtils.PI/2;
