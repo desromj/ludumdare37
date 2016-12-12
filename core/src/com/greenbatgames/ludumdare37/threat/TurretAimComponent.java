@@ -175,6 +175,7 @@ public class TurretAimComponent implements Initializable {
         playerInCrosshairs = false;
         Vector2 origin = turret.getBody().getPosition();
         Vector2 ray = new Vector2(range*MathUtils.cos(currentAngle), range*MathUtils.sin(currentAngle));
+        Gdx.app.log("turretAimComponent", String.valueOf(range));
         ray.add(origin);
         Vector2 playerPos = GameScreen.level().getPlayer().getBody().getPosition();
 
@@ -263,9 +264,9 @@ public class TurretAimComponent implements Initializable {
         maxAngle = a;
     }
 
-    public void setRange(float r){
-        range = r;
-    }
+    //public void setRange(float r){
+        //range = r;
+    //}
 
     public void setFOV(float f){
         fov = f;
