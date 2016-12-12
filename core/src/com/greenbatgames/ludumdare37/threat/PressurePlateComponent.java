@@ -1,9 +1,11 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
+import com.greenbatgames.ludumdare37.util.DareSounds;
 
 /**
  * Created by arne on 11-12-2016.
@@ -21,6 +23,9 @@ public class PressurePlateComponent implements Initializable{
     float pressedTimer;
     float explodedTimer;
 
+    Sound pressurePlateSound;
+    boolean soundPlaying;
+
     public PressurePlateComponent(PressurePlate pressurePlate){
         this.pressurePlate = pressurePlate;
     }
@@ -30,6 +35,9 @@ public class PressurePlateComponent implements Initializable{
         exploded = false;
 
         pressedTimer = Constants.PRESSURE_PLATE_DURATION;
+
+        pressurePlateSound = DareSounds.PRESSUREPLATE.getSound();
+        soundPlaying = false;
     }
 
     public void pressDown(){
@@ -38,6 +46,10 @@ public class PressurePlateComponent implements Initializable{
 
     public void update(float delta){
         if(pressed && !exploded){
+            if(!soundPlaying){
+                pressurePlateSound.play(DareSounds.PRESSUREPLATE.getVolume());
+                soundPlaying = true;
+            }
             pressedTimer -= delta;
             if(pressedTimer <= 0){
                 explode();

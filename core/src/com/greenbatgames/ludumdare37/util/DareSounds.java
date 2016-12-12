@@ -30,9 +30,9 @@ public enum DareSounds{
     BUBBLEHIGH("sounds/bubbleLow.mp3", 1),
     FIZZLE("sounds/fizzle.mp3", 0.2f),
 
-    LASERGRIDFIRE("sounds/laserGridFire.mp3", 1),
+    LASERGRIDFIRE("sounds/laserGridFire.mp3", 0.3f),
 
-    PRESSUREPLATE("sounds/pressurePlateFire.mp3", 1);
+    PRESSUREPLATE("sounds/pressurePlateFire.mp3", 0.5f);
 
     String fileName;
     float volume;

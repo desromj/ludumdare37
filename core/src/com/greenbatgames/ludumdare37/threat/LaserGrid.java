@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -18,6 +19,7 @@ import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
+import com.greenbatgames.ludumdare37.util.DareSounds;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
@@ -35,6 +37,9 @@ public class LaserGrid extends PhysicsBody implements Threat {
     PointLight light;
 
     private Sprite bottom, top, laser;
+
+    Sound laserSound;
+    boolean soundPlaying;
 
     public LaserGrid(float x, float y, float width, float height, World world, RayHandler rayHandler) {
         super(x, y, width, height, world);
@@ -57,6 +62,9 @@ public class LaserGrid extends PhysicsBody implements Threat {
         bottom = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridBase.png")));
         top = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridTop.png")));
         laser = new Sprite(new Texture(Gdx.files.internal("graphics/laserGrid.png")));
+
+        laserSound = DareSounds.LASERGRIDFIRE.getSound();
+        soundPlaying = false;
     }
 
     @Override
@@ -65,6 +73,13 @@ public class LaserGrid extends PhysicsBody implements Threat {
 
         if (timeUntilSwitch < 0f)
             trigger();
+        if(active && !soundPlaying){
+            laserSound.play(DareSounds.LASERGRIDFIRE.getVolume());
+            soundPlaying = true;
+        } else if(!active && soundPlaying){
+            laserSound.stop();
+            soundPlaying = false;
+        }
     }
 
     @Override
