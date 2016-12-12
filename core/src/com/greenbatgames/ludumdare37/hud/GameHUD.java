@@ -73,7 +73,7 @@ public class GameHUD extends Actor implements Initializable {
             if (DareGame.score().beatTopScore(GameScreen.getInstance().getCurrentLevel() - 1)) {
                 font.draw(
                         batch,
-                        " * * * NEW RECORD * * * ",
+                        "   NEW RECORD!",
                         viewport.getWorldWidth() / 2f,
                         viewport.getWorldHeight() - Constants.HUD_MARGIN,
                         0f,
