@@ -38,8 +38,8 @@ public class Levels {
         tooltips.add("");
         list.add("maps/map8.tmx");
         tooltips.add("");
-
-        //list.add("maps/map9.tmx");
+        list.add("maps/map9.tmx");
+        tooltips.add("");
     }
 
     public String currentResource() {

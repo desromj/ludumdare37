@@ -39,7 +39,7 @@ public class Turret extends PhysicsBody implements Threat {
     Sprite base, gunInactive, gunActive;
     Vector2 jointLocation;
 
-    public Turret(float x, float y, float width, float height, float range, float fov, World world, RayHandler rayHandler) {
+    public Turret(float x, float y, float width, float height, World world, RayHandler rayHandler) {
         super(x, y, width, height, world);
 
         jointLocation = new Vector2(
@@ -88,9 +88,6 @@ public class Turret extends PhysicsBody implements Threat {
 
             float r = Constants.TURRET_RANGE/Constants.PTM;
             float a = Constants.TURRET_ANG_RADIUS*MathUtils.degRad;
-
-            Gdx.app.log("", String.valueOf(range/Constants.PTM) + " " + String.valueOf(Constants.TURRET_RANGE/Constants.PTM));
-            Gdx.app.log("", String.valueOf(range/Constants.PTM) + " " + String.valueOf(Constants.TURRET_RANGE/Constants.PTM));
             shape.set(new float[]{
                     0, 0,
                     r*MathUtils.cos(a), r*MathUtils.sin(a),

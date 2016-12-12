@@ -2,6 +2,7 @@ package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.Disposable;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
@@ -11,7 +12,7 @@ import com.greenbatgames.ludumdare37.util.DareSounds;
  * Created by arne on 11-12-2016.
  */
 
-public class PressurePlateComponent implements Initializable{
+public class PressurePlateComponent implements Initializable {
     PressurePlate pressurePlate;
 
     boolean pressed;

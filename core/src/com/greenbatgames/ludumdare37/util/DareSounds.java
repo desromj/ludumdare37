@@ -23,14 +23,14 @@ public enum DareSounds{
     DISCHARGE("sounds/turretDischarge.mp3", 0.5f),
     FIRE("sounds/turretFire.mp3", 1),
 
-    GHOSTHOVER("sounds/ghostHover.mp3", 0.5f),
-    GHOSTHAUNT("sounds/ghostHaunt.mp3", 1),
+    GHOSTHOVER("sounds/ghostHover.mp3", 1),
+    GHOSTHAUNT("sounds/ghostHaunt.mp3", 0.5f),
 
     BUBBLELOW("sounds/bubbleLow.mp3", 1),
     BUBBLEHIGH("sounds/bubbleLow.mp3", 1),
     FIZZLE("sounds/fizzle.mp3", 0.2f),
 
-    LASERGRIDFIRE("sounds/laserGridFire.mp3", 0.3f),
+    LASERGRIDFIRE("sounds/laserGridFire.mp3", 0.15f),
 
     PRESSUREPLATE("sounds/pressurePlateFire.mp3", 0.5f);
 

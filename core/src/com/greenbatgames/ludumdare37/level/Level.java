@@ -104,7 +104,7 @@ public class Level implements Initializable, Disposable {
                 Constants.PTM,
                 1));
         rayHandler.updateAndRender();
-
+      
         gameHUD.act(delta);
         restartHUD.act(delta);
         endLevelHUD.act(delta);
