@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.greenbatgames.ludumdare37.iface.Disposable;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.util.Constants;
 
@@ -16,7 +17,7 @@ import box2dLight.RayHandler;
  * Created by arne on 12-12-2016.
  */
 
-public class DareLight extends Actor implements Initializable{
+public class DareLight extends Actor implements Initializable {
     ConeLight light;
 
     private boolean isOn;
