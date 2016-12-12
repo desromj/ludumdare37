@@ -4,6 +4,7 @@ package com.greenbatgames.ludumdare37.level;
  * Created by Quiv on 09-12-2016.
  */
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.Platform;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.threat.*;
 import com.greenbatgames.ludumdare37.util.Constants;
 
@@ -25,6 +27,10 @@ public class LevelLoader {
 
     // Can be passed parameters to load resources from outside editors
     public static Level loadLevel(String filename) {
+        if(GameScreen.level() != null){
+
+        }
+
         //Load tmx file into TiledMap object
         TiledMap tiledMap = new TmxMapLoader().load(filename);
 
@@ -81,7 +87,7 @@ public class LevelLoader {
                         } else if(name.compareTo("spikes") == 0){
                             loadedLevel.stage.addActor(new Spike(r.x, r.y, r.width, r.height, loadedLevel.world));
                         } else if(name.compareTo("lava") == 0){
-                            loadedLevel.stage.addActor(new Lava(r.x, r.y, r.width, r.height, loadedLevel.world));
+                            loadedLevel.stage.addActor(new Lava(r.x, r.y, r.width, r.height, loadedLevel.world, loadedLevel.rayHandler));
                         }
                     } else if(object instanceof PolygonMapObject){
                         Polygon p = ((PolygonMapObject) object).getPolygon();
@@ -91,7 +97,8 @@ public class LevelLoader {
                                     p.getY() - Constants.TILE_WIDTH*2.5f,
                                     p.getBoundingRectangle().getWidth(),
                                     p.getBoundingRectangle().getHeight(),
-                                    loadedLevel.world);
+                                    loadedLevel.world,
+                                    loadedLevel.rayHandler);
                             t.getAimer().setRange(object.getProperties().get("range", Constants.TURRET_RANGE, Float.class));
                             t.getAimer().setFixed(object.getProperties().get("fixed", false, Boolean.class));
                             t.getAimer().setFixedAngle(object.getProperties().get("fixedAngle", Constants.TURRET_MIN_ANGLE, Float.class)*MathUtils.degRad);

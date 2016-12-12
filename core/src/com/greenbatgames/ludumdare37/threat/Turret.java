@@ -1,6 +1,8 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -17,6 +19,9 @@ import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
+
 /**
  * Created by Quiv on 10-12-2016.
  */
@@ -26,10 +31,12 @@ public class Turret extends PhysicsBody implements Threat {
 
     TurretAimComponent aimer;
 
+    PointLight glow;
+
     Sprite base, gunInactive, gunActive;
     Vector2 jointLocation;
 
-    public Turret(float x, float y, float width, float height, World world) {
+    public Turret(float x, float y, float width, float height, World world, RayHandler rayHandler) {
         super(x, y, width, height, world);
 
         jointLocation = new Vector2(
@@ -38,6 +45,16 @@ public class Turret extends PhysicsBody implements Threat {
         );
 
         aimer = new TurretAimComponent(this);
+
+        glow = new PointLight(
+                rayHandler,
+                20,
+                new Color(0f, 0.0f, 0.0f, 0.5f),
+                50/Constants.PTM,
+                jointLocation.x/Constants.PTM,
+                jointLocation.y/Constants.PTM);
+        glow.setActive(false);
+        glow.setXray(true);
 
         base = new Sprite(new Texture(Gdx.files.internal("graphics/turretMount.png")));
         gunInactive = new Sprite(new Texture(Gdx.files.internal("graphics/turretInactive.png")));
@@ -149,6 +166,11 @@ public class Turret extends PhysicsBody implements Threat {
         float activeRatio = aimer.getPercentCharged();
 
         if (activeRatio > 0) {
+            glow.setActive(true);
+            glow.setColor(1, 0.3f, 0.3f, MathUtils.clamp(activeRatio*0.8f, 0, 0.8f));
+            glow.setPosition(
+                    (jointLocation.x + 25*MathUtils.cos(aimer.getCurrentAngle()))/Constants.PTM,
+                    (jointLocation.y + 25*MathUtils.sin(aimer.getCurrentAngle()))/Constants.PTM);
             batch.setColor(1, 1, 1, activeRatio);
             batch.draw(
                     gunActive.getTexture(),
@@ -168,6 +190,8 @@ public class Turret extends PhysicsBody implements Threat {
                     false,
                     false
             );
+        } else {
+            glow.setActive(false);
         }
 
         // Reset colour to no tint on finish

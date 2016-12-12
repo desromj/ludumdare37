@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.threat;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -15,6 +16,9 @@ import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 
+import box2dLight.ConeLight;
+import box2dLight.RayHandler;
+
 /**
  * Created by Quiv on 10-12-2016.
  */
@@ -24,12 +28,24 @@ public class Lava extends PhysicsBody implements Threat {
 
     Sprite sprite;
 
+    ConeLight light;
+
     ParticleEffect peLeft, peRight;
 
-    public Lava(float x, float y, float width, float height, World world) {
+    public Lava(float x, float y, float width, float height, World world, RayHandler rayHandler) {
         super(x, y, width, height, world);
         sprite = new Sprite(new Texture(Gdx.files.internal("tiles/lava.png")));
         sprite.getTexture().setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
+
+        light = new ConeLight(
+                rayHandler,
+                20,
+                new Color(0.5f, 0.25f, 0f, 1f),
+                width/Constants.PTM,
+                (x+width/2)/Constants.PTM,
+                (y+1)/Constants.PTM,
+                90f,
+                90f);
 
         // Load particle effects
         peLeft = new ParticleEffect();
