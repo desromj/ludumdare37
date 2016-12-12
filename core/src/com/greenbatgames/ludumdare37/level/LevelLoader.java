@@ -78,7 +78,7 @@ public class LevelLoader {
                         if(name.compareTo("exitpoint") == 0){
                             loadedLevel.stage.addActor(new ExitPoint(r.x, r.y - r.height/2f, r.width, r.height, loadedLevel.world));
                         } else if(name.compareTo("lasergrid") == 0) {
-                            loadedLevel.stage.addActor(new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world));
+                            loadedLevel.stage.addActor(new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world, loadedLevel.rayHandler));
                         } else if(name.compareTo("mine") == 0){
                             loadedLevel.stage.addActor(new PressurePlate(r.x, r.y + Constants.PRESSURE_PLATE_HEIGHT/2f, r.width, Constants.PRESSURE_PLATE_HEIGHT, loadedLevel.world));
                         } else if(name.compareTo("spikes") == 0){
