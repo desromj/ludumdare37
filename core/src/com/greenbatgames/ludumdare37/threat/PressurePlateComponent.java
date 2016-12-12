@@ -69,5 +69,7 @@ public class PressurePlateComponent implements Initializable{
         if(playerInRange){
             pressurePlate.touchPlayer(GameScreen.level().getPlayer());
         }
+
+        pressurePlate.particleEffect.start();
     }
 }
