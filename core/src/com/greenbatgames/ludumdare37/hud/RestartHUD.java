@@ -30,7 +30,7 @@ public class RestartHUD extends Actor implements Initializable {
 
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(Constants.RESTART_FONT_SCALE);
-        font.setColor(Constants.RESTART_FONT_COLOR);
+        font.setColor(Constants.MAIN_FONT_COLOR);
 
         text = "YOU DIED, PRESS 'R' TO RESTART";
         visible = false;

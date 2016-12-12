@@ -30,7 +30,7 @@ public class EndLevelHUD extends Actor implements Initializable {
 
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(Constants.END_LEVEL_FONT_SCALE);
-        font.setColor(Constants.END_LEVEL_FONT_COLOR);
+        font.setColor(Constants.MAIN_FONT_COLOR);
 
         text = "Press 'R' to replay the level, or any other key to continue!";
 

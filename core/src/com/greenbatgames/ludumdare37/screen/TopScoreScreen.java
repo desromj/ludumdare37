@@ -64,7 +64,7 @@ public class TopScoreScreen extends ScreenAdapter {
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
 
-        font.setColor(Constants.SCORE_SCREEN_FONT_COLOR);
+        font.setColor(Constants.MAIN_FONT_COLOR);
 
         // Title
         font.draw(

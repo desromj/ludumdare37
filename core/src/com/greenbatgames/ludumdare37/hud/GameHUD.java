@@ -31,7 +31,7 @@ public class GameHUD extends Actor implements Initializable {
         font = new BitmapFont();
 
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.getData().setScale(Constants.RESTART_FONT_SCALE);
+        font.getData().setScale(Constants.GAME_HUD_FONT_SCALE);
 
         init();
     }
@@ -55,7 +55,7 @@ public class GameHUD extends Actor implements Initializable {
         Viewport viewport = GameScreen.level().getViewport();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        font.setColor(Constants.RESTART_FONT_COLOR);
+        font.setColor(Constants.MAIN_FONT_COLOR);
         font.draw(
                 batch,
                 "Time: " + elapsedTime + " sec\n" +

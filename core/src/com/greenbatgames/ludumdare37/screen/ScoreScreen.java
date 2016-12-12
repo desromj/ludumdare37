@@ -65,7 +65,7 @@ public class ScoreScreen extends ScreenAdapter {
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
 
-        font.setColor(Constants.SCORE_SCREEN_FONT_COLOR);
+        font.setColor(Constants.MAIN_FONT_COLOR);
 
         // Title
         font.draw(
@@ -111,7 +111,7 @@ public class ScoreScreen extends ScreenAdapter {
             if (DareGame.score().beatTopScore(i)) {
                 font.draw(
                         batch,
-                        "   NEW RECORD!",
+                        "       NEW RECORD!",
                         viewport.getWorldWidth() * 0.6f,
                         viewport.getWorldHeight() * 0.9f - ((2 + i) * Constants.SCORE_FONT_SPACING),
                         0f,
