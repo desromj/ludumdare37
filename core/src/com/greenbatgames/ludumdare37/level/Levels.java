@@ -20,7 +20,7 @@ public class Levels {
     }
 
     private void loadList() {
-        list.add("maps/map1.tmx");
+        list.add("maps/map9.tmx");
         list.add("maps/map2.tmx");
         list.add("maps/map3.tmx");
         list.add("maps/map4.tmx");
@@ -28,7 +28,7 @@ public class Levels {
         list.add("maps/map6.tmx");
         list.add("maps/map7.tmx");
         list.add("maps/map8.tmx");
-        //list.add("maps/map9.tmx");
+        list.add("maps/map9.tmx");
     }
 
     public String currentResource() {

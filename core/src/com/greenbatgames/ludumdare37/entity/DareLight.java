@@ -57,7 +57,6 @@ public class DareLight extends Actor implements Initializable{
 
     @Override
     public void act(float delta){
-        Gdx.app.log("", String.valueOf(flickerTimer));
         if(flickering) {
             flickerTimer -= delta;
             if (flickerTimer < 0) {

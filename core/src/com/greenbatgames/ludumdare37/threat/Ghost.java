@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Disposable;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
@@ -20,7 +21,7 @@ import com.greenbatgames.ludumdare37.util.Constants;
  * Created by Quiv on 10-12-2016.
  */
 
-public class Ghost extends PhysicsBody implements Threat {
+public class Ghost extends PhysicsBody implements Threat, Disposable {
 
     GhostMoveComponent mover;
     Sprite sprite;
@@ -118,6 +119,11 @@ public class Ghost extends PhysicsBody implements Threat {
                 !mover.isFacingRight(),
                 false
         );
+    }
+
+
+    public void dispose(){
+        mover.stopPlayingSound();
     }
 
     /*

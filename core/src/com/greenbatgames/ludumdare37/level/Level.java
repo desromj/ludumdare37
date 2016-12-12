@@ -114,7 +114,7 @@ public class Level implements Initializable {
         rayHandler.setCombinedMatrix(debugMatrix);
         rayHandler.updateAndRender();
         // Render the debug physics engine settings
-        //debugRenderer.render(world, debugMatrix);
+        debugRenderer.render(world, debugMatrix);
 
         gameHUD.act(delta);
         restartHUD.act(delta);
