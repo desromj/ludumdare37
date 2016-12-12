@@ -16,11 +16,13 @@ import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.entity.ExitPoint;
 import com.greenbatgames.ludumdare37.entity.Platform;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.threat.*;
 import com.greenbatgames.ludumdare37.util.Constants;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 public class LevelLoader {
     private LevelLoader() {}
@@ -78,7 +80,14 @@ public class LevelLoader {
                         if(name.compareTo("exitpoint") == 0){
                             loadedLevel.stage.addActor(new ExitPoint(r.x, r.y - r.height/2f, r.width, r.height, loadedLevel.world));
                         } else if(name.compareTo("lasergrid") == 0) {
-                            loadedLevel.stage.addActor(new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world, loadedLevel.rayHandler));
+                            LaserGrid l = new LaserGrid(r.x, r.y, r.width, r.height, loadedLevel.world, loadedLevel.rayHandler);
+
+                            l.setOnPeriod(object.getProperties().get("onTime", Constants.LASERGRID_ON_TIME, Float.class));
+                            l.setOffPeriod(object.getProperties().get("offTime", Constants.LASERGRID_OFF_TIME, Float.class));
+                            l.setWarmupTime(object.getProperties().get("warmupTime", Constants.LASERGRID_WARMUP_TIME, Float.class));
+                            l.setTimeUntilSwitch(l.getOnPeriod() - object.getProperties().get("timeOffset", Constants.LASERGRID_OFF_TIME, Float.class));
+
+                            loadedLevel.stage.addActor(l);
                         } else if(name.compareTo("mine") == 0){
                             loadedLevel.stage.addActor(new PressurePlate(r.x, r.y + Constants.PRESSURE_PLATE_HEIGHT/2f, r.width, Constants.PRESSURE_PLATE_HEIGHT, loadedLevel.world));
                         } else if(name.compareTo("spikes") == 0){
@@ -100,6 +109,7 @@ public class LevelLoader {
                             t.getAimer().setFixed(object.getProperties().get("fixed", false, Boolean.class));
                             t.getAimer().setFixedAngle(object.getProperties().get("fixedAngle", Constants.TURRET_MIN_ANGLE, Float.class)*MathUtils.degRad);
                             t.getAimer().setWaitTime(object.getProperties().get("waitTime", Constants.TURRET_WAIT_TIME, Float.class));
+                            t.getAimer().setWaitTimer(t.getAimer().getWaitTime() - object.getProperties().get("timeOffset", 0f, Float.class));
                             t.getAimer().setRotationSpeed(object.getProperties().get("rotationSpeed", Constants.TURRET_ROTATION_SPEED, Float.class));
 
                             loadedLevel.stage.addActor(t);
@@ -110,7 +120,10 @@ public class LevelLoader {
                 for(MapObject object : layer.getObjects()) {
                     if(object instanceof EllipseMapObject){
                         Ellipse e = ((EllipseMapObject) object).getEllipse();
-                        loadedLevel.addLight(e.x, e.y);
+                        DareLight l = loadedLevel.addLight(e.x, e.y);
+                        l.setFlickering(object.getProperties().get("flickering", false, Boolean.class));
+                        l.setFlickerTimeOn(object.getProperties().get("onTime", Constants.LIGHTS_FLICKER_ON_TIME, Float.class));
+                        l.setFlickerTimeOff(object.getProperties().get("offTime", Constants.LIGHTS_FLICKER_OFF_TIME, Float.class));
                     }
                 }
             }

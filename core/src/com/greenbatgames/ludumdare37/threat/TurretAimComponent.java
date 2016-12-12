@@ -229,6 +229,10 @@ public class TurretAimComponent implements Initializable {
         return 1.0f - ratio;
     }
 
+    public float getWaitTime(){
+        return waitTime;
+    }
+
     public void setFixed(boolean fixed){
         this.isFixed = fixed;
     }
@@ -249,5 +253,9 @@ public class TurretAimComponent implements Initializable {
 
     public void setWaitTime(float waitTime){
         this.waitTime = waitTime;
+    }
+
+    public void setWaitTimer(float time) {
+        waitTimer = time;
     }
 }

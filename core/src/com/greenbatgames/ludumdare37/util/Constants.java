@@ -52,6 +52,11 @@ public class Constants {
 
     public static final float HORIZONTAL_MOVE_DAMPEN = 0.5f;
 
+    //Light values
+    public static final float LIGHTS_AMBIENT_LEVEL = 0.2f;
+    public static final float LIGHTS_FLICKER_OFF_TIME = 0.1f;
+    public static final float LIGHTS_FLICKER_ON_TIME = 1f;
+
     //Ghost Values
     public static final float GHOST_MOVE_SPEED = WORLD_WIDTH / 256f;
 
@@ -59,6 +64,10 @@ public class Constants {
     public static final float GOON_MOVE_SPEED = WORLD_WIDTH / 160f;
     public static final float GOON_WAIT_TIME = 2f;
     public static final float GOON_WALK_TIME = 3f;
+
+    public static final float LASERGRID_ON_TIME = 2f;
+    public static final float LASERGRID_OFF_TIME = 3f;
+    public static final float LASERGRID_WARMUP_TIME = 0.5f;
 
     //Poison Gas Values
     public static final float GAS_DURATION = 30f;

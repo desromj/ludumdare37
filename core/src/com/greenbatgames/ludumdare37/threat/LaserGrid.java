@@ -196,4 +196,28 @@ public class LaserGrid extends PhysicsBody implements Threat {
             }
         }
     }
+
+    /*
+    Getters and setters
+     */
+
+    public float getOnPeriod(){
+        return onPeriod;
+    }
+
+    public void setOnPeriod(float t){
+        onPeriod = t;
+    }
+
+    public void setOffPeriod(float t){
+        offPeriod = t;
+    }
+
+    public void setWarmupTime(float t){
+        warmupTime = t;
+    }
+
+    public void setTimeUntilSwitch(float t){
+        timeUntilSwitch = t;
+    }
 }

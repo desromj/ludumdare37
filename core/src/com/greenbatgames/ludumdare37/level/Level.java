@@ -90,9 +90,9 @@ public class Level implements Initializable {
         endLevelHUD = new EndLevelHUD();
 
         stage.addActor(player);
-        stage.addActor(restartHUD);
-        stage.addActor(gameHUD);
-        stage.addActor(endLevelHUD);
+        //stage.addActor(restartHUD);
+        //stage.addActor(gameHUD);
+        //stage.addActor(endLevelHUD);
     }
 
     public void render(float delta) {
@@ -123,7 +123,18 @@ public class Level implements Initializable {
         rayHandler.setCombinedMatrix(debugMatrix);
         rayHandler.updateAndRender();
         // Render the debug physics engine settings
-        //debugRenderer.render(world, debugMatrix);
+        debugRenderer.render(world, debugMatrix);
+
+        gameHUD.act(delta);
+        restartHUD.act(delta);
+        endLevelHUD.act(delta);
+
+        //TODO: Check if this is the correct way of rendering the HUDs
+        stage.getBatch().begin();
+        gameHUD.draw(stage.getBatch(), 1f);
+        restartHUD.draw(stage.getBatch(), 1f);
+        endLevelHUD.draw(stage.getBatch(), 1f);
+        stage.getBatch().end();
     }
 
     // Getters and Setters
@@ -181,7 +192,10 @@ public class Level implements Initializable {
         this.tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
     }
 
-    public void addLight(float x, float y){
-        lights.add(new DareLight(x, y, rayHandler, world));
+    public DareLight addLight(float x, float y){
+        DareLight l = new DareLight(x, y, rayHandler, world);
+        lights.add(l);
+        stage.addActor(l);
+        return l;
     }
 }
