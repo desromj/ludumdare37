@@ -46,18 +46,17 @@ public class LevelLoader {
                     if(object instanceof RectangleMapObject){
                         Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-                        Platform platform = new Platform(   rect.getX(),
-                                                            rect.getY(),
-                                                            rect.getWidth(),
-                                                            rect.getHeight(),
-                                                            loadedLevel.world);
+                        Platform platform = new Platform(
+                                rect.getX(),
+                                rect.getY(),
+                                rect.getWidth(),
+                                rect.getHeight(),
+                                loadedLevel.world);
 
                         loadedLevel.stage.addActor(platform);
                     }
                 }
-                continue;
-            }
-            if(layer.getName().equals("objects")){
+            } else if(layer.getName().equals("objects")){
                 for(MapObject object : layer.getObjects()){
                     String name = object.getName();
 
@@ -73,8 +72,6 @@ public class LevelLoader {
                             loadedLevel.stage.addActor(g);
                         } else if(name.compareTo("goon") == 0) {
                             loadedLevel.stage.addActor(new Goon(e.x, e.y, 2*Constants.PLAYER_RADIUS * 2f,Constants.PLAYER_RADIUS * 4f, loadedLevel.world));
-                        } else if(name.compareTo("light") == 0){
-                            loadedLevel.addLight(e.x, e.y);
                         }
                     } else if(object instanceof RectangleMapObject){
                         Rectangle r = ((RectangleMapObject) object).getRectangle();
@@ -107,6 +104,13 @@ public class LevelLoader {
 
                             loadedLevel.stage.addActor(t);
                         }
+                    }
+                }
+            } else if(layer.getName().equals("lights")){
+                for(MapObject object : layer.getObjects()) {
+                    if(object instanceof EllipseMapObject){
+                        Ellipse e = ((EllipseMapObject) object).getEllipse();
+                        loadedLevel.addLight(e.x, e.y);
                     }
                 }
             }
