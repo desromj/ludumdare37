@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="22" tilewidth="32" tileheight="32" nextobjectid="44">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="3" columns="0">
   <tile id="0">
    <image width="32" height="32" source="../tiles/tileWall.png"/>
   </tile>
   <tile id="1">
-   <image width="32" height="32" source="../tiles/tileBackground.png"/>
+   <image width="32" height="32" source="../tiles/tileBG.png"/>
   </tile>
   <tile id="3">
    <image width="32" height="32" source="../tiles/tileSpikes.png"/>
@@ -81,5 +81,32 @@
  </objectgroup>
  <objectgroup name="objects">
   <object id="24" name="exitpoint" x="1472" y="576" width="64" height="96"/>
+  <object id="33" name="light" x="144" y="488">
+   <ellipse/>
+  </object>
+  <object id="36" name="light" x="144" y="264">
+   <ellipse/>
+  </object>
+  <object id="37" name="light" x="144" y="40">
+   <ellipse/>
+  </object>
+  <object id="38" name="light" x="1456" y="488">
+   <ellipse/>
+  </object>
+  <object id="39" name="light" x="1456" y="264">
+   <ellipse/>
+  </object>
+  <object id="40" name="light" x="1456" y="40">
+   <ellipse/>
+  </object>
+  <object id="41" name="light" x="816" y="40">
+   <ellipse/>
+  </object>
+  <object id="42" name="light" x="816" y="264">
+   <ellipse/>
+  </object>
+  <object id="43" name="light" x="816" y="488">
+   <ellipse/>
+  </object>
  </objectgroup>
 </map>
