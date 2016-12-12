@@ -1,5 +1,10 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -17,8 +22,31 @@ import com.greenbatgames.ludumdare37.util.Constants;
 // Lava BURNS THE PLAYER TO DEATH
 public class Lava extends PhysicsBody implements Threat {
 
+    Sprite sprite;
+
+    ParticleEffect peLeft, peRight;
+
     public Lava(float x, float y, float width, float height, World world) {
         super(x, y, width, height, world);
+        sprite = new Sprite(new Texture(Gdx.files.internal("tiles/lava.png")));
+        sprite.getTexture().setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
+
+        // Load particle effects
+        peLeft = new ParticleEffect();
+        peLeft.load(
+                Gdx.files.internal("graphics/lava-bubble.pe"),
+                Gdx.files.internal("graphics"));
+        peLeft.setPosition(getX(), getY());
+        peLeft.scaleEffect(0.25f);
+        peLeft.start();
+
+        peRight = new ParticleEffect();
+        peRight.load(
+                Gdx.files.internal("graphics/lava-bubble.pe"),
+                Gdx.files.internal("graphics"));
+        peRight.setPosition(getX() + getWidth(), getY());
+        peRight.scaleEffect(0.25f);
+        peRight.start();
     }
 
     @Override
@@ -64,5 +92,27 @@ public class Lava extends PhysicsBody implements Threat {
         GameScreen.level().killPlayer();
     }
 
-    // TODO: Add particle effects to make it look like bubbly lava (Override draw method)
+    @Override
+    public void act(float delta) {
+        peLeft.update(delta);
+        peRight.update(delta);
+
+        if (peLeft.isComplete()) peLeft.reset();
+        if (peRight.isComplete()) peRight.reset();
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+
+        batch.draw(
+                sprite.getTexture(),
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight()
+        );
+
+        peLeft.draw(batch);
+        peRight.draw(batch);
+    }
 }
