@@ -37,7 +37,7 @@ public class DareGame extends Game {
         } else if (type == StartScreen.class) {
             instance.setScreen(new StartScreen(
                     "GBG-logo-shaded.png",
-                    "A TO A",
+                    "(One) Room for Improvement",
                     "Game for Ludum Dare 37\nBy Arne 'S Jegers and Mike Desrochers",
                     0.8f));
         } else if (type == ScoreScreen.class) {
