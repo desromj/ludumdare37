@@ -22,7 +22,7 @@ public class Levels {
     }
 
     private void loadList() {
-        list.add("maps/map1.tmx");
+        list.add("maps/map9.tmx");
         tooltips.add("Press Left/Right Arrows to move");
         list.add("maps/map2.tmx");
         tooltips.add("Press Z to jump");

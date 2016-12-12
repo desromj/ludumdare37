@@ -22,6 +22,7 @@ import com.greenbatgames.ludumdare37.hud.RestartHUD;
 import com.greenbatgames.ludumdare37.iface.Disposable;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.threat.Ghost;
 import com.greenbatgames.ludumdare37.util.Constants;
 
 import java.util.LinkedList;
@@ -184,8 +185,12 @@ public class Level implements Initializable, Disposable {
         rayHandler.removeAll();
         rayHandler.dispose();
         for (Actor actor: stage.getActors()) {
-            if (actor instanceof Disposable)
+            if (actor instanceof Disposable){
+                if (actor instanceof Ghost) {
+                    Gdx.app.log("level", "found ghost");
+                }
                 ((Disposable) actor).dispose();
+            }
         }
     }
 }
