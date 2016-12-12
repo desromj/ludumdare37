@@ -1,5 +1,6 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,8 +11,8 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Disposable;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
+import com.greenbatgames.ludumdare37.iface.Disposable;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
@@ -88,7 +89,6 @@ public class Ghost extends PhysicsBody implements Threat, Disposable {
     @Override
     public void touchPlayer(Player player) {
         GameScreen.level().killPlayer();
-        mover.stopPlayingSound();
     }
 
     @Override
@@ -96,6 +96,10 @@ public class Ghost extends PhysicsBody implements Threat, Disposable {
         super.act(delta);
 
         mover.update(GameScreen.level().getPlayer(), delta);
+
+        if(GameScreen.level().getPlayer().isDead()){
+            mover.stopPlayingSound();
+        }
     }
 
     @Override
@@ -120,7 +124,6 @@ public class Ghost extends PhysicsBody implements Threat, Disposable {
                 false
         );
     }
-
 
     public void dispose(){
         mover.stopPlayingSound();

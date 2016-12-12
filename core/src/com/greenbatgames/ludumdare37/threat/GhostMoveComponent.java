@@ -1,10 +1,12 @@
 package com.greenbatgames.ludumdare37.threat;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 import com.greenbatgames.ludumdare37.util.DareSounds;
 
@@ -58,6 +60,10 @@ public class GhostMoveComponent implements Initializable {
         soundHaunt.setVolume(hauntSoundID, MathUtils.clamp(1 - distance*0.004f + 0.1f, 0, 1));
 
         facingRight = ghost.getBody().getLinearVelocity().x >= 0;
+
+        if(GameScreen.level().getPlayer().isDead()){
+
+        }
     }
 
     public boolean isFacingRight() { return facingRight; }
