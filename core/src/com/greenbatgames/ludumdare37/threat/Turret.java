@@ -48,10 +48,6 @@ public class Turret extends PhysicsBody implements Threat {
         );
 
         aimer = new TurretAimComponent(this);
-        aimer.setRange(range);
-        this.range = range;
-        aimer.setFOV(fov);
-        this.fov = fov;
 
         glow = new PointLight(
                 rayHandler,
