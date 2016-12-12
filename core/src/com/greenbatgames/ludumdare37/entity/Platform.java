@@ -36,6 +36,7 @@ public class Platform extends PhysicsBody {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
+        fixtureDef.filter.categoryBits = 0x0002;
 
         this.body = world.createBody(bodyDef);
         this.body.createFixture(fixtureDef);

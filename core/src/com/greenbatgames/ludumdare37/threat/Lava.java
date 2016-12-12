@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
@@ -46,6 +47,7 @@ public class Lava extends PhysicsBody implements Threat {
                 (y+1)/Constants.PTM,
                 90f,
                 90f);
+        light.setContactFilter(DareLight.getFilter());
 
         // Load particle effects
         peLeft = new ParticleEffect();

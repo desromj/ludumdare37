@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
@@ -55,6 +56,7 @@ public class Turret extends PhysicsBody implements Threat {
                 jointLocation.y/Constants.PTM);
         glow.setActive(false);
         glow.setXray(true);
+        glow.setContactFilter(DareLight.getFilter());
 
         base = new Sprite(new Texture(Gdx.files.internal("graphics/turretMount.png")));
         gunInactive = new Sprite(new Texture(Gdx.files.internal("graphics/turretInactive.png")));

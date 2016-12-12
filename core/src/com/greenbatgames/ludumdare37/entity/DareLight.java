@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.entity;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.greenbatgames.ludumdare37.iface.Initializable;
@@ -32,6 +33,14 @@ public class DareLight extends Actor implements Initializable{
     }
 
     public void init(){
+        light.setContactFilter(getFilter());
+    }
 
+    public static Filter getFilter(){
+        Filter f = new Filter();
+        f.categoryBits = 0x0001;
+        f.maskBits = 0x0002;
+        f.groupIndex = 0x0001;
+        return f;
     }
 }

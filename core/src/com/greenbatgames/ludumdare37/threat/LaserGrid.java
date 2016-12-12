@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.World;
+import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.entity.PhysicsBody;
 import com.greenbatgames.ludumdare37.iface.Threat;
 import com.greenbatgames.ludumdare37.player.Player;
@@ -52,6 +52,7 @@ public class LaserGrid extends PhysicsBody implements Threat {
                 Math.max(height, width)/ Constants.PTM,
                 (x + width/2)/ Constants.PTM,
                 (y + height/2)/Constants.PTM);
+        light.setContactFilter(DareLight.getFilter());
 
         bottom = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridBase.png")));
         top = new Sprite(new Texture(Gdx.files.internal("graphics/laserGridTop.png")));

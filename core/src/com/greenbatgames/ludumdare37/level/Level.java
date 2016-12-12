@@ -43,7 +43,8 @@ public class Level implements Initializable {
 
     World world;
     Stage stage;
-    //TODO: Figure out where rayHandler should be dispose()'d
+
+    //TODO: dispose() this.
     RayHandler rayHandler;
     List<DareLight> lights;
 
