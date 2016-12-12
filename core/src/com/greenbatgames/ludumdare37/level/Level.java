@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.level;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,12 +18,20 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.ludumdare37.collision.DareContactListener;
 import com.greenbatgames.ludumdare37.entity.Background;
+import com.greenbatgames.ludumdare37.entity.DareLight;
 import com.greenbatgames.ludumdare37.hud.EndLevelHUD;
 import com.greenbatgames.ludumdare37.hud.GameHUD;
 import com.greenbatgames.ludumdare37.hud.RestartHUD;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
 import com.greenbatgames.ludumdare37.util.Constants;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import box2dLight.ConeLight;
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 
 /**
  * Created by Quiv on 09-12-2016.
@@ -33,6 +42,9 @@ public class Level implements Initializable {
 
     World world;
     Stage stage;
+    //TODO: Figure out where rayHandler should be dispose()'d
+    RayHandler rayHandler;
+    List<DareLight> lights;
 
     Box2DDebugRenderer debugRenderer;
     Matrix4 debugMatrix;
@@ -53,7 +65,12 @@ public class Level implements Initializable {
     @Override public void init() {
         world = new World(Constants.GRAVITY, true);
         world.setContactListener(new DareContactListener());
+
         stage = new Stage(new FitViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
+        rayHandler = new RayHandler(world);
+        rayHandler.setAmbientLight(0.2f);
+        lights = new LinkedList<DareLight>();
+        //p.setSoftnessLength(0);
 
         debugRenderer = new Box2DDebugRenderer();
 
@@ -90,7 +107,7 @@ public class Level implements Initializable {
         debugMatrix = stage.getViewport().getCamera().combined.cpy().scale(
                 Constants.PTM,
                 Constants.PTM,
-                0
+                1
         );
 
         Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -101,8 +118,10 @@ public class Level implements Initializable {
         tiledMapRenderer.render();
         stage.draw();
 
+        rayHandler.setCombinedMatrix(debugMatrix);
+        rayHandler.updateAndRender();
         // Render the debug physics engine settings
-        debugRenderer.render(world, debugMatrix);
+        //debugRenderer.render(world, debugMatrix);
     }
 
     // Getters and Setters
@@ -154,5 +173,9 @@ public class Level implements Initializable {
     public void setTiledMap(TiledMap tiledMap) {
         this.tiledMap = tiledMap;
         this.tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+    }
+
+    public void addLight(float x, float y){
+        lights.add(new DareLight(x, y, rayHandler, world));
     }
 }
