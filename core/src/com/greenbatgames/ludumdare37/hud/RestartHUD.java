@@ -26,7 +26,7 @@ public class RestartHUD extends Actor implements Initializable {
     boolean visible;
 
     public RestartHUD() {
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("fonts/arial-grad.fnt"));
 
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(Constants.RESTART_FONT_SCALE);

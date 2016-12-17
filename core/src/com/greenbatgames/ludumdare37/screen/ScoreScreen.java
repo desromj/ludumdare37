@@ -34,7 +34,7 @@ public class ScoreScreen extends ScreenAdapter {
 
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("fonts/arial-grad.fnt"));
         font.getData().setScale(Constants.SCORE_SCREEN_FONT_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
@@ -96,7 +96,7 @@ public class ScoreScreen extends ScreenAdapter {
             font.draw(
                     batch,
                     DareGame.getString("singleScore", String.valueOf(DareGame.score().getScores().get(i))),
-                    viewport.getWorldWidth() * 0.55f,
+                    viewport.getWorldWidth() * 0.5f,
                     viewport.getWorldHeight() * 0.9f - ((2+i) * Constants.SCORE_FONT_SPACING),
                     0f,
                     Align.left,

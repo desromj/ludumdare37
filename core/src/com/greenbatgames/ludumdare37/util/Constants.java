@@ -101,17 +101,17 @@ public class Constants {
     // HUD values
     public static final Color MAIN_FONT_COLOR = Color.CYAN;
 
-    public static final float GAME_HUD_FONT_SCALE = 3.0f;
+    public static final float GAME_HUD_FONT_SCALE = 1.5f;
 
-    public static final float START_SCREEN_TITLE_SCALE = 4.0f;
-    public static final float START_SCREEN_SUBTITLE_SCALE = 2.0f;
+    public static final float START_SCREEN_TITLE_SCALE = 2.0f;
+    public static final float START_SCREEN_SUBTITLE_SCALE = 1.0f;
 
-    public static final float RESTART_FONT_SCALE = 3.0f;
+    public static final float RESTART_FONT_SCALE = 1.5f;
     public static final float HUD_MARGIN = WORLD_WIDTH / 200f;
 
-    public static final float END_LEVEL_FONT_SCALE = 4.0f;
+    public static final float END_LEVEL_FONT_SCALE = 2.0f;
 
-    public static final float SCORE_SCREEN_FONT_SCALE = 2.5f;
+    public static final float SCORE_SCREEN_FONT_SCALE = 1.25f;
     public static final Color SCORE_RECORD_COLOR = Color.GOLD;
     public static final float SCORE_FONT_SPACING = 40f;
 

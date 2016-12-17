@@ -10,6 +10,7 @@ import com.greenbatgames.ludumdare37.screen.ScoreScreen;
 import com.greenbatgames.ludumdare37.screen.StartScreen;
 import com.greenbatgames.ludumdare37.screen.TopScoreScreen;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 public class DareGame extends Game {
@@ -26,7 +27,10 @@ public class DareGame extends Game {
         instance = this;
         score = new Score();
 
-        bundle = I18NBundle.createBundle(Gdx.files.internal("strings/MyBundle"));
+        bundle = I18NBundle.createBundle(
+                Gdx.files.internal("strings/MyBundle"),
+                "ISO-8859-1"
+        );
 
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/LD37music.mp3"));
         music.setLooping(true);

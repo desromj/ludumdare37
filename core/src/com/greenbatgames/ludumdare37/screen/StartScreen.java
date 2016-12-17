@@ -54,7 +54,7 @@ public class StartScreen extends ScreenAdapter {
         scale = 0.5f;
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("fonts/arial-grad.fnt"));
 
         startTime = TimeUtils.nanoTime();
         elapsedTime = startTime;

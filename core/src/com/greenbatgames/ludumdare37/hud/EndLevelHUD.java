@@ -26,7 +26,7 @@ public class EndLevelHUD extends Actor implements Initializable {
     boolean visible;
 
     public EndLevelHUD() {
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("fonts/arial-grad.fnt"));
 
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(Constants.END_LEVEL_FONT_SCALE);

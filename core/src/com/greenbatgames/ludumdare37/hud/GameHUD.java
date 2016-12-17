@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -28,7 +29,7 @@ public class GameHUD extends Actor implements Initializable {
     boolean stopTimer;
 
     public GameHUD() {
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("fonts/arial-grad.fnt"));
 
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(Constants.GAME_HUD_FONT_SCALE);
@@ -54,6 +55,16 @@ public class GameHUD extends Actor implements Initializable {
         // Move on to sprites and fonts
         Viewport viewport = GameScreen.level().getViewport();
         batch.setProjectionMatrix(viewport.getCamera().combined);
+
+        /*
+        String toPrint = DareGame.getString(GameScreen.getInstance().currentTooltip());
+        Gdx.app.log("Direct", DareGame.getString(GameScreen.getInstance().currentTooltip()));
+        Gdx.app.log("Saved as String", toPrint);
+        */
+
+        for (char c: font.getData().xChars) {
+            Gdx.app.log("Char Check", String.valueOf(c));
+        }
 
         font.setColor(Constants.MAIN_FONT_COLOR);
         font.draw(

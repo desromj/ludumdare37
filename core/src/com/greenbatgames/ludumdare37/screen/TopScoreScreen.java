@@ -34,7 +34,7 @@ public class TopScoreScreen extends ScreenAdapter {
 
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("fonts/arial-grad.fnt"));
         font.getData().setScale(Constants.SCORE_SCREEN_FONT_SCALE);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
