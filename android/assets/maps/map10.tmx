@@ -123,11 +123,11 @@
     <property name="warmupTime" type="float" value="0.25"/>
    </properties>
   </object>
-  <object id="80" name="lava" x="320" y="640" width="224" height="32"/>
-  <object id="81" name="lava" x="608" y="640" width="224" height="32"/>
-  <object id="82" name="lava" x="896" y="640" width="64" height="32"/>
-  <object id="83" name="lava" x="1056" y="640" width="64" height="32"/>
-  <object id="84" name="lava" x="1184" y="640" width="224" height="32"/>
+  <object id="80" name="lava" x="320" y="648" width="224" height="24"/>
+  <object id="81" name="lava" x="608" y="648" width="224" height="24"/>
+  <object id="82" name="lava" x="896" y="648" width="64" height="24"/>
+  <object id="83" name="lava" x="1056" y="648" width="64" height="24"/>
+  <object id="84" name="lava" x="1184" y="648" width="224" height="24"/>
   <object id="85" name="turret" x="1408" y="368">
    <properties>
     <property name="fixed" type="bool" value="true"/>

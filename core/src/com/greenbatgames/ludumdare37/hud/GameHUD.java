@@ -56,16 +56,6 @@ public class GameHUD extends Actor implements Initializable {
         Viewport viewport = GameScreen.level().getViewport();
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        /*
-        String toPrint = DareGame.getString(GameScreen.getInstance().currentTooltip());
-        Gdx.app.log("Direct", DareGame.getString(GameScreen.getInstance().currentTooltip()));
-        Gdx.app.log("Saved as String", toPrint);
-        */
-
-        for (char c: font.getData().xChars) {
-            Gdx.app.log("Char Check", String.valueOf(c));
-        }
-
         font.setColor(Constants.MAIN_FONT_COLOR);
         font.draw(
                 batch,

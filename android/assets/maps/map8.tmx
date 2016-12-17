@@ -88,7 +88,7 @@
  </objectgroup>
  <objectgroup name="objects">
   <object id="24" name="exitpoint" x="1472" y="128" width="64" height="96"/>
-  <object id="47" name="lava" x="448" y="416" width="352" height="32"/>
+  <object id="47" name="lava" x="448" y="424" width="352" height="24"/>
   <object id="58" name="turret" x="1328" y="368">
    <properties>
     <property name="fixed" type="bool" value="true"/>
@@ -122,9 +122,9 @@
     <property name="warmupTime" type="float" value="0.25"/>
    </properties>
   </object>
-  <object id="65" name="lava" x="736" y="192" width="352" height="32"/>
+  <object id="65" name="lava" x="736" y="200" width="352" height="24"/>
  </objectgroup>
- <objectgroup name="lights" visible="0">
+ <objectgroup name="lights">
   <object id="49" name="light" x="144" y="264">
    <ellipse/>
   </object>

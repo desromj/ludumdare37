@@ -74,11 +74,11 @@ public class MoveComponent extends PlayerComponent {
             if (facingRight) {
                 body.setLinearVelocity(
                         Constants.PLAYER_DASH_SPEED,
-                        0f);
+                        (body.getLinearVelocity().y >= 0f) ? body.getLinearVelocity().y : 0f);
             } else {
                 body.setLinearVelocity(
                         -Constants.PLAYER_DASH_SPEED,
-                        0f);
+                        (body.getLinearVelocity().y >= 0f) ? body.getLinearVelocity().y : 0f);
             }
         } else if (player.isWalkButtonHeld()) {
             walkSoundTimer -= delta;

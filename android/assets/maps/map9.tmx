@@ -100,8 +100,8 @@
     <property name="warmupTime" type="float" value="0.25"/>
    </properties>
   </object>
-  <object id="70" name="spikes" x="640" y="200" width="224" height="24"/>
-  <object id="71" name="spikes" x="960" y="200" width="224" height="24"/>
+  <object id="70" name="spikes" x="640" y="208" width="224" height="16"/>
+  <object id="71" name="spikes" x="960" y="208" width="224" height="16"/>
   <object id="72" name="lasergrid" x="896" y="32" width="32" height="192">
    <properties>
     <property name="offTime" type="float" value="0.5"/>
@@ -130,7 +130,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="76" name="lava" x="800" y="640" width="416" height="32"/>
+  <object id="76" name="lava" x="800" y="648" width="416" height="24"/>
  </objectgroup>
  <objectgroup name="lights" visible="0">
   <object id="49" name="light" x="144" y="264">

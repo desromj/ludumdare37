@@ -90,11 +90,11 @@
   <object id="32" name="goon" x="592" y="368">
    <ellipse/>
   </object>
-  <object id="34" name="spikes" x="320" y="648" width="768" height="24"/>
+  <object id="34" name="spikes" x="320" y="656" width="768" height="16"/>
   <object id="36" name="goon" x="320" y="160">
    <ellipse/>
   </object>
-  <object id="37" name="spikes" x="1056" y="432" width="224" height="18.6667"/>
+  <object id="37" name="spikes" x="1064" y="432" width="216" height="18.6667"/>
   <object id="40" name="turret" x="1104" y="144">
    <properties>
     <property name="fixed" type="bool" value="true"/>
