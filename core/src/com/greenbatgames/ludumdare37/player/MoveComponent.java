@@ -74,11 +74,11 @@ public class MoveComponent extends PlayerComponent {
             if (facingRight) {
                 body.setLinearVelocity(
                         Constants.PLAYER_DASH_SPEED,
-                        body.getLinearVelocity().y);
+                        0f);
             } else {
                 body.setLinearVelocity(
                         -Constants.PLAYER_DASH_SPEED,
-                        body.getLinearVelocity().y);
+                        0f);
             }
         } else if (player.isWalkButtonHeld()) {
             walkSoundTimer -= delta;
@@ -167,8 +167,7 @@ public class MoveComponent extends PlayerComponent {
     
     public boolean canDash() {
         return
-                player.getBody().getLinearVelocity().x != 0
-                && Gdx.input.isKeyJustPressed(Constants.KEY_ATTACK)
+                Gdx.input.isKeyJustPressed(Constants.KEY_ATTACK)
                 && dashCooldown < 0.0f;
     }
 }
