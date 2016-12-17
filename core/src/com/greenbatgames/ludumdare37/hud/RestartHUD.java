@@ -44,7 +44,7 @@ public class RestartHUD extends Actor implements Initializable {
     public void act(float delta) {
         if (!visible) return;
 
-        if(Gdx.input.isKeyPressed(Input.Keys.R)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
             GameScreen.getInstance().reloadCurrentLevel();
             return;
         }
