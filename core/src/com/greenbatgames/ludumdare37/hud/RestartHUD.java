@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
@@ -22,7 +23,6 @@ public class RestartHUD extends Actor implements Initializable {
 
     BitmapFont font;
 
-    String text;
     boolean visible;
 
     public RestartHUD() {
@@ -32,7 +32,6 @@ public class RestartHUD extends Actor implements Initializable {
         font.getData().setScale(Constants.RESTART_FONT_SCALE);
         font.setColor(Constants.MAIN_FONT_COLOR);
 
-        text = "YOU DIED, PRESS 'R' TO RESTART";
         visible = false;
     }
 
@@ -60,7 +59,7 @@ public class RestartHUD extends Actor implements Initializable {
 
         font.draw(
                 batch,
-                text,
+                DareGame.getString("deathMessage"),
                 viewport.getWorldWidth() / 2.0f,
                 viewport.getWorldHeight() * 10.0f / 16.0f,
                 0f,

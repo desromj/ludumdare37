@@ -1,5 +1,7 @@
 package com.greenbatgames.ludumdare37.level;
 
+import com.greenbatgames.ludumdare37.DareGame;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,17 +25,17 @@ public class Levels {
 
     private void loadList() {
         list.add("maps/map1.tmx");
-        tooltips.add("Press Left/Right Arrows to move");
+        tooltips.add("pressToMove");
         list.add("maps/map2.tmx");
-        tooltips.add("Press Z to jump");
+        tooltips.add("pressToJump");
         list.add("maps/map3.tmx");
-        tooltips.add("Press Z while in air to double-jump");
+        tooltips.add("pressToDoubleJump");
         list.add("maps/map4.tmx");
         tooltips.add("");
         list.add("maps/map5.tmx");
         tooltips.add("");
         list.add("maps/map6.tmx");
-        tooltips.add("Press X to dash");
+        tooltips.add("pressToDash");
         list.add("maps/map7.tmx");
         tooltips.add("");
         list.add("maps/map8.tmx");

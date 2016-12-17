@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.greenbatgames.ludumdare37.DareGame;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
@@ -21,7 +22,6 @@ public class EndLevelHUD extends Actor implements Initializable {
     public static final String TAG = EndLevelHUD.class.getSimpleName();
 
     BitmapFont font;
-    String text;
 
     boolean visible;
 
@@ -31,8 +31,6 @@ public class EndLevelHUD extends Actor implements Initializable {
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(Constants.END_LEVEL_FONT_SCALE);
         font.setColor(Constants.MAIN_FONT_COLOR);
-
-        text = "Press 'R' to replay the level, or any other key to continue!";
 
         init();
     }
@@ -64,7 +62,7 @@ public class EndLevelHUD extends Actor implements Initializable {
 
         font.draw(
                 batch,
-                text,
+                DareGame.getString("pressToReplay"),
                 Constants.HUD_MARGIN,
                 viewport.getWorldHeight() / 1.4f,
                 viewport.getWorldWidth() - Constants.HUD_MARGIN * 2f,

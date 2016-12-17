@@ -70,7 +70,7 @@ public class ScoreScreen extends ScreenAdapter {
         // Title
         font.draw(
                 batch,
-                "Scores",
+                DareGame.getString("scores"),
                 viewport.getWorldWidth() * 0.5f,
                 viewport.getWorldHeight() * 0.9f,
                 0f,
@@ -82,8 +82,8 @@ public class ScoreScreen extends ScreenAdapter {
         for (int i = 0; i < DareGame.score().getLevels().size(); i++) {
             font.draw(
                     batch,
-                    "Level " + DareGame.score().getLevels().get(i) + "   :  ",
-                    viewport.getWorldWidth() * 0.5f,
+                    DareGame.getString("level", String.valueOf(DareGame.score().getLevels().get(i))),
+                    viewport.getWorldWidth() * 0.45f,
                     viewport.getWorldHeight() * 0.9f - ((2+i) * Constants.SCORE_FONT_SPACING),
                     0f,
                     Align.right,
@@ -95,8 +95,8 @@ public class ScoreScreen extends ScreenAdapter {
         for (int i = 0; i < DareGame.score().getScores().size(); i++) {
             font.draw(
                     batch,
-                    "   " + DareGame.score().getScores().get(i) + " sec",
-                    viewport.getWorldWidth() * 0.5f,
+                    DareGame.getString("singleScore", String.valueOf(DareGame.score().getScores().get(i))),
+                    viewport.getWorldWidth() * 0.55f,
                     viewport.getWorldHeight() * 0.9f - ((2+i) * Constants.SCORE_FONT_SPACING),
                     0f,
                     Align.left,
@@ -111,8 +111,8 @@ public class ScoreScreen extends ScreenAdapter {
             if (DareGame.score().beatTopScore(i)) {
                 font.draw(
                         batch,
-                        "       NEW RECORD!",
-                        viewport.getWorldWidth() * 0.6f,
+                        DareGame.getString("newRecord"),
+                        viewport.getWorldWidth() * 0.65f,
                         viewport.getWorldHeight() * 0.9f - ((2 + i) * Constants.SCORE_FONT_SPACING),
                         0f,
                         Align.left,

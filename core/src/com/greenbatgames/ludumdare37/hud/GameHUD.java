@@ -58,9 +58,12 @@ public class GameHUD extends Actor implements Initializable {
         font.setColor(Constants.MAIN_FONT_COLOR);
         font.draw(
                 batch,
-                "Time: " + elapsedTime + " sec\n" +
-                "Current Level: " + GameScreen.getInstance().getCurrentLevel() +
-                        (GameScreen.getInstance().hasCurrentTooltip() ? "\n\n" + GameScreen.getInstance().currentTooltip() : ""),
+                DareGame.getString("time", String.valueOf(elapsedTime))
+                        + "\n"
+                        + DareGame.getString("currentLevel", String.valueOf(GameScreen.getInstance().getCurrentLevel()))
+                        + (GameScreen.getInstance().hasCurrentTooltip()
+                                ? "\n\n" + DareGame.getString(GameScreen.getInstance().currentTooltip())
+                                : ""),
                 Constants.HUD_MARGIN,
                 viewport.getWorldHeight() - Constants.HUD_MARGIN,
                 0f,
@@ -74,7 +77,7 @@ public class GameHUD extends Actor implements Initializable {
             if (DareGame.score().beatTopScore(GameScreen.getInstance().getCurrentLevel() - 1)) {
                 font.draw(
                         batch,
-                        "   NEW RECORD!",
+                        DareGame.getString("newRecord"),
                         viewport.getWorldWidth() / 2f,
                         viewport.getWorldHeight() - Constants.HUD_MARGIN,
                         0f,

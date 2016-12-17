@@ -3,15 +3,19 @@ package com.greenbatgames.ludumdare37;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.screen.Score;
 import com.greenbatgames.ludumdare37.screen.ScoreScreen;
 import com.greenbatgames.ludumdare37.screen.StartScreen;
 import com.greenbatgames.ludumdare37.screen.TopScoreScreen;
 
+import java.util.Locale;
+
 public class DareGame extends Game {
 
     private static Game instance;
+    private static I18NBundle bundle;
     public static Score score;
 
     Music music;
@@ -21,6 +25,8 @@ public class DareGame extends Game {
     {
         instance = this;
         score = new Score();
+
+        bundle = I18NBundle.createBundle(Gdx.files.internal("strings/MyBundle"));
 
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/LD37music.mp3"));
         music.setLooping(true);
@@ -37,8 +43,8 @@ public class DareGame extends Game {
         } else if (type == StartScreen.class) {
             instance.setScreen(new StartScreen(
                     "LGG_logo.png",
-                    "(One) Room for Improvement",
-                    "Game for Ludum Dare 37\nBy Arne 'S Jegers and Mike Desrochers",
+                    getString("game"),
+                    getString("subtitle"),
                     0.8f));
         } else if (type == ScoreScreen.class) {
             instance.setScreen(new ScoreScreen());
@@ -48,4 +54,8 @@ public class DareGame extends Game {
     }
 
     public static Score score() { return score; }
+
+    public static String getString(String key, String ... args) {
+        return bundle.format(key, args);
+    }
 }
