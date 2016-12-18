@@ -2,6 +2,7 @@ package com.greenbatgames.ludumdare37;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.greenbatgames.ludumdare37.screen.GameScreen;
@@ -10,14 +11,12 @@ import com.greenbatgames.ludumdare37.screen.ScoreScreen;
 import com.greenbatgames.ludumdare37.screen.StartScreen;
 import com.greenbatgames.ludumdare37.screen.TopScoreScreen;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Locale;
-
 public class DareGame extends Game {
 
     private static Game instance;
     private static I18NBundle bundle;
     public static Score score;
+    public static boolean touchEnabled;
 
     Music music;
 
@@ -26,6 +25,7 @@ public class DareGame extends Game {
     {
         instance = this;
         score = new Score();
+        touchEnabled = Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen);
 
         bundle = I18NBundle.createBundle(
                 Gdx.files.internal("strings/MyBundle"),

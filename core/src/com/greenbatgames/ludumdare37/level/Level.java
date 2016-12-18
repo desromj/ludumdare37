@@ -6,12 +6,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.ludumdare37.collision.DareContactListener;
 import com.greenbatgames.ludumdare37.entity.Background;
@@ -22,6 +20,7 @@ import com.greenbatgames.ludumdare37.hud.RestartHUD;
 import com.greenbatgames.ludumdare37.iface.Disposable;
 import com.greenbatgames.ludumdare37.iface.Initializable;
 import com.greenbatgames.ludumdare37.player.Player;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.threat.Ghost;
 import com.greenbatgames.ludumdare37.util.Constants;
 
@@ -60,7 +59,8 @@ public class Level implements Initializable, Disposable {
         world = new World(Constants.GRAVITY, true);
         world.setContactListener(new DareContactListener());
 
-        stage = new Stage(new FitViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
+        stage = new Stage(new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
+
         rayHandler = new RayHandler(world);
         rayHandler.setAmbientLight(0.2f);
         lights = new LinkedList<DareLight>();
@@ -211,5 +211,35 @@ public class Level implements Initializable, Disposable {
                 ((Disposable) actor).dispose();
             }
         }
+    }
+
+    // Touch control methods
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        if (restartHUD.isVisible()) {
+            GameScreen.getInstance().reloadCurrentLevel();
+            return true;
+        } else if (endLevelHUD.isVisible()) {
+            GameScreen.getInstance().nextLevel();
+            return true;
+        }
+
+        return player.mover().touchDown(screenX, screenY, pointer, button);
+    }
+
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+        if (restartHUD.isVisible() || endLevelHUD.isVisible()) {
+            return true;
+        }
+        return player.mover().touchUp(screenX, screenY, pointer, button);
+    }
+
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+
+        if (restartHUD.isVisible() || endLevelHUD.isVisible()) {
+            return true;
+        }
+        return player.mover().touchDragged(screenX, screenY, pointer);
     }
 }

@@ -114,17 +114,17 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return level().getPlayer().mover().touchDown(screenX, screenY, pointer, button);
+        return level().touchDown(screenX, screenY, pointer, button);
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return level().getPlayer().mover().touchUp(screenX, screenY, pointer, button);
+        return level().touchUp(screenX, screenY, pointer, button);
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return level().getPlayer().mover().touchDragged(screenX, screenY, pointer);
+        return level().touchDragged(screenX, screenY, pointer);
     }
 
     @Override

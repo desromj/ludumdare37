@@ -2,7 +2,10 @@ package com.greenbatgames.ludumdare37.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.greenbatgames.ludumdare37.screen.GameScreen;
 import com.greenbatgames.ludumdare37.util.Constants;
 import com.greenbatgames.ludumdare37.util.DareSounds;
 
@@ -14,8 +17,15 @@ public class TouchMoveComponent extends KeyboardMoveComponent {
 
     public static final String TAG = TouchMoveComponent.class.getSimpleName();
 
+    protected boolean shouldDash, shouldWalk, shouldJump;
+    protected Vector2 lastTouchDown;
+
     public TouchMoveComponent(Player player) {
         super(player);
+        shouldDash = false;
+        shouldWalk = false;
+        shouldJump = false;
+        lastTouchDown = new Vector2(-1f, -1f);
     }
 
     // TODO: Replace keyboard controls in update() with touch controls
@@ -26,9 +36,7 @@ public class TouchMoveComponent extends KeyboardMoveComponent {
         cannotDashFor -= delta;
         dashCooldown -= delta;
 
-
-
-        // Horizontal hopping movement
+        // Horizontal moving movement
         Body body = player.getBody();
 
         // check to see if we should dash first
@@ -48,7 +56,7 @@ public class TouchMoveComponent extends KeyboardMoveComponent {
                         -Constants.PLAYER_DASH_SPEED,
                         (body.getLinearVelocity().y >= 0f) ? body.getLinearVelocity().y : 0f);
             }
-        } else if (player.isWalkButtonHeld()) {
+        } else if (shouldWalk) {
             walkSoundTimer -= delta;
             if(isOnGround() && walkSoundTimer < 0){
                 walkSoundTimer = Constants.WALK_SOUND_TIME;
@@ -63,13 +71,17 @@ public class TouchMoveComponent extends KeyboardMoveComponent {
                     walkSound4.play(DareSounds.STEP4.getVolume());
                 }
             }
+
             // Handle movement (left/right)
-            if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT)) {
+            Vector2 playerUnproj = GameScreen.level().getViewport().unproject(new Vector2(
+                    player.getX(), player.getY()));
+
+            if (playerUnproj.x < lastTouchDown.x) {
                 body.setLinearVelocity(
                         Constants.PLAYER_MOVE_SPEED,
                         body.getLinearVelocity().y);
                 facingRight = true;
-            } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT)) {
+            } else if (playerUnproj.x > lastTouchDown.x) {
                 body.setLinearVelocity(
                         -Constants.PLAYER_MOVE_SPEED,
                         body.getLinearVelocity().y);
@@ -83,8 +95,9 @@ public class TouchMoveComponent extends KeyboardMoveComponent {
         }
 
         // Add impulse for single jump
-        if (canJump() && Gdx.input.isKeyJustPressed(Constants.KEY_JUMP)) {
+        if (canJump() && shouldJump) {
 
+            shouldJump = false;
             body.setLinearVelocity(
                     body.getLinearVelocity().x,
                     0f
@@ -103,17 +116,57 @@ public class TouchMoveComponent extends KeyboardMoveComponent {
         return true;
     }
 
+    @Override
+    public boolean canDash() {
+
+        if (!shouldDash) {
+            return false;
+        }
+
+        shouldDash = false;
+
+        return dashCooldown < 0.0f;
+    }
+
     // TODO: Touch controls
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+
+        if (!shouldWalk)
+            lastTouchDown.set(screenX, screenY);
+
+        // Jump boxes are the bottom left and right 10% of the screen
+        Viewport viewport = GameScreen.level().getViewport();
+        float squareUnit = viewport.getScreenWidth() / 10f;
+
+        if ((screenY > viewport.getScreenHeight() - squareUnit)
+            && ((screenX < squareUnit)
+                        || (screenX > viewport.getScreenWidth() - squareUnit))) {
+            shouldJump = true;
+        } else {
+            shouldWalk = true;
+        }
+
+        return true;
     }
 
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        shouldWalk = false;
+        shouldJump = false;
+        return true;
     }
 
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
+
+        // Minimum distance needed to dash
+        Viewport viewport = GameScreen.level().getViewport();
+        float minDist = viewport.getScreenWidth() / 8f;
+
+        float dist = Vector2.dst(lastTouchDown.x, lastTouchDown.y, screenX, screenY);
+
+        if (dist > minDist)
+            shouldDash = true;
+
+        return true;
     }
 
 }
