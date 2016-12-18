@@ -1,6 +1,7 @@
 package com.greenbatgames.ludumdare37.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -28,8 +29,7 @@ public class Player extends PhysicsBody implements Initializable {
         GROUND_SENSOR
     }
 
-    private MoveComponent mover;
-    private ClimbComponent climber;
+    private KeyboardMoveComponent mover;
 
     private boolean dead;
     private Sprite sprite;
@@ -39,8 +39,13 @@ public class Player extends PhysicsBody implements Initializable {
     {
         super(x, y, width, height, world);
 
-        mover = new MoveComponent(this);
-        climber = new ClimbComponent(this);
+        // Set input to touch controls if we have a touch screen, or keyboard otherwise
+        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen)) {
+            mover = new TouchMoveComponent(this);
+        } else {
+            mover = new KeyboardMoveComponent(this);
+        }
+
         sprite = new Sprite(new Texture(Gdx.files.internal("graphics/player.png")));
 
         deathEffect = new ParticleEffect();
@@ -58,7 +63,6 @@ public class Player extends PhysicsBody implements Initializable {
     public void init()
     {
         mover.init();
-        climber.init();
         dead = false;
     }
 
@@ -169,7 +173,6 @@ public class Player extends PhysicsBody implements Initializable {
         // Run Component updates in sequence, and break through
         // any later updates if we receive a returned request to
         do {
-            if (!climber.update(delta)) break;
             if (!mover.update(delta)) break;
         } while (false);
 
@@ -222,8 +225,7 @@ public class Player extends PhysicsBody implements Initializable {
 
     public boolean isCollisionDisabled() { return mover.isCollisionDisabled(); }
 
-    public MoveComponent mover() { return mover; }
-    public ClimbComponent climber() { return climber; }
+    public KeyboardMoveComponent mover() { return mover; }
 
     public void setDead(boolean value) {
         this.dead = value;

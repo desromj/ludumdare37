@@ -11,23 +11,23 @@ import com.greenbatgames.ludumdare37.util.DareSounds;
  * Created by Quiv on 10-12-2016.
  */
 
-public class MoveComponent extends PlayerComponent {
+public class KeyboardMoveComponent extends PlayerComponent {
 
-    public static final String TAG = MoveComponent.class.getSimpleName();
+    public static final String TAG = KeyboardMoveComponent.class.getSimpleName();
 
-    private int numFootContacts;
-    private boolean doubleJumped, facingRight;
-    private float cannotJumpFor, disableCollisionFor;
+    protected int numFootContacts;
+    protected boolean doubleJumped, facingRight;
+    protected float cannotJumpFor, disableCollisionFor;
 
-    private float cannotDashFor, dashCooldown;
+    protected float cannotDashFor, dashCooldown;
 
-    private Sound walkSound1;
-    private Sound walkSound2;
-    private Sound walkSound3;
-    private Sound walkSound4;
-    private float walkSoundTimer;
+    protected Sound walkSound1;
+    protected Sound walkSound2;
+    protected Sound walkSound3;
+    protected Sound walkSound4;
+    protected float walkSoundTimer;
 
-    public MoveComponent(Player player) {
+    public KeyboardMoveComponent(Player player) {
         super(player);
     }
 
@@ -170,4 +170,6 @@ public class MoveComponent extends PlayerComponent {
                 Gdx.input.isKeyJustPressed(Constants.KEY_ATTACK)
                 && dashCooldown < 0.0f;
     }
+
+    // Touch methods
 }
