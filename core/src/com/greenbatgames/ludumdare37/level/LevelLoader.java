@@ -149,6 +149,7 @@ public class LevelLoader {
             }
         }
 
+        loadedLevel.movePlayerToEnd();
         return loadedLevel;
     }
 }

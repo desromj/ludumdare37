@@ -180,7 +180,26 @@ public class Level implements Initializable, Disposable {
         return l;
     }
 
+    // Moves player to the end of the stage, ensuring it is rendered last, over all other actors (except HUDs)
+    public void movePlayerToEnd() {
+
+        boolean found = false;
+
+        for (Actor actor: stage.getActors()) {
+            if (actor == player) {
+                found = true;
+                player.remove();
+                break;
+            }
+        }
+
+        if (found) {
+            stage.addActor(player);
+        }
+    }
+
     // Dispose lights and actor to prepare for next level
+    @Override
     public void dispose() {
         rayHandler.removeAll();
         rayHandler.dispose();
